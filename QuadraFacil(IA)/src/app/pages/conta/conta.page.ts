@@ -9,6 +9,7 @@ import { addOutline, mapOutline, personOutline, warningOutline,
          searchOutline } from 'ionicons/icons';
 import { UsuarioModel } from 'src/app/model/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { TabBarComponent } from 'src/app/components/tab-bar/tab-bar.component';
 
 @Component({
   selector: 'app-conta',
@@ -16,7 +17,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./conta.page.scss'],
   standalone: true,
   imports: [IonTabButton, IonTabBar, IonLabel, IonItem, IonList, IonIcon,
-            IonButton, IonButtons, IonTitle, IonToolbar, IonHeader, IonContent, CommonModule]
+            IonButton, IonButtons, IonTitle, IonToolbar, IonHeader, IonContent, CommonModule, TabBarComponent]
 })
 export class ContaPage {
 

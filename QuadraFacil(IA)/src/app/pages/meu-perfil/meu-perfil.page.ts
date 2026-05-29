@@ -7,6 +7,7 @@ import { addIcons } from 'ionicons';
 import { mapOutline, personOutline, homeOutline, searchOutline } from 'ionicons/icons';
 import { UsuarioModel } from 'src/app/model/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { TabBarComponent } from 'src/app/components/tab-bar/tab-bar.component';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -14,7 +15,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./meu-perfil.page.scss'],
   standalone: true,
   imports: [IonLabel, IonTabButton, IonTabBar, IonIcon, IonButton, IonBackButton,
-            IonButtons, IonTitle, IonToolbar, IonHeader, IonContent, CommonModule]
+            IonButtons, IonTitle, IonToolbar, IonHeader, IonContent, CommonModule, TabBarComponent]
 })
 export class MeuPerfilPage {
 
