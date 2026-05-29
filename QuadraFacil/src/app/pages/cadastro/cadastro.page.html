@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark"></ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <div class="ion-text-center ion-margin-bottom">
+    <img src="assets/img/logo.png" class="logo">
+  </div>
+
+  <form [formGroup]="formGroup" (ngSubmit)="cadastrar()">
+    <ion-item>
+      <ion-label position="stacked">Nome de usuário</ion-label>
+      <ion-input type="text" formControlName="nomeUsuario"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Senha</ion-label>
+      <ion-input type="password" formControlName="senha"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Confirmar senha</ion-label>
+      <ion-input type="password" formControlName="confirmarSenha"></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" color="danger"
+      class="ion-margin-top" [disabled]="!formGroup.valid">
+      Cadastrar
+    </ion-button>
+  </form>
+
+  <ion-button expand="block" fill="outline" color="danger"
+    class="ion-margin-top" (click)="irParaLogin()">
+    Já tenho conta
+  </ion-button>
+
+</ion-content>

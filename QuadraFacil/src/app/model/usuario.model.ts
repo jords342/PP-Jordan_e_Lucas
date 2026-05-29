@@ -1,17 +1,17 @@
 export class UsuarioModel {
-  id: string;
+  idUsuario: string;
   nomeUsuario: string;
   email: string;
   senha: string;
   fotoPerfil: string;
-  dataEntrada: string;
+  criadoEm: string;
 
   constructor() {
-    this.id = crypto.randomUUID();
+    this.idUsuario = '';
     this.nomeUsuario = '';
     this.email = '';
     this.senha = '';
     this.fotoPerfil = '';
-    this.dataEntrada = new Date().toLocaleDateString('pt-BR');
+    this.criadoEm = new Date().toISOString(); // 👈 gera ex: "2026-05-29T14:32:00.000Z"
   }
 }
