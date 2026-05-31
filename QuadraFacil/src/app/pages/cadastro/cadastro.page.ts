@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors,
          Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonButton, IonItem,
-         IonInput, IonLabel, ToastController } from '@ionic/angular/standalone';
+import { IonContent,  IonButton,
+         IonInput, ToastController } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 
 import { UsuarioModel } from 'src/app/model/usuario.model';
@@ -22,8 +22,7 @@ function senhasIguaisValidator(control: AbstractControl): ValidationErrors | nul
   templateUrl: './cadastro.page.html',
   styleUrls: ['./cadastro.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonInput, IonButton, IonContent,
-            IonHeader, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonInput, IonButton, IonContent, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class CadastroPage {
 
@@ -57,7 +56,7 @@ export class CadastroPage {
     this.usuarioService.cadastrar(usuario).subscribe({
       next: (novo) => {
         this.usuarioService.salvarSessao(novo);
-        this.navController.navigateRoot('/main');
+        this.navController.navigateRoot('/app/main');;
       }
     });
   }

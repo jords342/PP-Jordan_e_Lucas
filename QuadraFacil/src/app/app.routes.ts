@@ -1,25 +1,36 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-    path: '',
-    redirectTo: 'cadastro',
-    pathMatch: 'full',
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'cadastro',
-    loadComponent: () => import('./pages/cadastro/cadastro.page').then( m => m.CadastroPage)
-  },
-  {
-    path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
-  },
-  {
-    path: 'main',
-    loadComponent: () => import('./pages/main/main.page').then( m => m.MainPage)
+    loadComponent: () => import('./pages/cadastro/cadastro.page').then(m => m.CadastroPage)
   },
   {
     path: 'esqueceu-senha',
-    loadComponent: () => import('./pages/esqueceu-senha/esqueceu-senha.page').then( m => m.EsqueceuSenhaPage)
+    loadComponent: () => import('./pages/esqueceu-senha/esqueceu-senha.page').then(m => m.EsqueceuSenhaPage)
   },
+  {
+    path: 'app',  
+    loadComponent: () => import('./pages/tabs/tabs.page').then(m => m.TabsPage),
+    children: [
+      {
+        path: 'main',
+        loadComponent: () => import('./pages/main/main.page').then(m => m.MainPage)
+      },
+      {
+        path: 'pesquisar',
+        loadComponent: () => import('./pages/pesquisar/pesquisar.page').then(m => m.PesquisarPage)
+      },
+      {
+        path: 'conta',
+        loadComponent: () => import('./pages/conta/conta.page').then(m => m.ContaPage)
+      },
+      { path: '', redirectTo: 'main', pathMatch: 'full' }
+    ]
+  }
 ];

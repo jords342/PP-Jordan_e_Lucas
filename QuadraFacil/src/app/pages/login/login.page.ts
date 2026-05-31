@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {
-  IonContent, IonHeader, IonToolbar, IonButton, IonItem,
-  IonInput, IonLabel, ToastController
+  IonContent, IonButton, 
+  IonInput, ToastController
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 
@@ -15,8 +15,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonInput, IonButton, IonContent,
-    IonHeader, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonInput, IonButton, IonContent, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class LoginPage implements OnInit {
 
@@ -45,7 +44,7 @@ export class LoginPage implements OnInit {
       next: (usuario) => {
         if (usuario) {
           this.usuarioService.salvarSessao(usuario);
-          this.navController.navigateRoot('/main');
+          this.navController.navigateRoot('/app/main');;
         } else {
           this.exibirMensagem('Email ou senha incorretos.');
         }
