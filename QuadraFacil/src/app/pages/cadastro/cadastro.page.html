@@ -1,40 +1,46 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="dark"></ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="cadastro-container">
 
-<ion-content [fullscreen]="true" class="ion-padding">
+    <div class="logo-area">
+      <img src="assets/img/logo.png" alt="Logo">
+    </div>
 
-  <div class="ion-text-center ion-margin-bottom">
-    <img src="assets/img/logo.png" class="logo">
+    <p class="saudacao">Criar conta</p>
+
+    <form [formGroup]="formGroup" (ngSubmit)="cadastrar()">
+      <div class="input-wrapper">
+        <ion-input type="text" formControlName="nomeUsuario"
+          placeholder="Nome de usuário" fill="outline" shape="round">
+        </ion-input>
+      </div>
+
+      <div class="input-wrapper">
+        <ion-input type="email" formControlName="email"
+          placeholder="E-mail" fill="outline" shape="round">
+        </ion-input>
+      </div>
+
+      <div class="input-wrapper">
+        <ion-input type="password" formControlName="senha"
+          placeholder="Senha" fill="outline" shape="round">
+        </ion-input>
+      </div>
+
+      <div class="input-wrapper">
+        <ion-input type="password" formControlName="confirmarSenha"
+          placeholder="Confirmar senha" fill="outline" shape="round">
+        </ion-input>
+      </div>
+
+      <div class="botoes">
+        <ion-button class="btn-secundario" shape="round" (click)="irParaLogin()">
+          Já tenho conta
+        </ion-button>
+        <ion-button class="btn-primario" shape="round" type="submit" [disabled]="!formGroup.valid">
+          Cadastrar
+        </ion-button>
+      </div>
+    </form>
+
   </div>
-
-  <form [formGroup]="formGroup" (ngSubmit)="cadastrar()">
-    <ion-item>
-      <ion-label position="stacked">Nome de usuário</ion-label>
-      <ion-input type="text" formControlName="nomeUsuario"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Senha</ion-label>
-      <ion-input type="password" formControlName="senha"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Confirmar senha</ion-label>
-      <ion-input type="password" formControlName="confirmarSenha"></ion-input>
-    </ion-item>
-
-    <ion-button type="submit" expand="block" color="danger"
-      class="ion-margin-top" [disabled]="!formGroup.valid">
-      Cadastrar
-    </ion-button>
-  </form>
-
-  <ion-button expand="block" fill="outline" color="danger"
-    class="ion-margin-top" (click)="irParaLogin()">
-    Já tenho conta
-  </ion-button>
-
 </ion-content>

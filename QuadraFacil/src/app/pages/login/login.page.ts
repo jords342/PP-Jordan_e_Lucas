@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonButton, IonItem,
-         IonInput, IonLabel, ToastController } from '@ionic/angular/standalone';
+import {
+  IonContent, IonHeader, IonToolbar, IonButton, IonItem,
+  IonInput, IonLabel, ToastController
+} from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -14,7 +16,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [IonLabel, IonItem, IonInput, IonButton, IonContent,
-            IonHeader, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule]
+    IonHeader, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class LoginPage implements OnInit {
 
@@ -53,6 +55,10 @@ export class LoginPage implements OnInit {
 
   irParaCadastro() {
     this.navController.navigateForward('/cadastro');
+  }
+
+  irParaEsqueceuSenha() {
+    this.navController.navigateForward('/esqueceu-senha');
   }
 
   async exibirMensagem(texto: string) {

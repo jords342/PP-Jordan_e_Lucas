@@ -1,0 +1,80 @@
+ion-content {
+  --background: #ffffff;
+}
+
+.cadastro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 40px 32px;
+}
+
+.logo-area {
+  margin-bottom: 24px;
+
+  img {
+    width: 200px;
+    max-width: 75vw;
+  }
+}
+
+.saudacao {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.input-wrapper {
+  width: 100%;
+  margin-bottom: 14px;
+
+  ion-input {
+    --border-radius: 50px;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --background: #f0f0f0;
+    --color: #000000;
+    --placeholder-color: #555555;
+    --placeholder-opacity: 1;
+    font-size: 14px;
+    height: 48px;
+  }
+}
+
+.botoes {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+
+  .btn-secundario {
+    --background: #ffffff;
+    --color: #333333;
+    --border-radius: 50px;
+    --border-width: 1.5px;
+    --border-style: solid;
+    --border-color: #cccccc;
+    --padding-start: 24px;
+    --padding-end: 24px;
+    font-size: 13px;
+    font-weight: 600;
+    height: 46px;
+    text-transform: uppercase;
+  }
+
+  .btn-primario {
+    --background: #000000;
+    --color: #ffffff;
+    --border-radius: 50px;
+    --padding-start: 36px;
+    --padding-end: 36px;
+    font-size: 13px;
+    font-weight: 600;
+    height: 46px;
+    text-transform: uppercase;
+  }
+}
