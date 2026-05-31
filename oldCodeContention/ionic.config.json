@@ -1,7 +1,0 @@
-{
-  "name": "QuadraFacil",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
