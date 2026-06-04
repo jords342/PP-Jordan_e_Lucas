@@ -2,11 +2,87 @@ ion-content {
   --background: #ffffff;
 }
 
-.main-container {
+.conta-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding: 40px 24px;
   min-height: 100%;
-  padding: 40px 32px;
+}
+
+.perfil-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+
+  .foto-wrapper {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 12px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    ion-icon {
+      font-size: 48px;
+      color: #999;
+    }
+  }
+
+  .nome-usuario {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0;
+  }
+}
+
+.menu-lista {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 32px;
+
+  .menu-titulo {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin: 12px 16px 4px;
+  }
+
+  ion-item {
+    --border-color: #e0e0e0;
+    --padding-start: 16px;
+    --inner-padding-end: 16px;
+
+    ion-icon {
+      color: #555;
+      margin-right: 12px;
+      font-size: 20px;
+    }
+
+    ion-label {
+      font-size: 15px;
+      color: #1a1a2e;
+    }
+  }
+}
+
+.btn-sair {
+  width: 100%;
+  --border-radius: 50px;
+  height: 50px;
+  font-size: 15px;
+  font-weight: 600;
 }

@@ -1,20 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonItem, IonLabel, IonIcon,
+         IonButton } from '@ionic/angular/standalone';
+import { NavController } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { personOutline, warningOutline, notificationsOutline } from 'ionicons/icons';
+
+import { UsuarioModel } from 'src/app/model/usuario.model';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-conta',
   templateUrl: './conta.page.html',
   styleUrls: ['./conta.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonButton, IonItem, IonLabel, IonIcon, IonContent, CommonModule]
 })
-export class ContaPage implements OnInit {
+export class ContaPage {
 
-  constructor() { }
+  usuario: UsuarioModel = new UsuarioModel();
 
-  ngOnInit() {
+  constructor(
+    private usuarioService: UsuarioService,
+    private navController: NavController
+  ) {
+    addIcons({ personOutline, warningOutline, notificationsOutline });
   }
 
+  ionViewWillEnter() {
+    this.usuario = this.usuarioService.obterSessao();
+  }
+
+  irPara(rota: string) {
+    this.navController.navigateForward(rota);
+  }
+
+  sair() {
+    this.usuarioService.limparSessao();
+    this.navController.navigateRoot('/login');
+  }
 }

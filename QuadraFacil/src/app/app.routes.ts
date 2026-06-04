@@ -32,5 +32,17 @@ export const routes: Routes = [
       },
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
+  },
+  {
+    path: 'meu-perfil',
+    loadComponent: () => import('./pages/meu-perfil/meu-perfil.page').then( m => m.MeuPerfilPage)
+  },
+  {
+    path: 'denuncias',
+    loadComponent: () => import('./pages/denuncias/denuncias.page').then( m => m.DenunciasPage)
+  },
+  {
+    path: 'notificacoes',
+    loadComponent: () => import('./pages/notificacoes/notificacoes.page').then( m => m.NotificacoesPage)
   }
 ];
