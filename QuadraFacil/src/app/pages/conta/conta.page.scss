@@ -1,19 +1,23 @@
 ion-content {
   --background: #ffffff;
+  --padding-top: 56px;
 }
 
 .conta-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 24px;
+    padding: 32px 24px 40px;
   min-height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .perfil-area {
   display: flex;
   flex-direction: column;
   align-items: center;
+    margin-top: 16px; 
   margin-bottom: 32px;
 
   .foto-wrapper {
@@ -62,9 +66,12 @@ ion-content {
   }
 
   ion-item {
+    --background: #ffffff;       
+    --color: #1a1a2e;        
     --border-color: #e0e0e0;
     --padding-start: 16px;
     --inner-padding-end: 16px;
+    --detail-icon-color: #333;
 
     ion-icon {
       color: #555;
@@ -74,7 +81,6 @@ ion-content {
 
     ion-label {
       font-size: 15px;
-      color: #1a1a2e;
     }
   }
 }

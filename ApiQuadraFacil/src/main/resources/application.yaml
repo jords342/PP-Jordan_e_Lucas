@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: quadrafacil
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/bdlucas}
+    username: ${DATASOURCE_USER:root}
+    password: ${DATASOURCE_PWD:root}
+    driver-class-name: ${DATASOURCE_DRIVER:com.mysql.cj.jdbc.Driver}
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # create, create-drop, validate, none, update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

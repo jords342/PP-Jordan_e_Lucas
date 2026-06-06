@@ -15,7 +15,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/esqueceu-senha/esqueceu-senha.page').then(m => m.EsqueceuSenhaPage)
   },
   {
-    path: 'app',  
+    path: 'app',
     loadComponent: () => import('./pages/tabs/tabs.page').then(m => m.TabsPage),
     children: [
       {
@@ -30,19 +30,20 @@ export const routes: Routes = [
         path: 'conta',
         loadComponent: () => import('./pages/conta/conta.page').then(m => m.ContaPage)
       },
+      {
+        path: 'meu-perfil',
+        loadComponent: () => import('./pages/meu-perfil/meu-perfil.page').then(m => m.MeuPerfilPage)
+      },
+      {
+        path: 'denuncias',
+        loadComponent: () => import('./pages/denuncias/denuncias.page').then(m => m.DenunciasPage)
+      },
+      {
+        path: 'notificacoes',
+        loadComponent: () => import('./pages/notificacoes/notificacoes.page').then(m => m.NotificacoesPage)
+      },
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },
-  {
-    path: 'meu-perfil',
-    loadComponent: () => import('./pages/meu-perfil/meu-perfil.page').then( m => m.MeuPerfilPage)
-  },
-  {
-    path: 'denuncias',
-    loadComponent: () => import('./pages/denuncias/denuncias.page').then( m => m.DenunciasPage)
-  },
-  {
-    path: 'notificacoes',
-    loadComponent: () => import('./pages/notificacoes/notificacoes.page').then( m => m.NotificacoesPage)
-  }
+
 ];
