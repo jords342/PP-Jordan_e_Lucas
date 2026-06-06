@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {
-  IonContent, IonButton, 
+  IonContent, IonButton,
   IonInput, ToastController
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
@@ -42,12 +42,11 @@ export class LoginPage implements OnInit {
 
     this.usuarioService.autenticar(email, senha).subscribe({
       next: (usuario) => {
-        if (usuario) {
-          this.usuarioService.salvarSessao(usuario);
-          this.navController.navigateRoot('/app/main');;
-        } else {
-          this.exibirMensagem('Email ou senha incorretos.');
-        }
+        this.usuarioService.salvarSessao(usuario);
+        this.navController.navigateRoot('/app/main');
+      },
+      error: () => {
+        this.exibirMensagem('Email ou senha incorretos.');
       }
     });
   }

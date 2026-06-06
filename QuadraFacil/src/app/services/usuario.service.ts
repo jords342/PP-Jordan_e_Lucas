@@ -1,40 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UsuarioModel } from '../model/usuario.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  // 👇 Quando tiver API, troque aqui e remova o JSON local
-  private readonly API_URL = 'https://SUA_API_AQUI.com/usuarios';
+  private readonly API_URL = 'http://localhost:8080/api/v1/usuarios';
   private readonly KEY_USUARIO = 'usuarioAutenticado';
-
-  // 👇 Banco local temporário enquanto não tem API
-  private usuariosJson: UsuarioModel[] = [];
 
   constructor(private http: HttpClient) {}
 
-  // --- AUTH LOCAL (remover quando tiver API) ---
-
   cadastrar(usuario: UsuarioModel): Observable<UsuarioModel> {
-    // TODO: trocar por -> return this.http.post<UsuarioModel>(this.API_URL, usuario);
-    usuario.idUsuario = crypto.randomUUID();
-    usuario.criadoEm = new Date().toISOString();
-    this.usuariosJson.push(usuario);
-    return of(usuario);
+    return this.http.post<UsuarioModel>(this.API_URL, usuario);
   }
 
-  autenticar(email: string, senha: string): Observable<UsuarioModel | null> {
-    // TODO: trocar por -> return this.http.post<UsuarioModel>(`${this.API_URL}/login`, { email, senha });
-    const encontrado = this.usuariosJson.find(
-      u => u.email === email && u.senha === senha
-    ) ?? null;
-    return of(encontrado);
+  autenticar(email: string, senha: string): Observable<UsuarioModel> {
+    return this.http.post<UsuarioModel>(`${this.API_URL}/login`, { email, senha });
   }
 
-  // --- SESSÃO (igual ao outro projeto) ---
+  buscarPorId(id: string): Observable<UsuarioModel> {
+    return this.http.get<UsuarioModel>(`${this.API_URL}/${id}`);
+  }
 
   salvarSessao(usuario: UsuarioModel): void {
     localStorage.setItem(this.KEY_USUARIO, JSON.stringify(usuario));
