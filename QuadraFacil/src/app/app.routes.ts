@@ -42,8 +42,17 @@ export const routes: Routes = [
         path: 'notificacoes',
         loadComponent: () => import('./pages/notificacoes/notificacoes.page').then(m => m.NotificacoesPage)
       },
+      {
+        path: 'minhas-quadras',
+        loadComponent: () => import('./pages/minhas-quadras/minhas-quadras.page').then(m => m.MinhasQuadrasPage)
+      },
+      {
+        path: 'meus-amigos',
+        loadComponent: () => import('./pages/meus-amigos/meus-amigos.page').then(m => m.MeusAmigosPage)
+      },
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },
+
 
 ];
