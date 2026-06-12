@@ -46,9 +46,18 @@ export const routes: Routes = [
         path: 'meus-amigos',
         loadComponent: () => import('./pages/meus-amigos/meus-amigos.page').then(m => m.MeusAmigosPage)
       },
+      {
+        path: 'criar-quadra',
+        loadComponent: () => import('./pages/criar-quadra/criar-quadra.page').then(m => m.CriarQuadraPage)
+      },
+      {
+        path: 'quadras-pendentes',
+        loadComponent: () => import('./pages/quadras-pendentes/quadras-pendentes.page').then(m => m.QuadrasPendentesPage)
+      },
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },
+
 
 
 ];
