@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,10 @@ public class Usuario {
     @Column(nullable = false)
     private String criadoEm;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Papel papel;
+
     // Gera o ID e a data automaticamente antes de salvar
     @PrePersist
     public void prePersist() {
@@ -44,5 +50,13 @@ public class Usuario {
         if (this.criadoEm == null || this.criadoEm.isEmpty()) {
             this.criadoEm = LocalDateTime.now().toString();
         }
+        if (this.papel == null) {
+            this.papel = Papel.USUARIO; // 👈 todo novo cadastro começa como USUARIO
+        }
     }
+    public enum Papel {
+    USUARIO, MODERADOR
 }
+
+}
+

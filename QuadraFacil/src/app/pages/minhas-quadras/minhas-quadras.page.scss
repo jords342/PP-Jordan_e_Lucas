@@ -1,5 +1,19 @@
 ion-content {
   --background: #ffffff;
+  --padding-top: 56px;
+}
+
+.minhas-quadras-container {
+  padding: 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.btn-criar {
+  --border-radius: 50px;
+  height: 50px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .main-container {

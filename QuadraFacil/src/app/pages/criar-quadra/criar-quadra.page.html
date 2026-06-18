@@ -1,13 +1,54 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>criar-quadra</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="false">
+  <div class="criar-quadra-container">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">criar-quadra</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+    <p class="saudacao">Criar Quadra</p>
+
+    <form [formGroup]="formGroup" (ngSubmit)="criar()">
+
+      <div class="input-wrapper">
+        <ion-input type="text" formControlName="nome"
+          placeholder="Nome da quadra" fill="outline" shape="round">
+        </ion-input>
+      </div>
+
+      <div class="input-wrapper">
+        <ion-input type="text" formControlName="endereco"
+          placeholder="Endereço" fill="outline" shape="round">
+        </ion-input>
+      </div>
+
+      <!-- Área de fotos -->
+      <div class="fotos-area">
+        <p class="fotos-titulo">Fotos da quadra <span>(máx. 20)</span></p>
+
+        <div class="fotos-grid">
+          <div class="foto-item" *ngFor="let foto of fotos; let i = index">
+            <img [src]="foto" alt="Foto {{ i + 1 }}">
+            <button class="btn-remover" type="button" (click)="removerFoto(i)">✕</button>
+          </div>
+
+          <div class="foto-adicionar" *ngIf="fotos.length < 20" (click)="selecionarFoto()">
+            <ion-icon name="camera-outline"></ion-icon>
+            <span>Adicionar</span>
+          </div>
+        </div>
+
+        <input #fileInput type="file" accept="image/*" multiple hidden
+          (change)="onFileSelected($event)">
+      </div>
+
+      <div class="botoes">
+        <ion-button class="btn-secundario" shape="round" (click)="voltar()">
+          Cancelar
+        </ion-button>
+        <ion-button class="btn-primario" shape="round" type="submit"
+          [disabled]="!formGroup.valid">
+          Criar
+        </ion-button>
+      </div>
+
+    </form>
+
+  </div>
 </ion-content>

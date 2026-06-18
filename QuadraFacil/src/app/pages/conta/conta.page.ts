@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonItem, IonLabel, IonIcon,
-         IonButton } from '@ionic/angular/standalone';
+import {
+  IonContent, IonItem, IonLabel, IonIcon,
+  IonButton
+} from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { personOutline, warningOutline,	basketballOutline, peopleOutline } from 'ionicons/icons';
+import { personOutline, warningOutline, basketballOutline, peopleOutline } from 'ionicons/icons';
 
 import { UsuarioModel } from 'src/app/model/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -19,7 +21,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class ContaPage {
 
   usuario: UsuarioModel = new UsuarioModel();
-
+  ehModerador: boolean = false;
   constructor(
     private usuarioService: UsuarioService,
     private navController: NavController
@@ -29,6 +31,7 @@ export class ContaPage {
 
   ionViewWillEnter() {
     this.usuario = this.usuarioService.obterSessao();
+    this.ehModerador = this.usuario.papel === 'MODERADOR';
   }
 
   irPara(rota: string) {
@@ -39,4 +42,5 @@ export class ContaPage {
     this.usuarioService.limparSessao();
     this.navController.navigateRoot('/login');
   }
+
 }

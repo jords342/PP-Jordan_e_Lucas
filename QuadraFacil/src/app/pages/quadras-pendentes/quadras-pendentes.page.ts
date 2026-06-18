@@ -1,20 +1,58 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { IonContent, IonButton, ToastController } from '@ionic/angular/standalone';
+
+import { QuadraModel } from 'src/app/model/quadra.model';
+import { QuadraService } from 'src/app/services/quadra.service';
 
 @Component({
   selector: 'app-quadras-pendentes',
   templateUrl: './quadras-pendentes.page.html',
   styleUrls: ['./quadras-pendentes.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonButton, CommonModule, DatePipe]
 })
-export class QuadrasPendentesPage implements OnInit {
+export class QuadrasPendentesPage {
 
-  constructor() { }
+  quadras: QuadraModel[] = [];
 
-  ngOnInit() {
+  constructor(
+    private quadraService: QuadraService,
+    private toastController: ToastController
+  ) {}
+
+  ionViewWillEnter() {
+    this.carregarPendentes();
   }
 
+  carregarPendentes() {
+    this.quadraService.listarPendentes().subscribe({
+      next: (quadras) => this.quadras = quadras
+    });
+  }
+
+  aceitar(quadra: QuadraModel) {
+    this.quadraService.aprovar(quadra.idQuadra).subscribe({
+      next: () => {
+        this.exibirMensagem(`"${quadra.nome}" aprovada!`);
+        this.carregarPendentes();
+      },
+      error: () => this.exibirMensagem('Erro ao aprovar quadra.')
+    });
+  }
+
+  recusar(quadra: QuadraModel) {
+    this.quadraService.excluir(quadra.idQuadra).subscribe({
+      next: () => {
+        this.exibirMensagem(`"${quadra.nome}" recusada e removida.`);
+        this.carregarPendentes();
+      },
+      error: () => this.exibirMensagem('Erro ao recusar quadra.')
+    });
+  }
+
+  async exibirMensagem(texto: string) {
+    const toast = await this.toastController.create({ message: texto, duration: 2000 });
+    toast.present();
+  }
 }

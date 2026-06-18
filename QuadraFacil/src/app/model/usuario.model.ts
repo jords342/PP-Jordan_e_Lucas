@@ -5,6 +5,7 @@ export class UsuarioModel {
   senha: string;
   fotoPerfil: string;
   criadoEm: string;
+  papel: 'USUARIO' | 'MODERADOR';
 
   constructor() {
     this.idUsuario = '';
@@ -12,6 +13,7 @@ export class UsuarioModel {
     this.email = '';
     this.senha = '';
     this.fotoPerfil = '';
-    this.criadoEm = new Date().toISOString(); // 👈 gera ex: "2026-05-29T14:32:00.000Z"
+    this.criadoEm = new Date().toISOString();
+    this.papel = 'USUARIO';
   }
 }
