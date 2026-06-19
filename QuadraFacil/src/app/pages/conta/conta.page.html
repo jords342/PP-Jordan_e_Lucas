@@ -27,13 +27,9 @@
         <ion-label>Meus Amigos</ion-label>
       </ion-item>
 
-      <ion-item button detail="true" (click)="irPara('/app/denuncias')">
-        <ion-icon name="warning-outline" slot="start"></ion-icon>
-        <ion-label>Denúncias</ion-label>
-      </ion-item>
 
       <ion-item button detail="true" *ngIf="ehModerador" (click)="irPara('/app/quadras-pendentes')">
-        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        <ion-icon name="eye-outline" slot="start"></ion-icon>
         <ion-label>(M) Aceitar Quadras</ion-label>
       </ion-item>
 

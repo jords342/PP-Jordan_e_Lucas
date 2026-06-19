@@ -6,7 +6,7 @@ import {
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { personOutline, warningOutline, basketballOutline, peopleOutline } from 'ionicons/icons';
+import { personOutline, eyeOutline, basketballOutline, peopleOutline } from 'ionicons/icons';
 
 import { UsuarioModel } from 'src/app/model/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -26,7 +26,7 @@ export class ContaPage {
     private usuarioService: UsuarioService,
     private navController: NavController
   ) {
-    addIcons({ personOutline, warningOutline, basketballOutline, peopleOutline });
+    addIcons({ personOutline, eyeOutline, basketballOutline, peopleOutline });
   }
 
   ionViewWillEnter() {

@@ -35,10 +35,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/meu-perfil/meu-perfil.page').then(m => m.MeuPerfilPage)
       },
       {
-        path: 'denuncias',
-        loadComponent: () => import('./pages/denuncias/denuncias.page').then(m => m.DenunciasPage)
-      },
-      {
         path: 'minhas-quadras',
         loadComponent: () => import('./pages/minhas-quadras/minhas-quadras.page').then(m => m.MinhasQuadrasPage)
       },
