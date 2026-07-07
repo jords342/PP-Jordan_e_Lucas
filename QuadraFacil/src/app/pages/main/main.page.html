@@ -1,5 +1,20 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="false">
   <div class="main-container">
+
+    <p *ngIf="quadras.length === 0" class="vazio">Nenhuma quadra disponível no momento.</p>
+
+    <div class="quadra-card" *ngFor="let quadra of quadras" (click)="irParaQuadra(quadra.idQuadra)">
+      <div class="quadra-foto">
+        <img *ngIf="fotos[quadra.idQuadra]" [src]="fotos[quadra.idQuadra]" alt="Foto da quadra">
+        <div *ngIf="!fotos[quadra.idQuadra]" class="sem-foto">
+          <ion-icon name="image-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="quadra-info">
+        <p class="quadra-nome">{{ quadra.nome }}</p>
+        <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
+      </div>
+    </div>
 
   </div>
 </ion-content>
