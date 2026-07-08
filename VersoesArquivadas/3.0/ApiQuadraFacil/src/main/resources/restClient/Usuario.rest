@@ -1,0 +1,29 @@
+GET http://localhost:8080/api/v1/usuarios HTTP/1.1
+
+###
+
+GET http://localhost:8080/api/v1/usuarios/1 HTTP/1.1
+
+###
+
+POST http://localhost:8080/api/v1/usuarios HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Mario",
+    "endereço": "BROOKLIN"
+}
+
+###
+
+DELETE http://localhost:8080/api/v1/usuarios/1 HTTP/1.1
+###
+
+PUT http://localhost:8080/api/v1/usuarios HTTP/1.1
+content-type: application/json
+
+{
+    "id": "2",
+    "nome": "Luigi",
+    "endereço": "Segundo Player"
+}

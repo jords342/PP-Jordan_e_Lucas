@@ -1,0 +1,54 @@
+ion-content {
+  --background: #ffffff;
+  --padding-top: 56px;
+}
+
+.pendentes-container {
+  padding: 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+.vazio {
+  text-align: center;
+  color: #999;
+  margin-top: 60px;
+}
+
+.quadra-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+
+  .quadra-nome {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+
+  .quadra-info {
+    font-size: 13px;
+    color: #555;
+    margin: 4px 0;
+  }
+
+  .card-botoes {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+
+    ion-button {
+      flex: 1;
+      --border-radius: 50px;
+    }
+  }
+}
