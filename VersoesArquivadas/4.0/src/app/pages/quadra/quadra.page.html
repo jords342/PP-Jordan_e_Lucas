@@ -1,0 +1,93 @@
+<ion-content [fullscreen]="false">
+
+  <div class="quadra-container">
+
+    <!-- Foto principal -->
+    <div class="foto-principal">
+
+      <img
+        *ngIf="fotos.length > 0"
+        [src]="fotos[0].imagemBase64"
+        alt="Foto da quadra">
+
+      <div *ngIf="fotos.length === 0" class="sem-foto">
+        <ion-icon name="image-outline"></ion-icon>
+      </div>
+
+      <button
+        class="btn-ver-fotos"
+        *ngIf="fotos.length > 1"
+        (click)="abrirFotos()">
+
+        📷 Ver todas as fotos ({{ fotos.length }})
+
+      </button>
+
+    </div>
+
+    <!-- Dados -->
+    <div class="dados-area">
+
+      <p class="quadra-nome">
+        {{ quadra.nome }}
+      </p>
+
+      <p class="quadra-endereco">
+        📍 {{ quadra.endereco }}
+      </p>
+
+      <p class="quadra-proprietario">
+        Cadastrante: {{ nomeProprietario }}
+      </p>
+
+    </div>
+
+    <ion-button
+      expand="block"
+      color="primary"
+      shape="round"
+      class="btn-avaliar">
+
+      Comentar e Avaliar
+
+    </ion-button>
+
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal-fotos"
+    *ngIf="modalAberto"
+    (click)="fecharFotos()">
+
+    <div
+      class="modal-conteudo"
+      (click)="$event.stopPropagation()">
+
+      <button
+        class="btn-fechar"
+        (click)="fecharFotos()">
+
+        ✕
+
+      </button>
+
+      <div class="fotos-scroll">
+
+        <div
+          class="foto-item"
+          *ngFor="let foto of fotos">
+
+          <img
+            [src]="foto.imagemBase64"
+            alt="Foto da quadra">
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

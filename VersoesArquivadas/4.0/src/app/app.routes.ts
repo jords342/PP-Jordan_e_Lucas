@@ -50,18 +50,11 @@ export const routes: Routes = [
         path: 'quadras-pendentes',
         loadComponent: () => import('./pages/quadras-pendentes/quadras-pendentes.page').then(m => m.QuadrasPendentesPage)
       },
-      {
-        path: 'comentar',
-        loadComponent: () => import('./pages/comentar/comentar.page').then(m => m.ComentarPage)
-      },
-      {
-        path: 'quadra/:id',
-        loadComponent: () => import('./pages/quadra/quadra.page').then(m => m.QuadraPage)
-      },
+      { path: 'quadra/:id', 
+        loadComponent: () => import('./pages/quadra/quadra.page').then(m => m.QuadraPage) },
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },
-
 
 
 
