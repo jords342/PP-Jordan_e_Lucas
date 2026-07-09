@@ -7,7 +7,7 @@ ion-content {
   max-width: 480px;
   margin: 0 auto;
 
-  padding-top: 72px;      
+  padding-top: 72px;
   padding-bottom: 32px;
 }
 
@@ -66,7 +66,7 @@ ion-content {
 .quadra-nome {
   font-size: 24px;
   font-weight: 700;
-  color: #1a1a2e; 
+  color: #1a1a2e;
   margin: 0 0 8px 0;
 }
 
@@ -122,7 +122,7 @@ ion-content {
   border: none;
   border-radius: 50%;
 
-  background: rgba(255,255,255,.25);
+  background: rgba(255, 255, 255, .25);
 
   color: white;
 
@@ -179,9 +179,86 @@ ion-content {
   transition: .25s;
 }
 
+.quadra-media {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+
+  ion-icon {
+    font-size: 15px;
+    color: #f5a623;
+  }
+
+  span {
+    font-size: 13px;
+    color: #666;
+    margin-left: 4px;
+  }
+}
+
+.ja-avaliou {
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  margin: 20px;
+}
+
 .foto-item img:hover {
 
   transform: scale(1.05);
 
   cursor: pointer;
+}
+
+.avaliacoes-area {
+  padding: 0 20px 20px;
+
+  .avaliacoes-titulo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 24px 0 12px;
+  }
+
+  .sem-avaliacao {
+    color: #999;
+    font-size: 14px;
+  }
+
+  .avaliacao-card {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+
+    .avaliacao-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+
+      .avaliacao-autor {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a2e;
+      }
+
+      .avaliacao-estrelas {
+        display: flex;
+
+        ion-icon {
+          font-size: 15px;
+          color: #f5a623;
+        }
+      }
+    }
+
+    .avaliacao-comentario {
+      font-size: 13px;
+      color: #555;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+  }
 }

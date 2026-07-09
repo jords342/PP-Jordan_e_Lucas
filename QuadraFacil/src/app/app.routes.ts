@@ -51,7 +51,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/quadras-pendentes/quadras-pendentes.page').then(m => m.QuadrasPendentesPage)
       },
       {
-        path: 'comentar',
+        path: 'comentar/:quadraId',
         loadComponent: () => import('./pages/comentar/comentar.page').then(m => m.ComentarPage)
       },
       {

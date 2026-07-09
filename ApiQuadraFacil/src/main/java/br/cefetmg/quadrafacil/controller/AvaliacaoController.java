@@ -39,11 +39,19 @@ public class AvaliacaoController {
     @GetMapping("/{id}")
     public Avaliacao getById(@PathVariable String id) {
         return repository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Avaliação não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Avaliação não encontrada"));
     }
 
     @PostMapping("")
     public Avaliacao cadastrar(@RequestBody Avaliacao avaliacao) {
+        boolean jaAvaliou = repository
+                .findByQuadraIdAndUsuarioId(avaliacao.getQuadraId(), avaliacao.getUsuarioId())
+                .isPresent();
+
+        if (jaAvaliou) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Você já avaliou esta quadra");
+        }
+
         avaliacao.setIdAvaliacao(null); // garante que o @PrePersist gera o UUID
         return repository.save(avaliacao);
     }
@@ -59,7 +67,7 @@ public class AvaliacaoController {
     @DeleteMapping("/{id}")
     public Avaliacao excluir(@PathVariable String id) {
         Avaliacao avaliacao = repository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Avaliação não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Avaliação não encontrada"));
         repository.deleteById(id);
         return avaliacao;
     }
