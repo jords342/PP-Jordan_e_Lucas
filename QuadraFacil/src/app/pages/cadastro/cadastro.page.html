@@ -2,34 +2,44 @@
   <div class="cadastro-container">
 
     <div class="logo-area">
-      <img src="assets/img/logo.png" alt="Logo">
+      <img src="assets/img/logov2.png" alt="Logo">
     </div>
 
     <p class="saudacao">Criar conta</p>
 
     <form [formGroup]="formGroup" (ngSubmit)="cadastrar()">
-      <div class="input-wrapper">
-        <ion-input type="text" formControlName="nomeUsuario"
-          placeholder="Nome de usuário" fill="outline" shape="round">
-        </ion-input>
+      
+      <!-- Nome de usuário -->
+      <div class="input-wrapper" [class.has-error]="formGroup.get('nomeUsuario')?.invalid && formGroup.get('nomeUsuario')?.touched">
+        <ion-input type="text" formControlName="nomeUsuario" placeholder="Nome de usuário"></ion-input>
+      </div>
+      <div class="balao-erro" *ngIf="formGroup.get('nomeUsuario')?.invalid && formGroup.get('nomeUsuario')?.touched">
+        <span *ngIf="formGroup.get('nomeUsuario')?.hasError('required')">O nome de usuário é obrigatório.</span>
       </div>
 
-      <div class="input-wrapper">
-        <ion-input type="email" formControlName="email"
-          placeholder="E-mail" fill="outline" shape="round">
-        </ion-input>
+      <!-- E-mail -->
+      <div class="input-wrapper" [class.has-error]="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
+        <ion-input type="email" formControlName="email" placeholder="E-mail"></ion-input>
+      </div>
+      <div class="balao-erro" *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
+        <span *ngIf="formGroup.get('email')?.hasError('required')">O e-mail é obrigatório.</span>
+        <span *ngIf="formGroup.get('email')?.hasError('email')">Insira um e-mail válido.</span>
       </div>
 
-      <div class="input-wrapper">
-        <ion-input type="password" formControlName="senha"
-          placeholder="Senha" fill="outline" shape="round">
-        </ion-input>
+      <!-- Senha -->
+      <div class="input-wrapper" [class.has-error]="formGroup.get('senha')?.invalid && formGroup.get('senha')?.touched">
+        <ion-input type="password" formControlName="senha" placeholder="Senha"></ion-input>
+      </div>
+      <div class="balao-erro" *ngIf="formGroup.get('senha')?.invalid && formGroup.get('senha')?.touched">
+        <span *ngIf="formGroup.get('senha')?.hasError('required')">A senha é obrigatória.</span>
       </div>
 
-      <div class="input-wrapper">
-        <ion-input type="password" formControlName="confirmarSenha"
-          placeholder="Confirmar senha" fill="outline" shape="round">
-        </ion-input>
+      <!-- Confirmar Senha -->
+      <div class="input-wrapper" [class.has-error]="formGroup.get('confirmarSenha')?.invalid && formGroup.get('confirmarSenha')?.touched">
+        <ion-input type="password" formControlName="confirmarSenha" placeholder="Confirmar senha"></ion-input>
+      </div>
+      <div class="balao-erro" *ngIf="formGroup.get('confirmarSenha')?.invalid && formGroup.get('confirmarSenha')?.touched">
+        <span *ngIf="formGroup.get('confirmarSenha')?.hasError('required')">Confirme a sua senha.</span>
       </div>
 
       <div class="botoes">
