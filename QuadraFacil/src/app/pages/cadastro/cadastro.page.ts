@@ -43,23 +43,30 @@ export class CadastroPage {
   }
 
   cadastrar() {
-    if (this.formGroup.hasError('senhasDiferentes')) {
-      this.exibirMensagem('As senhas não coincidem.');
-      return;
-    }
-
-    const usuario = new UsuarioModel();
-    usuario.nomeUsuario = this.formGroup.value.nomeUsuario;
-    usuario.email       = this.formGroup.value.email;
-    usuario.senha       = this.formGroup.value.senha;
-
-    this.usuarioService.cadastrar(usuario).subscribe({
-      next: (novo) => {
-        this.usuarioService.salvarSessao(novo);
-        this.navController.navigateRoot('/app/main');;
-      }
-    });
+  if (this.formGroup.hasError('senhasDiferentes')) {
+    this.exibirMensagem('As senhas não coincidem.');
+    return;
   }
+
+  const usuario = new UsuarioModel();
+  usuario.nomeUsuario = this.formGroup.value.nomeUsuario;
+  usuario.email       = this.formGroup.value.email;
+  usuario.senha       = this.formGroup.value.senha;
+
+  this.usuarioService.cadastrar(usuario).subscribe({
+    next: (novo) => {
+      this.usuarioService.salvarSessao(novo);
+      this.navController.navigateRoot('/app/main');
+    },
+    error: (erro) => {
+      if (erro.status === 409) {
+        this.exibirMensagem('Este email já está cadastrado.');
+      } else {
+        this.exibirMensagem('Erro ao cadastrar usuário.');
+      }
+    }
+  });
+}
 
   irParaLogin() {
     this.navController.navigateBack('/login');

@@ -35,11 +35,17 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public Usuario getById(@PathVariable String id) {
         return repository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
     }
 
     @PostMapping("")
     public Usuario cadastrar(@RequestBody Usuario usuario) {
+        boolean emailJaExiste = repository.findByEmail(usuario.getEmail()).isPresent();
+
+        if (emailJaExiste) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Este email já está cadastrado");
+        }
+
         usuario.setIdUsuario(null); // garante que o @PrePersist gera o UUID
         return repository.save(usuario);
     }
@@ -50,7 +56,7 @@ public class UsuarioController {
         String senha = credenciais.get("senha");
 
         return repository.findByEmailAndSenha(email, senha)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email ou senha incorretos"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email ou senha incorretos"));
     }
 
     @PutMapping("")
@@ -64,7 +70,7 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public Usuario excluir(@PathVariable String id) {
         Usuario usuario = repository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
         repository.deleteById(id);
         return usuario;
     }
