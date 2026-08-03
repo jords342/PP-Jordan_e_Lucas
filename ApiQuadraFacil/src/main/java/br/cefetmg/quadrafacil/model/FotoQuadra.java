@@ -22,7 +22,7 @@ public class FotoQuadra {
     private String quadraId;
 
     @Lob
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String imagemBase64; // foto salva como Base64
 
     @Column(nullable = false)
