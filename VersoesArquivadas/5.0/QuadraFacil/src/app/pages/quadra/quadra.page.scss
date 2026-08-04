@@ -1,0 +1,264 @@
+ion-content {
+  --background: #ffffff;
+  --padding-top: 0;
+}
+
+.quadra-container {
+  max-width: 480px;
+  margin: 0 auto;
+
+  padding-top: 72px;
+  padding-bottom: 32px;
+}
+
+
+.foto-principal {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: #e0e0e0;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.sem-foto {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    font-size: 64px;
+    color: #bdbdbd;
+  }
+}
+
+.btn-ver-fotos {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  padding: 6px 14px;
+
+  border: none;
+  border-radius: 20px;
+
+  background: rgba(0, 0, 0, .65);
+  color: white;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+
+.dados-area {
+  padding: 20px;
+}
+
+.quadra-nome {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
+}
+
+.quadra-endereco,
+.quadra-proprietario {
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.btn-avaliar {
+  margin: 20px;
+  --border-radius: 50px;
+}
+
+
+.modal-fotos {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, .88);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.modal-conteudo {
+  width: 95%;
+  max-width: 500px;
+  max-height: 85vh;
+
+  background: #111;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  position: relative;
+}
+
+
+.btn-fechar {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 35px;
+  height: 35px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, .25);
+
+  color: white;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  z-index: 5;
+}
+
+
+
+.fotos-scroll {
+
+  margin-top: 55px;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+
+  padding: 12px;
+
+  overflow-y: auto;
+
+  max-height: calc(85vh - 60px);
+}
+
+
+.foto-item {
+
+  width: 100%;
+
+  aspect-ratio: 1;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  background: #222;
+}
+
+.foto-item img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  transition: .25s;
+}
+
+.quadra-media {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+
+  ion-icon {
+    font-size: 15px;
+    color: #f5a623;
+  }
+
+  span {
+    font-size: 13px;
+    color: #666;
+    margin-left: 4px;
+  }
+}
+
+.ja-avaliou {
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  margin: 20px;
+}
+
+.foto-item img:hover {
+
+  transform: scale(1.05);
+
+  cursor: pointer;
+}
+
+.avaliacoes-area {
+  padding: 0 20px 20px;
+
+  .avaliacoes-titulo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 24px 0 12px;
+  }
+
+  .sem-avaliacao {
+    color: #999;
+    font-size: 14px;
+  }
+
+  .avaliacao-card {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+
+    .avaliacao-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+
+      .avaliacao-autor {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a2e;
+      }
+
+      .avaliacao-estrelas {
+        display: flex;
+
+        ion-icon {
+          font-size: 15px;
+          color: #f5a623;
+        }
+      }
+    }
+
+    .avaliacao-comentario {
+      font-size: 13px;
+      color: #555;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+  }
+}

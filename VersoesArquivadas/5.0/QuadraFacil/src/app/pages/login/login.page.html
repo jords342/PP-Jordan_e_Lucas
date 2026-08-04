@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true">
+  <div class="login-container">
+
+    <div class="logo-area">
+      <img src="assets/img/logov2.png" alt="Logo">
+    </div>
+
+    <p class="saudacao">Olá de novo!</p>
+
+    <form [formGroup]="formGroup" (ngSubmit)="entrar()">
+      
+      <!-- Campo E-mail -->
+      <div class="input-wrapper" [class.has-error]="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
+        <ion-input type="email" formControlName="email" placeholder="E-mail"></ion-input>
+      </div>
+      <!-- Balão de Erro -->
+      <div class="balao-erro" *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
+        <span *ngIf="formGroup.get('email')?.hasError('required')">O e-mail é obrigatório.</span>
+        <span *ngIf="formGroup.get('email')?.hasError('email')">Insira um e-mail válido.</span>
+      </div>
+
+      <!-- Campo Senha -->
+      <div class="input-wrapper" [class.has-error]="formGroup.get('senha')?.invalid && formGroup.get('senha')?.touched">
+        <ion-input type="password" formControlName="senha" placeholder="Senha"></ion-input>
+      </div>
+      <!-- Balão de Erro -->
+      <div class="balao-erro" *ngIf="formGroup.get('senha')?.invalid && formGroup.get('senha')?.touched">
+        <span *ngIf="formGroup.get('senha')?.hasError('required')">A senha é obrigatória.</span>
+      </div>
+
+      <p class="esqueci" (click)="irParaEsqueceuSenha()">Esqueci minha senha</p>
+
+      <div class="botoes">
+        <ion-button class="btn-secundario" shape="round" (click)="irParaCadastro()">
+          Cadastro
+        </ion-button>
+        <ion-button class="btn-primario" shape="round" type="submit" [disabled]="!formGroup.valid">
+          Entrar
+        </ion-button>
+      </div>
+    </form>
+
+  </div>
+</ion-content>

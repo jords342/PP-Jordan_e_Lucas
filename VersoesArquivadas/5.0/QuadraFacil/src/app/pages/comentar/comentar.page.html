@@ -1,0 +1,40 @@
+<ion-content [fullscreen]="false">
+  <div class="comentar-container">
+
+    <p class="saudacao">Comentar e Avaliar</p>
+
+    <form [formGroup]="formGroup" (ngSubmit)="enviar()">
+
+      <!-- Seletor de estrelas -->
+      <div class="estrelas-area">
+        <p class="estrelas-titulo">Sua nota</p>
+        <div class="estrelas">
+          <ion-icon
+            *ngFor="let estrela of [1,2,3,4,5]"
+            [name]="estrela <= nota ? 'star' : 'star-outline'"
+            (click)="selecionarNota(estrela)">
+          </ion-icon>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <ion-textarea formControlName="comentario"
+          placeholder="Conte como foi sua experiência na quadra..."
+          fill="outline" [autoGrow]="true" [rows]="5">
+        </ion-textarea>
+      </div>
+
+      <div class="botoes">
+        <ion-button class="btn-secundario" shape="round" (click)="voltar()">
+          Cancelar
+        </ion-button>
+        <ion-button class="btn-primario" shape="round" type="submit"
+          [disabled]="!formGroup.valid || nota === 0">
+          Enviar
+        </ion-button>
+      </div>
+
+    </form>
+
+  </div>
+</ion-content>
