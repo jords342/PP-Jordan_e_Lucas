@@ -7,7 +7,7 @@ import { QuadraModel } from '../model/quadra.model';
   providedIn: 'root',
 })
 export class QuadraService {
-  private readonly API_URL = 'http://localhost:8080/api/v1/quadras';
+  private readonly API_URL = 'https://apiquadrafacil.onrender.com/api/v1/quadras';
 
   constructor(private http: HttpClient) { }
 

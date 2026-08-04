@@ -7,7 +7,7 @@ import { UsuarioModel } from '../model/usuario.model';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private readonly API_URL = 'http://localhost:8080/api/v1/usuarios';
+  private readonly API_URL = 'https://apiquadrafacil.onrender.com/api/v1/usuarios';
   private readonly KEY_USUARIO = 'usuarioAutenticado';
 
   constructor(private http: HttpClient) {}

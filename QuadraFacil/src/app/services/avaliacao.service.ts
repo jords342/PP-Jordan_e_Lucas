@@ -7,7 +7,7 @@ import { AvaliacaoModel } from '../model/avaliacao.model';
   providedIn: 'root',
 })
 export class AvaliacaoService {
-  private readonly API_URL = 'http://localhost:8080/api/v1/avaliacoes';
+  private readonly API_URL = 'https://apiquadrafacil.onrender.com/api/v1/avaliacoes';
 
   constructor(private http: HttpClient) {}
 

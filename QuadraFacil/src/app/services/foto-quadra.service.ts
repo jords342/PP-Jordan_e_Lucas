@@ -7,7 +7,7 @@ import { FotoQuadraModel } from '../model/foto-quadra.model';
   providedIn: 'root',
 })
 export class FotoQuadraService {
-  private readonly API_URL = 'http://localhost:8080/api/v1/fotos';
+  private readonly API_URL = 'https://apiquadrafacil.onrender.com/api/v1/fotos';
 
   constructor(private http: HttpClient) {}
 
