@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,18 +13,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "foto_quadra") // Mapeamento exato da tabela no PostgreSQL
 public class FotoQuadra {
 
     @Id
+    @Column(name = "id_foto")
     private String idFoto;
 
-    @Column(nullable = false)
+    @Column(name = "quadra_id", nullable = false)
     private String quadraId;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String imagemBase64; // foto salva como Base64
+    @Column(name = "imagem_base64", nullable = false, columnDefinition = "TEXT")
+    private String imagemBase64;
 
-    @Column(nullable = false)
+    @Column(name = "criado_em", nullable = false)
     private String criadoEm;
 
     @PrePersist
