@@ -28,11 +28,18 @@ public class FotoQuadraController {
 
     @GetMapping("/quadra/{quadraId}")
     public List<FotoQuadra> getByQuadra(@PathVariable String quadraId) {
-        if (quadraId == null || quadraId.trim().isEmpty()) {
-            return Collections.emptyList();
+        try {
+            if (quadraId == null || quadraId.trim().isEmpty()) {
+                return Collections.emptyList();
+            }
+            List<FotoQuadra> fotos = repository.findByQuadraId(quadraId);
+            return (fotos != null) ? fotos : Collections.emptyList();
+        } catch (Throwable t) {
+            // Imprime a causa exata no log do Render sem estourar Erro 500 pro navegador
+            System.err.println(">>> ERRO AO BUSCAR FOTOS DA QUADRA (" + quadraId + "): " + t.getMessage());
+            t.printStackTrace();
+            return Collections.emptyList(); // Retorna 200 OK com lista vazia
         }
-        List<FotoQuadra> fotos = repository.findByQuadraId(quadraId);
-        return (fotos != null) ? fotos : Collections.emptyList();
     }
 
     @GetMapping("/{id}")
@@ -43,8 +50,14 @@ public class FotoQuadraController {
 
     @PostMapping("")
     public FotoQuadra salvar(@RequestBody FotoQuadra foto) {
-        foto.setIdFoto(null);
-        return repository.save(foto);
+        try {
+            foto.setIdFoto(null);
+            return repository.save(foto);
+        } catch (Throwable t) {
+            System.err.println(">>> ERRO AO SALVAR FOTO: " + t.getMessage());
+            t.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao salvar foto: " + t.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
