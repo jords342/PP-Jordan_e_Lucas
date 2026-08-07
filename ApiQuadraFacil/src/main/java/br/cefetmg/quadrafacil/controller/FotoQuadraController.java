@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import br.cefetmg.quadrafacil.repository.FotoQuadraRepository;
 
 @RestController
 @RequestMapping("/api/v1/fotos")
+@CrossOrigin(origins = "*")
 public class FotoQuadraController {
 
     private final FotoQuadraRepository repository;

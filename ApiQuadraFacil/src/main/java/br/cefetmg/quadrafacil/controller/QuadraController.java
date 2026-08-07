@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +21,7 @@ import br.cefetmg.quadrafacil.repository.QuadraRepository;
 
 @RestController
 @RequestMapping("/api/v1/quadras")
+@CrossOrigin(origins = "*")
 public class QuadraController {
 
     private final QuadraRepository repository;
