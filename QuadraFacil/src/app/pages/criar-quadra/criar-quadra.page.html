@@ -1,20 +1,17 @@
 <ion-content [fullscreen]="false">
   <div class="criar-quadra-container">
 
-
     <p class="saudacao">Criar Quadra</p>
 
     <form [formGroup]="formGroup" (ngSubmit)="criar()">
 
       <div class="input-wrapper">
-        <ion-input type="text" formControlName="nome"
-          placeholder="Nome da quadra" fill="outline" shape="round">
+        <ion-input type="text" formControlName="nome" placeholder="Nome da quadra">
         </ion-input>
       </div>
 
       <div class="input-wrapper">
-        <ion-input type="text" formControlName="endereco"
-          placeholder="Endereço" fill="outline" shape="round">
+        <ion-input type="text" formControlName="endereco" placeholder="Endereço">
         </ion-input>
       </div>
 
@@ -34,16 +31,14 @@
           </div>
         </div>
 
-        <input #fileInput type="file" accept="image/*" multiple hidden
-          (change)="onFileSelected($event)">
+        <input #fileInput type="file" accept="image/*" multiple hidden (change)="onFileSelected($event)">
       </div>
 
       <div class="botoes">
         <ion-button class="btn-secundario" shape="round" (click)="voltar()">
           Cancelar
         </ion-button>
-        <ion-button class="btn-primario" shape="round" type="submit"
-          [disabled]="!formGroup.valid">
+        <ion-button class="btn-primario" shape="round" type="submit" [disabled]="!formGroup.valid">
           Criar
         </ion-button>
       </div>

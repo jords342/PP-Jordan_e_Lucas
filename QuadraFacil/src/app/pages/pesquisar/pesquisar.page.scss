@@ -6,7 +6,40 @@ ion-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100%;
-  padding: 40px 32px;
+  padding: 32px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+
+  .titulo {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+  }
+}
+
+.input-wrapper {
+  width: 100%;
+  height: 46px;
+  background: #ffffff;
+  border: 1.5px solid #cccccc;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+
+  ion-input {
+    --background: transparent;
+    --color: #333333;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+
+    &::part(container) {
+      border: none !important;
+      background: transparent !important;
+    }
+  }
 }

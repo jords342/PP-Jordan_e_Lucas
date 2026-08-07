@@ -1,72 +1,78 @@
 ion-content {
   --background: #ffffff;
-  --padding-top: 56px;
 }
 
 .comentar-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;       
-  padding: 40px 32px;
-  max-width: 480px;
+  width: 100%;
+  padding: 32px 24px 40px;
+  max-width: 440px;
   margin: 0 auto;
+
+  form {
+    width: 100%;
+  }
 }
 
 .saudacao {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 24px;
   text-align: center;
 }
 
 .estrelas-area {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  text-align: center;
 
   .estrelas-titulo {
     font-size: 14px;
-    font-weight: 600;
-    color: #333;
+    font-weight: 700;
+    color: #1a1a2e;
     margin-bottom: 12px;
   }
 
   .estrelas {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
 
     ion-icon {
-      font-size: 36px;
+      font-size: 38px;
       color: #f5a623;
       cursor: pointer;
+      transition: transform 0.15s ease;
+
+      &:active {
+        transform: scale(1.2);
+      }
     }
   }
 }
 
-.input-wrapper {
+.textarea-wrapper {
   width: 100%;
-  min-width: 0;        // 👈 impede o item de "explodir" o flex container
-  margin-bottom: 14px;
+  margin-bottom: 24px;
+  background: #ffffff;
+  border: 1.5px solid #cccccc;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-sizing: border-box;
 
   ion-textarea {
-    --border-radius: 16px;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --padding-top: 12px;
-    --padding-bottom: 12px;
-    --background: #f0f0f0;
-    --color: #000000;
-    --placeholder-color: #555555;
-    --placeholder-opacity: 1;
+    --background: transparent;
+    --color: #333333;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
     font-size: 14px;
+    font-weight: 500;
     width: 100%;
-    min-width: 0;       
-
-    textarea {
-      white-space: pre-wrap !important;
-      word-break: break-word !important;
-    }
   }
 }
 
@@ -75,7 +81,6 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
 
   .btn-secundario {
     --background: #ffffff;

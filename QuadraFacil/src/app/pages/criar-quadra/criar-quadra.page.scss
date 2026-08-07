@@ -1,76 +1,93 @@
 ion-content {
   --background: #ffffff;
-  --padding-top: 56px;
 }
 
 .criar-quadra-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 32px;
-  max-width: 480px;
+  padding: 32px 24px 40px;
+  max-width: 440px;
   margin: 0 auto;
-}
 
-.logo-area {
-  margin-bottom: 24px;
-
-  img {
-    width: 200px;
-    max-width: 75vw;
+  form {
+    width: 100%;
   }
 }
 
 .saudacao {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 24px;
   text-align: center;
 }
 
+/* Wrapper do Input (Pílula) */
 .input-wrapper {
   width: 100%;
-  margin-bottom: 14px;
+  height: 46px;
+  margin-bottom: 16px;
+  background: #ffffff;
+  border: 1.5px solid #cccccc;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
 
   ion-input {
-    --border-radius: 50px;
-    --padding-start: 20px;
-    --padding-end: 20px;
-    --background: #f0f0f0;
-    --color: #000000;
-    --placeholder-color: #555555;
-    --placeholder-opacity: 1;
+    --background: transparent;
+    --color: #333333;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --highlight-height: 0px;
     font-size: 14px;
-    height: 48px;
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+
+    &::part(container) {
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+
+    &::part(highlight-bottom) {
+      display: none !important;
+    }
   }
 }
 
 .fotos-area {
   width: 100%;
-  margin-bottom: 24px;
+  margin: 8px 0 24px;
 
   .fotos-titulo {
     font-size: 14px;
-    font-weight: 600;
-    color: #333;
+    font-weight: 700;
+    color: #1a1a2e;
     margin-bottom: 12px;
 
     span {
       font-weight: 400;
-      color: #999;
+      color: #888888;
     }
   }
 
   .fotos-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
 
     .foto-item {
       position: relative;
       width: 80px;
       height: 80px;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
 
       img {
@@ -81,9 +98,9 @@ ion-content {
 
       .btn-remover {
         position: absolute;
-        top: 2px;
-        right: 2px;
-        background: rgba(0,0,0,0.6);
+        top: 4px;
+        right: 4px;
+        background: rgba(0, 0, 0, 0.7);
         color: white;
         border: none;
         border-radius: 50%;
@@ -100,24 +117,27 @@ ion-content {
     .foto-adicionar {
       width: 80px;
       height: 80px;
-      border-radius: 10px;
-      border: 2px dashed #cccccc;
+      border-radius: 12px;
+      border: 1.5px dashed #cccccc;
+      background: #fdfdfd;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #999;
+      color: #888888;
       font-size: 11px;
+      font-weight: 600;
       gap: 4px;
+      transition: all 0.2s ease;
 
       ion-icon {
-        font-size: 24px;
+        font-size: 22px;
       }
 
       &:hover {
-        border-color: #999;
-        color: #666;
+        border-color: #000000;
+        color: #000000;
       }
     }
   }
@@ -128,7 +148,6 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
 
   .btn-secundario {
     --background: #ffffff;

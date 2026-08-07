@@ -1,34 +1,48 @@
 ion-header {
-  box-shadow: none;
-  &::after {
-    display: none;
-  }
+  background: #ffffff;
 }
 
 ion-toolbar {
-  --background: #f5f5f5;
+  --background: #ffffff;
   --border-color: transparent;
-  --box-shadow: none;
+  --min-height: 56px;
   text-align: center;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .titulo-quadra {
-  color: #164299;
-  font-weight: 700;
+  color: #000000;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.5px;
 }
 
 .titulo-facil {
-  color: #2ecc71;
-  font-weight: 700;
+  color: #27ae60;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.5px;
 }
 
 ion-tab-bar {
-  --background: #f5f5f5;
-  --border-color: transparent;
-  --border: none;
+  --background: #ffffff;
+  --border-color: #f0f0f0;
+  height: 60px;
+  padding-bottom: 4px;
 }
 
 ion-tab-button {
-  --color: #999999;
-  --color-selected: #1a1a2e;
+  --color: #a0a0a0;
+  --color-selected: #000000;
+  font-weight: 600;
+
+  ion-icon {
+    font-size: 22px;
+    margin-bottom: 2px;
+  }
+
+  ion-label {
+    font-size: 11px;
+    font-weight: 600;
+  }
 }

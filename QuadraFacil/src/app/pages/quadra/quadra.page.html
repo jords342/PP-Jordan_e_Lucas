@@ -4,7 +4,6 @@
 
     <!-- Foto principal -->
     <div class="foto-principal">
-
       <img *ngIf="fotos.length > 0" [src]="fotos[0].imagemBase64" alt="Foto da quadra">
 
       <div *ngIf="fotos.length === 0" class="sem-foto">
@@ -12,19 +11,13 @@
       </div>
 
       <button class="btn-ver-fotos" *ngIf="fotos.length > 1" (click)="abrirFotos()">
-
-        📷 Ver todas as fotos ({{ fotos.length }})
-
+        📷 Ver fotos ({{ fotos.length }})
       </button>
-
     </div>
 
     <!-- Dados -->
     <div class="dados-area">
-
-      <p class="quadra-nome">
-        {{ quadra.nome }}
-      </p>
+      <p class="quadra-nome">{{ quadra.nome }}</p>
 
       <div class="quadra-media" *ngIf="avaliacoes.length > 0">
         <ion-icon *ngFor="let estrela of [1,2,3,4,5]" [name]="estrela <= mediaArredondada ? 'star' : 'star-outline'">
@@ -32,37 +25,26 @@
         <span>{{ media.toFixed(1) }} ({{ avaliacoes.length }})</span>
       </div>
 
-      <p class="quadra-endereco">
-        📍 {{ quadra.endereco }}
-      </p>
-
-      <p class="quadra-proprietario">
-        Cadastrante: {{ nomeProprietario }}
-      </p>
-
+      <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
+      <p class="quadra-proprietario">Cadastrante: {{ nomeProprietario }}</p>
     </div>
 
-    <ion-button expand="block" color="primary" shape="round" class="btn-avaliar" *ngIf="!usuarioJaAvaliou"
-      (click)="irParaComentar()">
+    <div class="acao-area">
+      <ion-button expand="block" shape="round" class="btn-primario" *ngIf="!usuarioJaAvaliou" (click)="irParaComentar()">
+        Comentar e Avaliar
+      </ion-button>
 
-      Comentar e Avaliar
-
-    </ion-button>
-
-    <ion-button expand="block" color="danger" shape="round" class="btn-avaliar" *ngIf="usuarioJaAvaliou"
-      (click)="excluirAvaliacao()">
-
-      Excluir Avaliação
-
-    </ion-button>
+      <ion-button expand="block" shape="round" class="btn-danger" *ngIf="usuarioJaAvaliou" (click)="excluirAvaliacao()">
+        Excluir Avaliação
+      </ion-button>
+    </div>
 
     <!-- Avaliações -->
     <div class="avaliacoes-area">
-
       <p class="avaliacoes-titulo">Avaliações</p>
 
       <p *ngIf="avaliacoes.length === 0" class="sem-avaliacao">
-        Nenhuma avaliação feita a página
+        Nenhuma avaliação feita até o momento.
       </p>
 
       <div class="avaliacao-card" *ngFor="let avaliacao of avaliacoes">
@@ -75,34 +57,21 @@
         </div>
         <p class="avaliacao-comentario">{{ avaliacao.comentario }}</p>
       </div>
-
     </div>
 
   </div>
 
-  <!-- Modal -->
+  <!-- Modal de Fotos -->
   <div class="modal-fotos" *ngIf="modalAberto" (click)="fecharFotos()">
-
     <div class="modal-conteudo" (click)="$event.stopPropagation()">
-
-      <button class="btn-fechar" (click)="fecharFotos()">
-
-        ✕
-
-      </button>
+      <button class="btn-fechar" (click)="fecharFotos()">✕</button>
 
       <div class="fotos-scroll">
-
         <div class="foto-item" *ngFor="let foto of fotos">
-
           <img [src]="foto.imagemBase64" alt="Foto da quadra">
-
         </div>
-
       </div>
-
     </div>
-
   </div>
 
 </ion-content>

@@ -1,11 +1,11 @@
 <ion-content [fullscreen]="false">
   <div class="minhas-quadras-container">
 
-    <ion-button expand="block" color="primary" shape="round" class="btn-criar" (click)="irParaCriarQuadra()">
+    <ion-button expand="block" shape="round" class="btn-primario btn-criar" (click)="irParaCriarQuadra()">
       Criar Quadra
     </ion-button>
 
-    <p *ngIf="quadras.length === 0" class="vazio">Você ainda não tem quadras.</p>
+    <p *ngIf="quadras.length === 0" class="vazio">Você ainda não tem quadras cadastradas.</p>
 
     <div class="quadra-card" *ngFor="let quadra of quadras">
       <div class="quadra-foto" (click)="quadra.situacao !== 'PENDENTE' && irParaQuadra(quadra.idQuadra)">
@@ -15,15 +15,20 @@
         </div>
       </div>
       <div class="quadra-info" (click)="quadra.situacao !== 'PENDENTE' && irParaQuadra(quadra.idQuadra)">
-        <p class="quadra-nome">{{ quadra.nome }}</p>
+        <div class="info-topo">
+          <p class="quadra-nome">{{ quadra.nome }}</p>
+          <span class="badge-status" [class.pendente]="quadra.situacao === 'PENDENTE'" [class.ativa]="quadra.situacao !== 'PENDENTE'">
+            {{ quadra.situacao }}
+          </span>
+        </div>
         <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
-        <p class="quadra-situacao" [style.color]="quadra.situacao === 'PENDENTE' ? '#e67e22' : '#27ae60'">
-          {{ quadra.situacao }}
-        </p>
       </div>
-      <ion-button expand="block" color="danger" shape="round" class="btn-excluir" (click)="excluir(quadra)">
-        Excluir
-      </ion-button>
+
+      <div class="card-acoes">
+        <ion-button expand="block" shape="round" class="btn-danger" (click)="excluir(quadra)">
+          Excluir Quadra
+        </ion-button>
+      </div>
     </div>
 
   </div>

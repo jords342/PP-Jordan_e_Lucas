@@ -1,235 +1,137 @@
 ion-content {
   --background: #ffffff;
-  --padding-top: 0;
 }
 
 .quadra-container {
   max-width: 480px;
   margin: 0 auto;
-
-  padding-top: 72px;
-  padding-bottom: 32px;
+  padding-bottom: 40px;
 }
-
 
 .foto-principal {
   position: relative;
   width: 100%;
   height: 240px;
-  background: #e0e0e0;
-  overflow: hidden;
+  background: #f0f0f0;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-}
 
-.sem-foto {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .sem-foto {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  ion-icon {
-    font-size: 64px;
-    color: #bdbdbd;
+    ion-icon {
+      font-size: 56px;
+      color: #cccccc;
+    }
+  }
+
+  .btn-ver-fotos {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
   }
 }
-
-.btn-ver-fotos {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-
-  padding: 6px 14px;
-
-  border: none;
-  border-radius: 20px;
-
-  background: rgba(0, 0, 0, .65);
-  color: white;
-
-  font-size: 12px;
-
-  cursor: pointer;
-}
-
-
 
 .dados-area {
-  padding: 20px;
-}
+  padding: 24px 20px 12px;
 
-.quadra-nome {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin: 0 0 8px 0;
-}
-
-.quadra-endereco,
-.quadra-proprietario {
-  color: #666;
-  margin-bottom: 6px;
-}
-
-.btn-avaliar {
-  margin: 20px;
-  --border-radius: 50px;
-}
-
-
-.modal-fotos {
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0, 0, 0, .88);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 9999;
-}
-
-.modal-conteudo {
-  width: 95%;
-  max-width: 500px;
-  max-height: 85vh;
-
-  background: #111;
-
-  border-radius: 12px;
-
-  overflow: hidden;
-
-  position: relative;
-}
-
-
-.btn-fechar {
-  position: absolute;
-
-  top: 12px;
-  right: 12px;
-
-  width: 35px;
-  height: 35px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, .25);
-
-  color: white;
-
-  font-size: 18px;
-
-  cursor: pointer;
-
-  z-index: 5;
-}
-
-
-
-.fotos-scroll {
-
-  margin-top: 55px;
-
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 10px;
-
-  padding: 12px;
-
-  overflow-y: auto;
-
-  max-height: calc(85vh - 60px);
-}
-
-
-.foto-item {
-
-  width: 100%;
-
-  aspect-ratio: 1;
-
-  overflow: hidden;
-
-  border-radius: 8px;
-
-  background: #222;
-}
-
-.foto-item img {
-
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  display: block;
-
-  transition: .25s;
-}
-
-.quadra-media {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 8px;
-
-  ion-icon {
-    font-size: 15px;
-    color: #f5a623;
+  .quadra-nome {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin: 0 0 10px 0;
   }
 
-  span {
+  .quadra-media {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 12px;
+
+    ion-icon {
+      font-size: 16px;
+      color: #f5a623;
+    }
+
+    span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555555;
+      margin-left: 4px;
+    }
+  }
+
+  .quadra-endereco,
+  .quadra-proprietario {
+    font-size: 14px;
+    color: #666666;
+    margin: 0 0 6px 0;
+    font-weight: 500;
+  }
+}
+
+.acao-area {
+  padding: 8px 20px 16px;
+
+  .btn-primario {
+    --background: #000000;
+    --color: #ffffff;
+    --border-radius: 50px;
     font-size: 13px;
-    color: #666;
-    margin-left: 4px;
+    font-weight: 600;
+    height: 48px;
+    text-transform: uppercase;
   }
-}
 
-.ja-avaliou {
-  text-align: center;
-  color: #999;
-  font-size: 13px;
-  margin: 20px;
-}
-
-.foto-item img:hover {
-
-  transform: scale(1.05);
-
-  cursor: pointer;
+  .btn-danger {
+    --background: #e74c3c;
+    --color: #ffffff;
+    --border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    height: 48px;
+    text-transform: uppercase;
+  }
 }
 
 .avaliacoes-area {
-  padding: 0 20px 20px;
+  padding: 12px 20px 20px;
 
   .avaliacoes-titulo {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     color: #1a1a2e;
-    margin: 24px 0 12px;
+    margin: 0 0 16px 0;
   }
 
   .sem-avaliacao {
-    color: #999;
+    color: #888888;
     font-size: 14px;
+    font-weight: 500;
   }
 
   .avaliacao-card {
-    background: #f7f7f7;
-    border-radius: 12px;
-    padding: 14px 16px;
+    background: #f8f9fa;
+    border: 1px solid #eaeaea;
+    border-radius: 14px;
+    padding: 16px;
     margin-bottom: 12px;
 
     .avaliacao-topo {
@@ -240,7 +142,7 @@ ion-content {
 
       .avaliacao-autor {
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
         color: #1a1a2e;
       }
 
@@ -248,7 +150,7 @@ ion-content {
         display: flex;
 
         ion-icon {
-          font-size: 15px;
+          font-size: 14px;
           color: #f5a623;
         }
       }
@@ -256,9 +158,69 @@ ion-content {
 
     .avaliacao-comentario {
       font-size: 13px;
-      color: #555;
+      color: #444444;
       margin: 0;
+      line-height: 1.4;
       white-space: pre-wrap;
+    }
+  }
+}
+
+/* Modal de fotos */
+.modal-fotos {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  .modal-conteudo {
+    width: 90%;
+    max-width: 440px;
+    max-height: 80vh;
+    background: #111111;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+  }
+
+  .btn-fechar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  .fotos-scroll {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    overflow-y: auto;
+    max-height: calc(80vh - 60px);
+
+    .foto-item {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 }

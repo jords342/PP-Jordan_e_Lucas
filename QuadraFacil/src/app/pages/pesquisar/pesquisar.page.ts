@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonInput } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-pesquisar',
   templateUrl: './pesquisar.page.html',
   styleUrls: ['./pesquisar.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonInput, CommonModule, FormsModule]
 })
 export class PesquisarPage implements OnInit {
 

@@ -3,19 +3,19 @@
 
     <p class="titulo">Quadras Pendentes</p>
 
-    <p *ngIf="quadras.length === 0" class="vazio">Nenhuma quadra pendente.</p>
+    <p *ngIf="quadras.length === 0" class="vazio">Nenhuma quadra pendente de aprovação.</p>
 
     <div class="quadra-card" *ngFor="let quadra of quadras">
       <p class="quadra-nome">{{ quadra.nome }}</p>
       <p class="quadra-info">📍 {{ quadra.endereco }}</p>
       <p class="quadra-info">👤 Proprietário: {{ quadra.proprietarioId }}</p>
-      <p class="quadra-info">📅 {{ quadra.criadoEm | date:'dd/MM/yyyy' }}</p>
+      <p class="quadra-info">📅 Criado em: {{ quadra.criadoEm | date:'dd/MM/yyyy' }}</p>
 
       <div class="card-botoes">
-        <ion-button color="success" shape="round" (click)="aceitar(quadra)">
+        <ion-button class="btn-primario" shape="round" (click)="aceitar(quadra)">
           Aceitar
         </ion-button>
-        <ion-button color="danger" shape="round" (click)="recusar(quadra)">
+        <ion-button class="btn-danger" shape="round" (click)="recusar(quadra)">
           Recusar
         </ion-button>
       </div>

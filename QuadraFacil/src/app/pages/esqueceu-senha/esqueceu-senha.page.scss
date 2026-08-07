@@ -2,11 +2,73 @@ ion-content {
   --background: #ffffff;
 }
 
-.main-container {
+.esqueceu-senha-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100%;
-  padding: 40px 32px;
+  padding: 40px 24px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.logo-area {
+  margin-bottom: 24px;
+  text-align: center;
+
+  img {
+    width: 200px;
+    max-width: 75vw;
+  }
+}
+
+.saudacao {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.input-wrapper {
+  width: 100%;
+  height: 46px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1.5px solid #cccccc;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+
+  ion-input {
+    --background: transparent;
+    --color: #333333;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+
+    &::part(container) {
+      border: none !important;
+      background: transparent !important;
+    }
+  }
+}
+
+.botoes {
+  width: 100%;
+
+  .btn-primario {
+    width: 100%;
+    --background: #000000;
+    --color: #ffffff;
+    --border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    height: 46px;
+    text-transform: uppercase;
+  }
 }
