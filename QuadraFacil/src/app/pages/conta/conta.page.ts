@@ -22,6 +22,7 @@ export class ContaPage {
 
   usuario: UsuarioModel = new UsuarioModel();
   ehModerador: boolean = false;
+
   constructor(
     private usuarioService: UsuarioService,
     private navController: NavController

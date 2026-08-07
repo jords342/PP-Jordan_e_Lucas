@@ -5,6 +5,7 @@ ion-content {
 .quadra-container {
   max-width: 480px;
   margin: 0 auto;
+  padding-top: 56px;
   padding-bottom: 40px;
 }
 
@@ -166,7 +167,6 @@ ion-content {
   }
 }
 
-/* Modal de fotos */
 .modal-fotos {
   position: fixed;
   inset: 0;

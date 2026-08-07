@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="false">
+<ion-content [fullscreen]="false" [scrollEvents]="true">
   <div class="criar-quadra-container">
 
     <p class="saudacao">Criar Quadra</p>
@@ -6,13 +6,11 @@
     <form [formGroup]="formGroup" (ngSubmit)="criar()">
 
       <div class="input-wrapper">
-        <ion-input type="text" formControlName="nome" placeholder="Nome da quadra">
-        </ion-input>
+        <ion-input type="text" formControlName="nome" placeholder="Nome da quadra"></ion-input>
       </div>
 
       <div class="input-wrapper">
-        <ion-input type="text" formControlName="endereco" placeholder="Endereço">
-        </ion-input>
+        <ion-input type="text" formControlName="endereco" placeholder="Endereço"></ion-input>
       </div>
 
       <!-- Área de fotos -->

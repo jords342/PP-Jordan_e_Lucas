@@ -10,6 +10,7 @@ ion-content {
   padding: 32px 24px 40px;
   max-width: 440px;
   margin: 0 auto;
+  padding-top: 56px;
 
   form {
     width: 100%;
@@ -45,11 +46,6 @@ ion-content {
       font-size: 38px;
       color: #f5a623;
       cursor: pointer;
-      transition: transform 0.15s ease;
-
-      &:active {
-        transform: scale(1.2);
-      }
     }
   }
 }
@@ -66,10 +62,6 @@ ion-content {
   ion-textarea {
     --background: transparent;
     --color: #333333;
-    --padding-start: 0;
-    --padding-end: 0;
-    --padding-top: 0;
-    --padding-bottom: 0;
     font-size: 14px;
     font-weight: 500;
     width: 100%;

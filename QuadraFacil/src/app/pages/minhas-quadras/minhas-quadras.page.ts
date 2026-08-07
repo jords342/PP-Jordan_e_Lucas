@@ -55,7 +55,6 @@ export class MinhasQuadrasPage {
             },
             error: (err) => {
               console.warn(`Aviso: Não foi possível carregar a foto da quadra "${quadra.nome}" (${quadra.idQuadra}).`, err);
-              // Define foto como vazia para evitar quebras no layout
               this.fotos[quadra.idQuadra] = ''; 
             }
           });

@@ -1,25 +1,58 @@
-<ion-content [fullscreen]="false">
-  <div class="pendentes-container">
+import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { IonContent, IonButton, ToastController } from '@ionic/angular/standalone';
 
-    <p class="titulo">Quadras Pendentes</p>
+import { QuadraModel } from 'src/app/model/quadra.model';
+import { QuadraService } from 'src/app/services/quadra.service';
 
-    <p *ngIf="quadras.length === 0" class="vazio">Nenhuma quadra pendente de aprovação.</p>
+@Component({
+  selector: 'app-quadras-pendentes',
+  templateUrl: './quadras-pendentes.page.html',
+  styleUrls: ['./quadras-pendentes.page.scss'],
+  standalone: true,
+  imports: [IonContent, IonButton, CommonModule, DatePipe]
+})
+export class QuadrasPendentesPage {
 
-    <div class="quadra-card" *ngFor="let quadra of quadras">
-      <p class="quadra-nome">{{ quadra.nome }}</p>
-      <p class="quadra-info">📍 {{ quadra.endereco }}</p>
-      <p class="quadra-info">👤 Proprietário: {{ quadra.proprietarioId }}</p>
-      <p class="quadra-info">📅 Criado em: {{ quadra.criadoEm | date:'dd/MM/yyyy' }}</p>
+  quadras: QuadraModel[] = [];
 
-      <div class="card-botoes">
-        <ion-button class="btn-primario" shape="round" (click)="aceitar(quadra)">
-          Aceitar
-        </ion-button>
-        <ion-button class="btn-danger" shape="round" (click)="recusar(quadra)">
-          Recusar
-        </ion-button>
-      </div>
-    </div>
+  constructor(
+    private quadraService: QuadraService,
+    private toastController: ToastController
+  ) {}
 
-  </div>
-</ion-content>
+  ionViewWillEnter() {
+    this.carregarPendentes();
+  }
+
+  carregarPendentes() {
+    this.quadraService.listarPendentes().subscribe({
+      next: (quadras) => this.quadras = quadras
+    });
+  }
+
+  aceitar(quadra: QuadraModel) {
+    this.quadraService.aprovar(quadra.idQuadra).subscribe({
+      next: () => {
+        this.exibirMensagem(`"${quadra.nome}" aprovada!`);
+        this.carregarPendentes();
+      },
+      error: () => this.exibirMensagem('Erro ao aprovar quadra.')
+    });
+  }
+
+  recusar(quadra: QuadraModel) {
+    this.quadraService.excluir(quadra.idQuadra).subscribe({
+      next: () => {
+        this.exibirMensagem(`"${quadra.nome}" recusada e removida.`);
+        this.carregarPendentes();
+      },
+      error: () => this.exibirMensagem('Erro ao recusar quadra.')
+    });
+  }
+
+  async exibirMensagem(texto: string) {
+    const toast = await this.toastController.create({ message: texto, duration: 2000 });
+    toast.present();
+  }
+}

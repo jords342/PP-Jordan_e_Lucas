@@ -1,11 +1,10 @@
-<ion-content [fullscreen]="false">
+<ion-content [fullscreen]="false" [scrollEvents]="true">
   <div class="comentar-container">
 
     <p class="saudacao">Comentar e Avaliar</p>
 
     <form [formGroup]="formGroup" (ngSubmit)="enviar()">
 
-      <!-- Seletor de estrelas -->
       <div class="estrelas-area">
         <p class="estrelas-titulo">Sua nota</p>
         <div class="estrelas">

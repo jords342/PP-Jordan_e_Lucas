@@ -9,6 +9,7 @@ ion-content {
   padding: 32px 24px 40px;
   max-width: 440px;
   margin: 0 auto;
+  padding-top: 56px;
 
   form {
     width: 100%;
@@ -23,7 +24,6 @@ ion-content {
   text-align: center;
 }
 
-/* Wrapper do Input (Pílula) */
 .input-wrapper {
   width: 100%;
   height: 46px;
@@ -129,15 +129,9 @@ ion-content {
       font-size: 11px;
       font-weight: 600;
       gap: 4px;
-      transition: all 0.2s ease;
 
       ion-icon {
         font-size: 22px;
-      }
-
-      &:hover {
-        border-color: #000000;
-        color: #000000;
       }
     }
   }

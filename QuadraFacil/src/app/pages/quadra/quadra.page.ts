@@ -14,15 +14,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { AvaliacaoModel } from 'src/app/model/avaliacao.model';
 import { AvaliacaoService } from 'src/app/services/avaliacao.service';
 
-
 @Component({
   selector: 'app-quadra',
   templateUrl: './quadra.page.html',
   styleUrls: ['./quadra.page.scss'],
   standalone: true,
-  
   imports: [IonContent, IonIcon, IonButton, CommonModule]
-
 })
 export class QuadraPage {
 
@@ -36,8 +33,7 @@ export class QuadraPage {
   media: number = 0;
   mediaArredondada: number = 0;
   avaliacaoDoUsuario: AvaliacaoModel | null = null;
-  
-
+  modalAberto: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -129,8 +125,6 @@ export class QuadraPage {
   irParaComentar() {
     this.navController.navigateForward(`/app/comentar/${this.quadra.idQuadra}`);
   }
-
-  modalAberto: boolean = false;
 
   abrirFotos() {
     this.modalAberto = true;

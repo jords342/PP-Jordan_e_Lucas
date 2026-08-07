@@ -1,9 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonInput, IonButton, IonIcon,
-         ToastController } from '@ionic/angular/standalone';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { IonContent, IonInput, IonButton, IonIcon, ToastController } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { cameraOutline } from 'ionicons/icons';
@@ -19,15 +17,14 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './criar-quadra.page.html',
   styleUrls: ['./criar-quadra.page.scss'],
   standalone: true,
-  imports: [IonContent, IonInput, IonButton, IonIcon,
-            CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonContent, IonInput, IonButton, IonIcon, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class CriarQuadraPage {
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   formGroup: FormGroup;
-  fotos: string[] = []; // lista de base64
+  fotos: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,7 +59,6 @@ export class CriarQuadraPage {
       reader.readAsDataURL(file);
     });
 
-    // limpa o input para permitir selecionar os mesmos arquivos novamente
     event.target.value = '';
   }
 
@@ -84,7 +80,6 @@ export class CriarQuadraPage {
 
     this.quadraService.criar(quadra).subscribe({
       next: (quadraCriada) => {
-        // salva as fotos uma por uma
         const uploads = this.fotos.map(base64 => {
           const foto = new FotoQuadraModel();
           foto.quadraId      = quadraCriada.idQuadra;
@@ -109,5 +104,4 @@ export class CriarQuadraPage {
     const toast = await this.toastController.create({ message: texto, duration: 2000 });
     toast.present();
   }
-  
 }
