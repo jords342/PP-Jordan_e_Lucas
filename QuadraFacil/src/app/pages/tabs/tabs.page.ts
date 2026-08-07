@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon,
          IonLabel, IonHeader, IonToolbar, IonTitle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -12,25 +12,40 @@ import { homeOutline, searchOutline, personOutline } from 'ionicons/icons';
   imports: [IonTabs, IonTabBar, IonTabButton, IonIcon,
             IonLabel, IonHeader, IonToolbar, IonTitle]
 })
-export class TabsPage {
+export class TabsPage implements OnInit, OnDestroy {
 
   headerEscondido = false;
   private ultimoScrollY = 0;
+  private scrollListener: any;
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     addIcons({ homeOutline, searchOutline, personOutline });
   }
 
-  @HostListener('window:ionScroll', ['$event'])
-  onScroll(ev: CustomEvent) {
-    const scrollTop = ev.detail?.scrollTop || 0;
+  ngOnInit() {
+    // Escuta o evento ionScroll na fase de captura do documento (funciona no Ionic Shadow DOM)
+    this.scrollListener = (ev: any) => {
+      const scrollTop = ev.detail?.scrollTop || 0;
 
-    if (scrollTop > this.ultimoScrollY && scrollTop > 40) {
-      this.headerEscondido = true;
-    } else if (scrollTop < this.ultimoScrollY) {
-      this.headerEscondido = false;
+      this.ngZone.run(() => {
+        // Rola para baixo mais de 30px -> Esconde o cabeçalho
+        if (scrollTop > this.ultimoScrollY && scrollTop > 30) {
+          this.headerEscondido = true;
+        } 
+        // Rola para cima -> Mostra o cabeçalho
+        else if (scrollTop < this.ultimoScrollY) {
+          this.headerEscondido = false;
+        }
+        this.ultimoScrollY = scrollTop;
+      });
+    };
+
+    document.addEventListener('ionScroll', this.scrollListener, true);
+  }
+
+  ngOnDestroy() {
+    if (this.scrollListener) {
+      document.removeEventListener('ionScroll', this.scrollListener, true);
     }
-
-    this.ultimoScrollY = scrollTop;
   }
 }
