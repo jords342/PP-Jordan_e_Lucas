@@ -43,6 +43,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/meus-amigos/meus-amigos.page').then(m => m.MeusAmigosPage)
       },
       {
+        path: 'conversas',
+        loadComponent: () => import('./pages/conversas/conversas.page').then(m => m.ConversasPage)
+      },
+      {
         path: 'criar-quadra',
         loadComponent: () => import('./pages/criar-quadra/criar-quadra.page').then(m => m.CriarQuadraPage)
       },
@@ -61,6 +65,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },
+
+
 
 
 
