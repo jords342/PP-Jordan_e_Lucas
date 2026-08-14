@@ -42,6 +42,10 @@ export class QuadraService {
     return this.http.get<QuadraModel[]>(`${this.API_URL}/pendentes`);
   }
 
+  pesquisar(texto: string): Observable<QuadraModel[]> {
+    return this.http.get<QuadraModel[]>(`${this.API_URL}/buscar?texto=${encodeURIComponent(texto)}`);
+  }
+
   aprovar(id: string): Observable<QuadraModel> {
     const quadra = new QuadraModel();
     quadra.idQuadra = id;

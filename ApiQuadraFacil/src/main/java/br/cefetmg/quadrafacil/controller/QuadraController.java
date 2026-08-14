@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -52,6 +53,11 @@ public class QuadraController {
     @GetMapping("/proprietario/{proprietarioId}")
     public List<Quadra> getByProprietario(@PathVariable String proprietarioId) {
         return repository.findByProprietarioId(proprietarioId);
+    }
+
+    @GetMapping("/buscar")
+    public List<Quadra> buscar(@RequestParam String texto) {
+        return repository.buscarPorTexto(texto);
     }
 
     @GetMapping("/situacao/{situacao}")
