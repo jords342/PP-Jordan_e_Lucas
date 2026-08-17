@@ -1,0 +1,30 @@
+package com.cefet.intercards.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cefet.intercards.dto.AutenticacaoRequestDTO;
+import com.cefet.intercards.dto.AutenticacaoResponseDTO;
+import com.cefet.intercards.service.AutenticacaoService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+
+@RestController
+@Tag(name = "Autenticação")
+public class AutenticacaoController {
+
+    @Autowired
+    private AutenticacaoService autenticacaoService;
+
+    @PostMapping("/login")
+    @Operation(summary = "Autenticar usuário")
+    public ResponseEntity<AutenticacaoResponseDTO> autenticar(@Valid @RequestBody AutenticacaoRequestDTO autenticacaoRequestDTO) {
+        AutenticacaoResponseDTO autenticacaoResponseDTO = autenticacaoService.autenticar(autenticacaoRequestDTO);
+        return ResponseEntity.ok(autenticacaoResponseDTO);
+    }
+}
