@@ -3,7 +3,33 @@
     <p class="titulo">Procurar Quadras</p>
 
     <div class="input-wrapper">
-      <ion-input type="text" placeholder="Digite o nome ou endereço..."></ion-input>
+      <ion-input type="text" placeholder="Digite o nome ou endereço..."
+        [(ngModel)]="termoPesquisa" (ionInput)="onDigitar()">
+      </ion-input>
+    </div>
+
+    <!-- Estado inicial -->
+    <p class="dica" *ngIf="termoPesquisa.length === 0">
+      Digite para pesquisar quadras disponíveis
+    </p>
+
+    <!-- Sem resultado -->
+    <p class="vazio" *ngIf="termoPesquisa.length > 0 && !carregando && resultados.length === 0">
+      Nenhuma quadra encontrada
+    </p>
+
+    <!-- Resultados -->
+    <div class="quadra-card" *ngFor="let quadra of resultados" (click)="irParaQuadra(quadra.idQuadra)">
+      <div class="quadra-foto">
+        <img *ngIf="fotos[quadra.idQuadra]" [src]="fotos[quadra.idQuadra]" alt="Foto da quadra">
+        <div *ngIf="!fotos[quadra.idQuadra]" class="sem-foto">
+          <ion-icon name="image-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="quadra-info">
+        <p class="quadra-nome">{{ quadra.nome }}</p>
+        <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
+      </div>
     </div>
   </div>
 </ion-content>
