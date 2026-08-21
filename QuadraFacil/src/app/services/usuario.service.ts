@@ -10,7 +10,7 @@ export class UsuarioService {
   private readonly API_URL = 'https://apiquadrafacil.onrender.com/api/v1/usuarios';
   private readonly KEY_USUARIO = 'usuarioAutenticado';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   cadastrar(usuario: UsuarioModel): Observable<UsuarioModel> {
     return this.http.post<UsuarioModel>(this.API_URL, usuario);
@@ -18,6 +18,10 @@ export class UsuarioService {
 
   autenticar(email: string, senha: string): Observable<UsuarioModel> {
     return this.http.post<UsuarioModel>(`${this.API_URL}/login`, { email, senha });
+  }
+
+  alterar(usuario: UsuarioModel): Observable<UsuarioModel> {
+    return this.http.put<UsuarioModel>(this.API_URL, usuario);
   }
 
   buscarPorId(id: string): Observable<UsuarioModel> {

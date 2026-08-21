@@ -5,12 +5,12 @@ import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-meus-amigos',
-  templateUrl: './meus-amigos.page.html',
-  styleUrls: ['./meus-amigos.page.scss'],
+  templateUrl: './conversas.page.html',
+  styleUrls: ['./conversas.page.scss'],
   standalone: true,
   imports: [IonContent, CommonModule, FormsModule]
 })
-export class MeusAmigosPage implements OnInit {
+export class ConversasPage implements OnInit {
 
   constructor() { }
 
