@@ -31,7 +31,7 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    @Column(length = 255)
+    @Column(columnDefinition = "TEXT")
     private String fotoPerfil;
 
     @Column(nullable = false)
