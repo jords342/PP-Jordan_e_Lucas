@@ -37,6 +37,7 @@ export class QuadraPage {
   mediaArredondada: number = 0;
 
   modalAberto: boolean = false;
+  usuarioAtualEhModerador: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,7 +53,10 @@ export class QuadraPage {
   }
 
   ionViewWillEnter() {
-    this.usuarioAtualId = this.usuarioService.obterSessao().idUsuario;
+    const usuario = this.usuarioService.obterSessao();
+    this.usuarioAtualId = usuario.idUsuario;
+    this.usuarioAtualEhModerador = usuario.papel === 'MODERADOR';
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) this.carregarQuadra(id);
   }
@@ -139,6 +143,16 @@ export class QuadraPage {
 
   fecharFotos() {
     this.modalAberto = false;
+  }
+
+  excluirQuadra() {
+    this.quadraService.excluir(this.quadra.idQuadra).subscribe({
+      next: () => {
+        this.exibirMensagem('Quadra excluída com sucesso.');
+        this.navController.navigateBack('/app/main');
+      },
+      error: () => this.exibirMensagem('Erro ao excluir quadra.')
+    });
   }
 
   async exibirMensagem(texto: string) {
