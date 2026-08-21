@@ -68,6 +68,13 @@
 
   </div>
 
+  <ion-button expand="block" color="danger" shape="round" class="btn-excluir-quadra" *ngIf="usuarioAtualEhModerador"
+    (click)="excluirQuadra()">
+
+    Excluir Quadra
+
+  </ion-button>
+
   <!-- Modal de Fotos -->
   <div class="modal-fotos" *ngIf="modalAberto" (click)="fecharFotos()">
     <div class="modal-conteudo" (click)="$event.stopPropagation()">
