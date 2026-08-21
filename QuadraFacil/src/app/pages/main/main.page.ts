@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import { 
+  IonContent, IonIcon, 
+  IonRefresher, IonRefresherContent 
+} from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { imageOutline } from 'ionicons/icons';
@@ -14,7 +17,11 @@ import { FotoQuadraService } from 'src/app/services/foto-quadra.service';
   templateUrl: './main.page.html',
   styleUrls: ['./main.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, CommonModule]
+  imports: [
+    IonContent, IonIcon, 
+    IonRefresher, IonRefresherContent, 
+    CommonModule
+  ]
 })
 export class MainPage {
 
@@ -33,7 +40,7 @@ export class MainPage {
     this.carregarQuadras();
   }
 
-  carregarQuadras() {
+  carregarQuadras(event?: any) {
     this.quadraService.listarAtivas().subscribe({
       next: (quadras) => {
         this.quadras = quadras;
@@ -46,8 +53,21 @@ export class MainPage {
             }
           });
         });
+
+        if (event) {
+          event.target.complete(); // Encerra a animação do refresher
+        }
+      },
+      error: () => {
+        if (event) {
+          event.target.complete();
+        }
       }
     });
+  }
+
+  recarregar(event: any) {
+    this.carregarQuadras(event);
   }
 
   irParaQuadra(id: string) {

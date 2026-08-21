@@ -1,4 +1,11 @@
 <ion-content [fullscreen]="false" [scrollEvents]="true">
+
+  <!-- Gesto de puxar para atualizar no celular -->
+  <ion-refresher slot="fixed" (ionRefresh)="recarregar($event)">
+    <ion-refresher-content pullingText="Puxe para atualizar" refreshingSpinner="crescent">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <div class="main-container">
 
     <p *ngIf="quadras.length === 0" class="vazio">Nenhuma quadra disponível no momento.</p>

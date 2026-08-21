@@ -23,19 +23,23 @@ export class TabsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Escuta o evento ionScroll na fase de captura do documento (funciona no Ionic Shadow DOM)
     this.scrollListener = (ev: any) => {
       const scrollTop = ev.detail?.scrollTop || 0;
 
       this.ngZone.run(() => {
-        // Rola para baixo mais de 30px -> Esconde o cabeçalho
-        if (scrollTop > this.ultimoScrollY && scrollTop > 30) {
+        // Se estiver no topo da tela (início), SEMPRE mostra o cabeçalho
+        if (scrollTop <= 5) {
+          this.headerEscondido = false;
+        } 
+        // Rolou para baixo mais de 20px -> Esconde o cabeçalho
+        else if (scrollTop > this.ultimoScrollY && scrollTop > 20) {
           this.headerEscondido = true;
         } 
-        // Rola para cima -> Mostra o cabeçalho
+        // Rolou para cima minimamente -> Reaparece imediatamente
         else if (scrollTop < this.ultimoScrollY) {
           this.headerEscondido = false;
         }
+
         this.ultimoScrollY = scrollTop;
       });
     };
