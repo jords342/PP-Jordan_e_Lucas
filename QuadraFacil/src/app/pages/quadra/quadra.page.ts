@@ -13,6 +13,7 @@ import { FotoQuadraService } from 'src/app/services/foto-quadra.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AvaliacaoModel } from 'src/app/model/avaliacao.model';
 import { AvaliacaoService } from 'src/app/services/avaliacao.service';
+import { ConversaService } from 'src/app/services/conversa.service';
 
 @Component({
   selector: 'app-quadra',
@@ -26,13 +27,15 @@ export class QuadraPage {
   quadra: QuadraModel = new QuadraModel();
   fotos: FotoQuadraModel[] = [];
   nomeProprietario: string = '';
+  usuarioAtualId: string = '';
 
   avaliacoes: AvaliacaoModel[] = [];
   nomesAvaliadores: { [usuarioId: string]: string } = {};
+  avaliacaoDoUsuario: AvaliacaoModel | null = null;
   usuarioJaAvaliou: boolean = false;
   media: number = 0;
   mediaArredondada: number = 0;
-  avaliacaoDoUsuario: AvaliacaoModel | null = null;
+
   modalAberto: boolean = false;
 
   constructor(
@@ -42,12 +45,14 @@ export class QuadraPage {
     private fotoQuadraService: FotoQuadraService,
     private usuarioService: UsuarioService,
     private avaliacaoService: AvaliacaoService,
-    private toastController: ToastController 
+    private conversaService: ConversaService,
+    private toastController: ToastController
   ) {
     addIcons({ imageOutline, star, starOutline });
   }
 
   ionViewWillEnter() {
+    this.usuarioAtualId = this.usuarioService.obterSessao().idUsuario;
     const id = this.route.snapshot.paramMap.get('id');
     if (id) this.carregarQuadra(id);
   }
@@ -105,6 +110,10 @@ export class QuadraPage {
     });
   }
 
+  irParaComentar() {
+    this.navController.navigateForward(`/app/comentar/${this.quadra.idQuadra}`);
+  }
+
   excluirAvaliacao() {
     if (!this.avaliacaoDoUsuario) return;
 
@@ -117,13 +126,11 @@ export class QuadraPage {
     });
   }
 
-  async exibirMensagem(texto: string) {
-    const toast = await this.toastController.create({ message: texto, duration: 2000 });
-    toast.present();
-  }
-
-  irParaComentar() {
-    this.navController.navigateForward(`/app/comentar/${this.quadra.idQuadra}`);
+  enviarMensagem() {
+    this.conversaService.iniciar(this.usuarioAtualId, this.quadra.proprietarioId).subscribe({
+      next: (conversa) => this.navController.navigateForward(`/app/conversa/${conversa.idConversa}`),
+      error: () => this.exibirMensagem('Erro ao iniciar conversa.')
+    });
   }
 
   abrirFotos() {
@@ -132,5 +139,10 @@ export class QuadraPage {
 
   fecharFotos() {
     this.modalAberto = false;
+  }
+
+  async exibirMensagem(texto: string) {
+    const toast = await this.toastController.create({ message: texto, duration: 2000 });
+    toast.present();
   }
 }

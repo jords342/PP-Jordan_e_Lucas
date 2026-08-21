@@ -1,24 +1,80 @@
 ion-content {
-  --background: #ffffff;
+  --background: #f5f5f5;
+  --padding-top: 56px;
 }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 24px;
-  max-width: 440px;
+.conversas-container {
+  padding: 16px;
+  max-width: 480px;
   margin: 0 auto;
 
   .titulo {
     font-size: 20px;
     font-weight: 800;
     color: #1a1a2e;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
+  }
+}
+
+.vazio {
+  text-align: center;
+  color: #999;
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+.conversa-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  cursor: pointer;
+
+  .avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f0f0f0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    ion-icon {
+      font-size: 32px;
+      color: #bbbbbb;
+    }
   }
 
-  .subtitulo {
-    font-size: 14px;
-    color: #888888;
+  .conversa-info {
+    flex: 1;
+    min-width: 0;
+
+    .conversa-nome {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 0 0 4px;
+    }
+
+    .conversa-preview {
+      font-size: 13px;
+      color: #888888;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }

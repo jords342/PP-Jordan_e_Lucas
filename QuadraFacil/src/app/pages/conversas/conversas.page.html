@@ -1,6 +1,22 @@
-<ion-content [fullscreen]="true">
-  <div class="main-container">
-    <p class="titulo">Minhas conversas</p>
-    <p class="subtitulo">Suas conversas do QuadraFácil.</p>
+<ion-content [fullscreen]="false">
+  <div class="conversas-container">
+
+    <p class="titulo">Minhas Conversas</p>
+
+    <p class="vazio" *ngIf="!carregando && conversas.length === 0">
+      Você ainda não tem conversas.
+    </p>
+
+    <div class="conversa-card" *ngFor="let item of conversas" (click)="irParaConversa(item.conversa.idConversa)">
+      <div class="avatar">
+        <img *ngIf="item.fotoOutroUsuario" [src]="item.fotoOutroUsuario" alt="Foto">
+        <ion-icon *ngIf="!item.fotoOutroUsuario" name="person-circle-outline"></ion-icon>
+      </div>
+      <div class="conversa-info">
+        <p class="conversa-nome">{{ item.nomeOutroUsuario || 'Usuário' }}</p>
+        <p class="conversa-preview">{{ item.ultimaMensagem }}</p>
+      </div>
+    </div>
+
   </div>
 </ion-content>

@@ -26,11 +26,18 @@
       </div>
 
       <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
-      <p class="quadra-proprietario">Cadastrante: {{ nomeProprietario }}</p>
+      <p class="quadra-proprietario">
+        Cadastrante: {{ nomeProprietario }}
+      </p>
+
+      <button class="btn-mensagem" *ngIf="quadra.proprietarioId !== usuarioAtualId" (click)="enviarMensagem()">
+        💬 Enviar mensagem
+      </button>
     </div>
 
     <div class="acao-area">
-      <ion-button expand="block" shape="round" class="btn-primario" *ngIf="!usuarioJaAvaliou" (click)="irParaComentar()">
+      <ion-button expand="block" shape="round" class="btn-primario" *ngIf="!usuarioJaAvaliou"
+        (click)="irParaComentar()">
         Comentar e Avaliar
       </ion-button>
 

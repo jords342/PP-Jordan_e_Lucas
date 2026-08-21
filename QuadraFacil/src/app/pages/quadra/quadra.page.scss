@@ -202,6 +202,16 @@ ion-content {
     z-index: 5;
   }
 
+  .btn-mensagem {
+    background: none;
+    border: none;
+    color: #3366ff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0;
+    cursor: pointer;
+  }
+
   .fotos-scroll {
     margin-top: 40px;
     display: grid;
