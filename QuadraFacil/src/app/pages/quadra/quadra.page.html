@@ -67,7 +67,12 @@
         <p class="avaliacao-comentario">{{ avaliacao.comentario }}</p>
       </div>
     </div>
+    <ion-button expand="block" color="danger" shape="round" class="btn-excluir-quadra" *ngIf="usuarioAtualEhModerador"
+      (click)="excluirQuadra()">
 
+      Excluir Quadra
+
+    </ion-button>
   </div>
 
   <!-- Modal de Fotos -->
