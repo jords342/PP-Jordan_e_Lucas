@@ -1,8 +1,3 @@
-ion-content {
-  --background: #ffffff;
-  --padding-top: 64px; /* Garante que o conteúdo começa abaixo do cabeçalho */
-}
-
 .conta-container {
   display: flex;
   flex-direction: column;
@@ -23,8 +18,8 @@ ion-content {
     width: 96px;
     height: 96px;
     border-radius: 50%;
-    background: #f0f0f0;
-    border: 2px solid #eaeaea;
+    background: var(--app-card-bg);
+    border: 2px solid var(--app-card-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,14 +34,14 @@ ion-content {
 
     ion-icon {
       font-size: 44px;
-      color: #aaaaaa;
+      color: var(--app-text-muted);
     }
   }
 
   .nome-usuario {
     font-size: 18px;
     font-weight: 800;
-    color: #1a1a2e;
+    color: var(--app-text-title);
     margin: 0;
   }
 }
@@ -55,29 +50,29 @@ ion-content {
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
-  border: 1.5px solid #eaeaea;
+  border: 1.5px solid var(--app-card-border);
   margin-bottom: 32px;
-  background: #ffffff;
+  background: var(--app-card-bg);
 
   .menu-titulo {
     font-size: 12px;
     font-weight: 700;
-    color: #888888;
+    color: var(--app-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin: 16px 16px 8px;
   }
 
   ion-item {
-    --background: #ffffff;
-    --color: #1a1a2e;
-    --border-color: #f0f0f0;
+    --background: var(--app-card-bg);
+    --color: var(--app-text-title);
+    --border-color: var(--app-card-border);
     --padding-start: 16px;
     --inner-padding-end: 16px;
-    --detail-icon-color: #888888;
+    --detail-icon-color: var(--app-text-muted);
 
     ion-icon {
-      color: #333333;
+      color: var(--app-text-title);
       margin-right: 12px;
       font-size: 20px;
     }
@@ -85,6 +80,10 @@ ion-content {
     ion-label {
       font-size: 14px;
       font-weight: 600;
+    }
+
+    ion-toggle {
+      --track-background-checked: #2058c0;
     }
   }
 }

@@ -1,12 +1,12 @@
 ion-header {
-  background: #ffffff;
+  background: var(--app-header-bg);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 56px;
   z-index: 1000;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 0 var(--app-header-border);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
   will-change: transform, opacity;
 
@@ -18,14 +18,14 @@ ion-header {
 }
 
 ion-toolbar {
-  --background: #ffffff;
+  --background: var(--app-header-bg);
   --border-color: transparent;
   --min-height: 56px;
   text-align: center;
 }
 
 .titulo-quadra {
-  color: #000000;
+  color: var(--app-header-title);
   font-weight: 800;
   font-size: 18px;
   letter-spacing: -0.5px;
@@ -39,15 +39,15 @@ ion-toolbar {
 }
 
 ion-tab-bar {
-  --background: #ffffff;
-  --border-color: #f0f0f0;
+  --background: var(--app-tab-bg);
+  --border-color: var(--app-tab-border);
   height: 60px;
   padding-bottom: 4px;
 }
 
 ion-tab-button {
-  --color: #a0a0a0;
-  --color-selected: #000000;
+  --color: var(--app-text-muted);
+  --color-selected: var(--app-header-title);
   font-weight: 600;
 
   ion-icon {

@@ -1,21 +1,27 @@
 import { Component, Optional } from '@angular/core';
 import { Platform, NavController, IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { App } from '@capacitor/app';
+import { ThemeService } from './services/theme.service'; // <-- Importado
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   standalone: true,
-  imports: [IonApp, IonRouterOutlet] // <-- Adicionado IonApp aqui
+  imports: [IonApp, IonRouterOutlet]
 })
 export class AppComponent {
 
   constructor(
     private platform: Platform,
     private navController: NavController,
+    private themeService: ThemeService, // <-- Injetado
     @Optional() private routerOutlet?: IonRouterOutlet
   ) {
+    // 1. Inicializa o Modo Claro/Escuro de acordo com a preferência
+    this.themeService.inicializarTema();
+
+    // 2. Configura o botão físico de voltar
     this.configurarBotaoVoltar();
   }
 

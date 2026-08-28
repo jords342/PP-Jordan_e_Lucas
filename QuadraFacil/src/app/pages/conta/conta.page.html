@@ -10,6 +10,14 @@
     </div>
 
     <div class="menu-lista">
+      <!-- Seção de Preferências com a Chave de Modo Escuro -->
+      <p class="menu-titulo">Preferências</p>
+      <ion-item lines="full">
+        <ion-icon name="moon-outline" slot="start"></ion-icon>
+        <ion-label>Modo Escuro</ion-label>
+        <ion-toggle slot="end" [checked]="modoEscuro" (ionChange)="mudarTema($event)"></ion-toggle>
+      </ion-item>
+
       <p class="menu-titulo">Informações</p>
 
       <ion-item button detail="true" (click)="irPara('/app/meu-perfil')">
@@ -29,7 +37,7 @@
 
       <ion-item button detail="true" *ngIf="ehModerador" (click)="irPara('/app/quadras-pendentes')">
         <ion-icon name="eye-outline" slot="start"></ion-icon>
-        <ion-label>(M) Aceitar Quadras</ion-label>
+        <ion-label>(Moderação) Aceitar Quadras</ion-label>
       </ion-item>
     </div>
 
