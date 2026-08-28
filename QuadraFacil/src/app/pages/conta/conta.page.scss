@@ -1,22 +1,22 @@
 ion-content {
   --background: #ffffff;
+  --padding-top: 64px; /* Garante que o conteúdo começa abaixo do cabeçalho */
 }
 
 .conta-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 24px 40px;
+  padding: 16px 24px 40px;
   max-width: 440px;
   margin: 0 auto;
-  padding-top: 56px;
 }
 
 .perfil-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 8px;
   margin-bottom: 28px;
 
   .foto-wrapper {

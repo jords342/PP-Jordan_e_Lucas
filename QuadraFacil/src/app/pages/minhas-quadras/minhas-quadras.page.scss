@@ -1,13 +1,12 @@
 ion-content {
   --background: #f8f9fa;
-  --padding-top: 16px;
+  --padding-top: 64px; /* Garante que o conteúdo começa abaixo do cabeçalho */
 }
 
 .minhas-quadras-container {
   padding: 16px;
   max-width: 480px;
   margin: 0 auto;
-  padding-top: 56px;
 }
 
 .btn-criar {

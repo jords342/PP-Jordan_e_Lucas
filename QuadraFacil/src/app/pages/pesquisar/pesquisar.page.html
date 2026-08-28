@@ -1,25 +1,23 @@
-<ion-content [fullscreen]="true" [scrollEvents]="true">
-  <div class="main-container">
+<ion-content [fullscreen]="false" [scrollEvents]="true">
+  <div class="pesquisar-container">
+
     <p class="titulo">Procurar Quadras</p>
 
+    <!-- Campo de Busca em Pílula -->
     <div class="input-wrapper">
-      <ion-input type="text" placeholder="Digite o nome ou endereço..."
-        [(ngModel)]="termoPesquisa" (ionInput)="onDigitar()">
+      <ion-input 
+        type="text" 
+        placeholder="Digite o nome ou endereço..." 
+        [(ngModel)]="termoBusca" 
+        (ionInput)="filtrarQuadras()">
       </ion-input>
     </div>
 
-    <!-- Estado inicial -->
-    <p class="dica" *ngIf="termoPesquisa.length === 0">
-      Digite para pesquisar quadras disponíveis
-    </p>
+    <!-- Mensagem se não encontrar nada -->
+    <p *ngIf="quadrasFiltradas.length === 0" class="vazio">Nenhuma quadra encontrada.</p>
 
-    <!-- Sem resultado -->
-    <p class="vazio" *ngIf="termoPesquisa.length > 0 && !carregando && resultados.length === 0">
-      Nenhuma quadra encontrada
-    </p>
-
-    <!-- Resultados -->
-    <div class="quadra-card" *ngFor="let quadra of resultados" (click)="irParaQuadra(quadra.idQuadra)">
+    <!-- Lista de Quadras da Busca -->
+    <div class="quadra-card" *ngFor="let quadra of quadrasFiltradas" (click)="irParaQuadra(quadra.idQuadra)">
       <div class="quadra-foto">
         <img *ngIf="fotos[quadra.idQuadra]" [src]="fotos[quadra.idQuadra]" alt="Foto da quadra">
         <div *ngIf="!fotos[quadra.idQuadra]" class="sem-foto">
@@ -31,5 +29,6 @@
         <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
       </div>
     </div>
+
   </div>
 </ion-content>

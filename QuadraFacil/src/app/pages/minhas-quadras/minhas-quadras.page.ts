@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonButton, IonIcon, ToastController } from '@ionic/angular/standalone';
+import { 
+  IonContent, IonButton, IonIcon, 
+  IonRefresher, IonRefresherContent, 
+  ToastController 
+} from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { imageOutline } from 'ionicons/icons';
@@ -15,7 +19,11 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './minhas-quadras.page.html',
   styleUrls: ['./minhas-quadras.page.scss'],
   standalone: true,
-  imports: [IonContent, IonButton, IonIcon, CommonModule]
+  imports: [
+    IonContent, IonButton, IonIcon, 
+    IonRefresher, IonRefresherContent, 
+    CommonModule
+  ]
 })
 export class MinhasQuadrasPage {
 
@@ -36,10 +44,11 @@ export class MinhasQuadrasPage {
     this.carregarQuadras();
   }
 
-  carregarQuadras() {
+  carregarQuadras(event?: any) {
     const usuario = this.usuarioService.obterSessao();
     
     if (!usuario || !usuario.idUsuario) {
+      if (event) event.target.complete();
       return;
     }
 
@@ -59,12 +68,23 @@ export class MinhasQuadrasPage {
             }
           });
         });
+
+        if (event) {
+          event.target.complete(); // Encerra a animação do refresher
+        }
       },
       error: (err) => {
         console.error('Erro ao listar quadras do proprietário:', err);
         this.exibirMensagem('Erro ao carregar a lista de quadras.');
+        if (event) {
+          event.target.complete();
+        }
       }
     });
+  }
+
+  recarregar(event: any) {
+    this.carregarQuadras(event);
   }
 
   irParaCriarQuadra() {
