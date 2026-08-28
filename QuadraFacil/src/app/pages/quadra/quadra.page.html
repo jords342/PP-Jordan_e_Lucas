@@ -11,11 +11,11 @@
       </div>
 
       <button class="btn-ver-fotos" *ngIf="fotos.length > 1" (click)="abrirFotos()">
-        📷 Ver fotos ({{ fotos.length }})
+        Ver fotos ({{ fotos.length }})
       </button>
     </div>
 
-    <!-- Dados -->
+    <!-- Dados da Quadra -->
     <div class="dados-area">
       <p class="quadra-nome">{{ quadra.nome }}</p>
 
@@ -25,30 +25,32 @@
         <span>{{ media.toFixed(1) }} ({{ avaliacoes.length }})</span>
       </div>
 
-      <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
-      <p class="quadra-proprietario">
-        Cadastrante: {{ nomeProprietario }}
-      </p>
-
-      <button class="btn-mensagem" *ngIf="quadra.proprietarioId !== usuarioAtualId" (click)="enviarMensagem()">
-        💬 Enviar mensagem
-      </button>
+      <p class="quadra-endereco">Endereço {{ quadra.endereco }}</p>
+      <p class="quadra-proprietario">Cadastrante: {{ nomeProprietario }}</p>
     </div>
 
-    <div class="acao-area">
-      <ion-button expand="block" shape="round" class="btn-primario" *ngIf="!usuarioJaAvaliou"
-        (click)="irParaComentar()">
-        Comentar e Avaliar
-      </ion-button>
-
-      <ion-button expand="block" shape="round" class="btn-danger" *ngIf="usuarioJaAvaliou" (click)="excluirAvaliacao()">
-        Excluir Avaliação
+    <!-- Ação Principal: Conversar com o Proprietário -->
+    <div class="acao-area" *ngIf="quadra.proprietarioId !== usuarioAtualId">
+      <ion-button expand="block" shape="round" class="btn-primario" (click)="enviarMensagem()">
+        Conversar com o Proprietário
       </ion-button>
     </div>
 
-    <!-- Avaliações -->
+    <!-- Seção de Avaliações -->
     <div class="avaliacoes-area">
-      <p class="avaliacoes-titulo">Avaliações</p>
+      <div class="avaliacoes-header">
+        <p class="avaliacoes-titulo">Avaliações</p>
+
+        <!-- Botão compacto para Avaliar -->
+        <button class="btn-pequeno btn-avaliar-pequeno" *ngIf="!usuarioJaAvaliou" (click)="irParaComentar()">
+          Avaliar
+        </button>
+
+        <!-- Botão compacto para Excluir Avaliação existente -->
+        <button class="btn-pequeno btn-excluir-pequeno" *ngIf="usuarioJaAvaliou" (click)="excluirAvaliacao()">
+          Excluir avaliação
+        </button>
+      </div>
 
       <p *ngIf="avaliacoes.length === 0" class="sem-avaliacao">
         Nenhuma avaliação feita até o momento.
@@ -67,13 +69,6 @@
     </div>
 
   </div>
-
-  <ion-button expand="block" color="danger" shape="round" class="btn-excluir-quadra" *ngIf="usuarioAtualEhModerador"
-    (click)="excluirQuadra()">
-
-    Excluir Quadra
-
-  </ion-button>
 
   <!-- Modal de Fotos -->
   <div class="modal-fotos" *ngIf="modalAberto" (click)="fecharFotos()">
