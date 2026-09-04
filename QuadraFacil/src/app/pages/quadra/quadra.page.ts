@@ -189,6 +189,31 @@ export class QuadraPage {
     });
   }
 
+  enviarMensagem() {
+    this.conversaService.iniciar(this.usuarioAtualId, this.quadra.proprietarioId).subscribe({
+      next: (conversa) => this.navController.navigateForward(`/app/conversa/${conversa.idConversa}`),
+      error: () => this.exibirMensagem('Erro ao iniciar conversa.')
+    });
+  }
+
+  abrirFotos() {
+    this.modalAberto = true;
+  }
+
+  fecharFotos() {
+    this.modalAberto = false;
+  }
+
+  excluirQuadra() {
+    this.quadraService.excluir(this.quadra.idQuadra).subscribe({
+      next: () => {
+        this.exibirMensagem('Quadra excluída com sucesso.');
+        this.navController.navigateBack('/app/main');
+      },
+      error: () => this.exibirMensagem('Erro ao excluir quadra.')
+    });
+  }
+
   async exibirMensagem(texto: string) {
     const toast = await this.toastController.create({ message: texto, duration: 2000 });
     toast.present();
