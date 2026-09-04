@@ -51,7 +51,8 @@
   .quadra-nome {
     font-size: 22px;
     font-weight: 800;
-    color: var(--app-text-title); /* Fica branco no modo escuro */
+    color: var(--app-text-title);
+    /* Fica branco no modo escuro */
     margin: 0 0 10px 0;
   }
 
@@ -77,7 +78,8 @@
   .quadra-endereco,
   .quadra-proprietario {
     font-size: 14px;
-    color: var(--app-text-muted); /* Fica cinza claro legível no modo escuro */
+    color: var(--app-text-muted);
+    /* Fica cinza claro legível no modo escuro */
     margin: 0 0 6px 0;
     font-weight: 500;
   }
@@ -104,7 +106,8 @@
     .avaliacoes-titulo {
       font-size: 18px;
       font-weight: 800;
-      color: var(--app-text-title); /* Fica branco no modo escuro */
+      color: var(--app-text-title);
+      /* Fica branco no modo escuro */
       margin: 0;
     }
 
@@ -209,6 +212,17 @@
     font-size: 16px;
     cursor: pointer;
     z-index: 5;
+  }
+
+  .btn-alugar {
+    display: block;
+    background: none;
+    border: none;
+    color: #3366ff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 0 0;
+    cursor: pointer;
   }
 
   .fotos-scroll {

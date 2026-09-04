@@ -1,0 +1,27 @@
+<ion-content [fullscreen]="false">
+  <div class="disponibilidade-container">
+
+    <p class="titulo">{{ quadra.nome }}</p>
+    <p class="subtitulo">Disponibilidade de horários</p>
+
+    <ion-datetime
+      presentation="date"
+      [min]="dataMinima"
+      [value]="dataSelecionada"
+      (ionChange)="onDataSelecionada($event)">
+    </ion-datetime>
+
+    <div class="horarios-lista">
+      <div class="horario-item" *ngFor="let item of horarios"
+        [class.livre]="item.status === 'LIVRE'"
+        [class.alugado]="item.status === 'ALUGADO'"
+        [class.fechado]="item.status === 'FECHADO'"
+        (click)="onClicarHorario(item)">
+
+        <span class="horario-hora">{{ item.horaFormatada }}</span>
+        <span class="horario-status">{{ item.status }}</span>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

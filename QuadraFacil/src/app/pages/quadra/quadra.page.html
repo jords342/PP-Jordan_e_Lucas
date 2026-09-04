@@ -36,6 +36,10 @@
       </ion-button>
     </div>
 
+    <button class="btn-alugar" *ngIf="quadra.situacao === 'ATIVA'" (click)="irParaDisponibilidade()">
+       Alugar quadra
+    </button>
+
     <!-- Seção de Avaliações -->
     <div class="avaliacoes-area">
       <div class="avaliacoes-header">

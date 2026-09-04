@@ -137,6 +137,9 @@ export class QuadraPage {
     });
   }
 
+  irParaDisponibilidade() {
+    this.navController.navigateForward(`/app/disponibilidade/${this.quadra.idQuadra}`);
+  }
   abrirFotos() {
     this.modalAberto = true;
   }
