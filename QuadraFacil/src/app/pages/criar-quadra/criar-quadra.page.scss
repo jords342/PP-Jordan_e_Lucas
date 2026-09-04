@@ -5,56 +5,9 @@
   padding: 32px 24px 40px;
   max-width: 440px;
   margin: 0 auto;
-  padding-top: 56px;
 
   form {
     width: 100%;
-  }
-}
-
-.saudacao {
-  font-size: 20px;
-  font-weight: 800;
-  color: #1a1a2e;
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-.input-wrapper {
-  width: 100%;
-  height: 46px;
-  margin-bottom: 16px;
-  background: #ffffff;
-  border: 1.5px solid #cccccc;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  box-sizing: border-box;
-
-  ion-input {
-    --background: transparent;
-    --color: #333333;
-    --padding-start: 0;
-    --padding-end: 0;
-    --padding-top: 0;
-    --padding-bottom: 0;
-    --highlight-height: 0px;
-    font-size: 14px;
-    font-weight: 600;
-    width: 100%;
-    height: 100%;
-
-    &::part(container) {
-      border: none !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-    }
-
-    &::part(highlight-bottom) {
-      display: none !important;
-    }
   }
 }
 
@@ -65,12 +18,12 @@
   .fotos-titulo {
     font-size: 14px;
     font-weight: 700;
-    color: #1a1a2e;
+    color: var(--app-text-title);
     margin-bottom: 12px;
 
     span {
       font-weight: 400;
-      color: #888888;
+      color: var(--app-text-muted);
     }
   }
 
@@ -114,14 +67,14 @@
       width: 80px;
       height: 80px;
       border-radius: 12px;
-      border: 1.5px dashed #cccccc;
-      background: #fdfdfd;
+      border: 1.5px dashed var(--app-input-border);
+      background: var(--app-card-bg);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #888888;
+      color: var(--app-text-muted);
       font-size: 11px;
       font-weight: 600;
       gap: 4px;
@@ -130,39 +83,5 @@
         font-size: 22px;
       }
     }
-  }
-}
-
-.botoes {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .btn-secundario {
-    --background: #ffffff;
-    --color: #333333;
-    --border-radius: 50px;
-    --border-width: 1.5px;
-    --border-style: solid;
-    --border-color: #cccccc;
-    --padding-start: 24px;
-    --padding-end: 24px;
-    font-size: 13px;
-    font-weight: 600;
-    height: 46px;
-    text-transform: uppercase;
-  }
-
-  .btn-primario {
-    --background: #000000;
-    --color: #ffffff;
-    --border-radius: 50px;
-    --padding-start: 36px;
-    --padding-end: 36px;
-    font-size: 13px;
-    font-weight: 600;
-    height: 46px;
-    text-transform: uppercase;
   }
 }

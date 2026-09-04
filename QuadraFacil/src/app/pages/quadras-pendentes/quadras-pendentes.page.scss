@@ -1,48 +1,15 @@
-ion-content {
-  --padding-top: 16px;
-}
-
 .pendentes-container {
   padding: 16px;
   max-width: 480px;
   margin: 0 auto;
-  padding-top: 56px;
-}
-
-.titulo {
-  font-size: 20px;
-  font-weight: 800;
-  color: #1a1a2e;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.vazio {
-  text-align: center;
-  color: #888888;
-  margin-top: 40px;
-  font-size: 14px;
-  font-weight: 500;
 }
 
 .quadra-card {
-  background: #ffffff;
-  border-radius: 16px;
   padding: 20px;
-  margin-bottom: 16px;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-
-  .quadra-nome {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin: 0 0 10px 0;
-  }
 
   .quadra-info {
     font-size: 13px;
-    color: #555555;
+    color: var(--app-text-muted);
     margin: 4px 0;
     font-weight: 500;
   }
@@ -54,27 +21,16 @@ ion-content {
 
     .btn-primario {
       flex: 1;
-      --background: #27ae60;
-      --color: #ffffff;
-      --border-radius: 50px;
-      font-size: 12px;
-      font-weight: 600;
+      --background: #27ae60 !important;
+      --color: #ffffff !important;
       height: 42px;
-      text-transform: uppercase;
+      font-size: 12px;
     }
 
     .btn-danger {
       flex: 1;
-      --background: #ffffff;
-      --color: #e74c3c;
-      --border-radius: 50px;
-      --border-width: 1.5px;
-      --border-style: solid;
-      --border-color: #e74c3c;
-      font-size: 12px;
-      font-weight: 600;
       height: 42px;
-      text-transform: uppercase;
+      font-size: 12px;
     }
   }
 }
