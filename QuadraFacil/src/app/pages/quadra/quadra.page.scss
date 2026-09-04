@@ -51,7 +51,7 @@
   .quadra-nome {
     font-size: 22px;
     font-weight: 800;
-    color: var(--app-text-title); /* Fica branco no modo escuro */
+    color: var(--app-text-title);
     margin: 0 0 10px 0;
   }
 
@@ -77,7 +77,7 @@
   .quadra-endereco,
   .quadra-proprietario {
     font-size: 14px;
-    color: var(--app-text-muted); /* Fica cinza claro legível no modo escuro */
+    color: var(--app-text-muted);
     margin: 0 0 6px 0;
     font-weight: 500;
   }
@@ -104,7 +104,7 @@
     .avaliacoes-titulo {
       font-size: 18px;
       font-weight: 800;
-      color: var(--app-text-title); /* Fica branco no modo escuro */
+      color: var(--app-text-title);
       margin: 0;
     }
 

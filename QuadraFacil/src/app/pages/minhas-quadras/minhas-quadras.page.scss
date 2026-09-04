@@ -1,7 +1,3 @@
-ion-content {
-  --padding-top: 64px; /* Garante que o conteúdo começa abaixo do cabeçalho */
-}
-
 .minhas-quadras-container {
   padding: 16px;
   max-width: 480px;
@@ -9,118 +5,51 @@ ion-content {
 }
 
 .btn-criar {
-  --background: #000000;
-  --color: #ffffff;
-  --border-radius: 50px;
-  height: 48px;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
+  width: 100%;
   margin-bottom: 24px;
 }
 
-.vazio {
-  text-align: center;
-  color: #888888;
-  margin-top: 40px;
-  font-size: 14px;
-  font-weight: 500;
+.info-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+
+  .badge-status {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+
+    &.pendente {
+      background: #fef5e7;
+      color: #e67e22;
+    }
+
+    &.ativa {
+      background: #e8f8f5;
+      color: #27ae60;
+    }
+  }
 }
 
-.quadra-card {
-  background: #ffffff;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+body.dark .info-topo .badge-status.pendente {
+  background: rgba(230, 126, 34, 0.2);
+  color: #f39c12;
+}
 
-  .quadra-foto {
+body.dark .info-topo .badge-status.ativa {
+  background: rgba(39, 174, 96, 0.2);
+  color: #2ecc71;
+}
+
+.card-acoes {
+  padding: 8px 16px 16px;
+  background: var(--app-card-bg);
+
+  .btn-danger {
     width: 100%;
-    height: 160px;
-    background: #f0f0f0;
-    overflow: hidden;
-    cursor: pointer;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .sem-foto {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      ion-icon {
-        font-size: 48px;
-        color: #cccccc;
-      }
-    }
-  }
-
-  .quadra-info {
-    padding: 16px 16px 8px;
-    cursor: pointer;
-
-    .info-topo {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 6px;
-
-      .quadra-nome {
-        font-size: 17px;
-        font-weight: 700;
-        color: #1a1a2e;
-        margin: 0;
-      }
-
-      .badge-status {
-        font-size: 11px;
-        font-weight: 700;
-        padding: 4px 10px;
-        border-radius: 50px;
-        text-transform: uppercase;
-
-        &.pendente {
-          background: #fef5e7;
-          color: #e67e22;
-        }
-
-        &.ativa {
-          background: #e8f8f5;
-          color: #27ae60;
-        }
-      }
-    }
-
-    .quadra-endereco {
-      font-size: 13px;
-      color: #666666;
-      margin: 0;
-      font-weight: 500;
-    }
-  }
-
-  .card-acoes {
-    padding: 8px 16px 16px;
-
-    .btn-danger {
-      --background: #ffffff;
-      --color: #e74c3c;
-      --border-radius: 50px;
-      --border-width: 1.5px;
-      --border-style: solid;
-      --border-color: #e74c3c;
-      height: 42px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin: 0;
-    }
+    margin: 0;
   }
 }

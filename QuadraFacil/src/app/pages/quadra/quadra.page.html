@@ -20,7 +20,7 @@
       <p class="quadra-nome">{{ quadra.nome }}</p>
 
       <div class="quadra-media" *ngIf="avaliacoes.length > 0">
-        <ion-icon *ngFor="let estrela of [1,2,3,4,5]" [name]="estrela <= mediaArredondada ? 'star' : 'star-outline'">
+        <ion-icon *ngFor="let estrela of [1,1.5,2,2.5,3,3.5,4,4.5,5]" [name]="estrela <= mediaArredondada ? 'star' : 'star-outline'">
         </ion-icon>
         <span>{{ media.toFixed(1) }} ({{ avaliacoes.length }})</span>
       </div>
