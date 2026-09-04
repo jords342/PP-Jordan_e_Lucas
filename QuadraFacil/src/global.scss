@@ -1,43 +1,28 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- */
-
-/* Core CSS required for Ionic components to work properly */
+/* Core CSS do Ionic */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
-
-/* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
-/**
- * Ionic Dark Mode (Modo baseado em Classe para o botão funcionar)
- * -----------------------------------------------------
- */
 @import "@ionic/angular/css/palettes/dark.class.css";
 
 /* ==========================================================================
-   PALETA DE CORES DINÂMICA (MODO CLARO E MODO ESCURO)
+   PALETA DE CORES (MODO CLARO E ESCURO)
    ========================================================================== */
 
 :root {
-  /* MODO CLARO (Padrão) */
+  /* MODO CLARO */
   --app-bg: #ffffff;
-  --app-bg-secondary: #f8f9fa;
   --app-card-bg: #ffffff;
   --app-card-border: #eaeaea;
   --app-text-title: #1a1a2e;
   --app-text-body: #333333;
-  --app-text-muted: #888888;
+  --app-text-muted: #666666;
   --app-input-bg: #ffffff;
   --app-input-border: #cccccc;
   --app-btn-sec-bg: #ffffff;
@@ -51,14 +36,13 @@
 }
 
 body.dark {
-  /* MODO ESCURO (Elegante e Suave) */
+  /* MODO ESCURO */
   --app-bg: #121212;
-  --app-bg-secondary: #181818;
   --app-card-bg: #1e1e1e;
   --app-card-border: #2d2d2d;
-  --app-text-title: #ffffff;
-  --app-text-body: #e0e0e0;
-  --app-text-muted: #aaaaaa;
+  --app-text-title: #ffffff;   /* Branco no modo escuro */
+  --app-text-body: #e0e0e0;    /* Cinza bem claro */
+  --app-text-muted: #a0a0a0;   /* Cinza médio legível */
   --app-input-bg: #1e1e1e;
   --app-input-border: #3a3a3a;
   --app-btn-sec-bg: #1e1e1e;
@@ -72,7 +56,7 @@ body.dark {
 }
 
 /* ==========================================================================
-   ESTILOS GLOBAIS COM SUPORTE AOS DOIS TEMAS
+   ESTILOS GLOBAIS
    ========================================================================== */
 
 ion-content {
@@ -80,7 +64,12 @@ ion-content {
   --padding-top: 64px;
 }
 
-/* Títulos */
+/* Logo no modo escuro vira branca automaticamente */
+body.dark .logo-area img {
+  filter: brightness(0) invert(1);
+}
+
+/* Títulos Globais */
 .saudacao, .titulo {
   font-size: 20px;
   font-weight: 800;
@@ -158,7 +147,7 @@ ion-content {
   }
 }
 
-/* Botões Padronizados */
+/* Botões */
 .botoes {
   width: 100%;
   display: flex;
@@ -178,6 +167,7 @@ ion-content {
   text-transform: uppercase;
 }
 
+/* No modo escuro o botão primário fica BRANCO com texto PRETO para destacar */
 body.dark .btn-primario {
   --background: #ffffff;
   --color: #000000;
@@ -209,58 +199,4 @@ body.dark .btn-primario {
   font-weight: 600;
   height: 44px;
   text-transform: uppercase;
-}
-
-/* Cards de Quadras */
-.quadra-card {
-  background: var(--app-card-bg);
-  border-radius: 16px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  border: 1px solid var(--app-card-border);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-
-  .quadra-foto {
-    width: 100%;
-    height: 180px;
-    background: #222222;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .sem-foto {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      ion-icon {
-        font-size: 48px;
-        color: #555555;
-      }
-    }
-  }
-
-  .quadra-info {
-    padding: 16px;
-
-    .quadra-nome {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--app-text-title);
-      margin: 0 0 6px;
-    }
-
-    .quadra-endereco {
-      font-size: 13px;
-      color: var(--app-text-muted);
-      margin: 0;
-      font-weight: 500;
-    }
-  }
 }
