@@ -1,48 +1,37 @@
-ion-content {
-  --padding-top: 56px;
-}
-
 .conversas-container {
   padding: 16px;
   max-width: 480px;
   margin: 0 auto;
-
-  .titulo {
-    font-size: 20px;
-    font-weight: 800;
-    color: #1a1a2e;
-    margin-bottom: 20px;
-  }
-}
-
-.vazio {
-  text-align: center;
-  color: #999;
-  margin-top: 40px;
-  font-size: 14px;
 }
 
 .conversa-card {
   display: flex;
   align-items: center;
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 12px 14px;
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
+  border-radius: 16px;
+  padding: 14px 16px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
 
   .avatar {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
-    background: #f0f0f0;
+    background: var(--app-card-border);
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 14px;
+    border: 1px solid var(--app-card-border);
 
     img {
       width: 100%;
@@ -51,8 +40,8 @@ ion-content {
     }
 
     ion-icon {
-      font-size: 32px;
-      color: #bbbbbb;
+      font-size: 36px;
+      color: var(--app-text-muted);
     }
   }
 
@@ -63,17 +52,18 @@ ion-content {
     .conversa-nome {
       font-size: 15px;
       font-weight: 700;
-      color: #1a1a2e;
+      color: var(--app-text-title);
       margin: 0 0 4px;
     }
 
     .conversa-preview {
       font-size: 13px;
-      color: #888888;
+      color: var(--app-text-muted);
       margin: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-weight: 500;
     }
   }
 }

@@ -1,6 +1,7 @@
 <ion-content [fullscreen]="false">
   <div class="conversa-container">
 
+    <!-- Cabeçalho da Conversa com Botão Voltar e Avatar -->
     <div class="conversa-header">
       <button class="btn-voltar" (click)="voltar()">←</button>
       <div class="avatar">
@@ -10,6 +11,7 @@
       <p class="nome">{{ nomeOutroUsuario || 'Usuário' }}</p>
     </div>
 
+    <!-- Área de Mensagens com Scroll -->
     <div class="mensagens-area" #scrollArea>
       <p class="vazio" *ngIf="mensagens.length === 0">
         Nenhuma mensagem ainda. Diga olá!
@@ -22,9 +24,12 @@
       </div>
     </div>
 
+    <!-- Barra Inferior de Enviar Mensagem (Estilo Pílula) -->
     <div class="input-area">
-      <input type="text" placeholder="Digite uma mensagem..."
-        [(ngModel)]="textoNovaMensagem" (keyup.enter)="enviar()">
+      <div class="chat-input-wrapper">
+        <input type="text" placeholder="Digite uma mensagem..."
+          [(ngModel)]="textoNovaMensagem" (keyup.enter)="enviar()">
+      </div>
       <button class="btn-enviar" (click)="enviar()">
         <ion-icon name="send-outline"></ion-icon>
       </button>

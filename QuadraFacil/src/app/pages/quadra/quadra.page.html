@@ -2,17 +2,36 @@
 
   <div class="quadra-container">
 
-    <!-- Foto principal -->
-    <div class="foto-principal">
-      <img *ngIf="fotos.length > 0" [src]="fotos[0].imagemBase64" alt="Foto da quadra">
-
-      <div *ngIf="fotos.length === 0" class="sem-foto">
-        <ion-icon name="image-outline"></ion-icon>
+    <!-- CARROSSEL DE FOTOS COM GESTOS E BOTÕES -->
+    <div class="carrossel-container" *ngIf="fotos.length > 0">
+      
+      <!-- Trilha de Slides com Gesto de Arrastar -->
+      <div class="carrossel-track" #carrossel (scroll)="aoRolarCarrossel()">
+        <div class="carrossel-slide" *ngFor="let foto of fotos; let i = index">
+          <img [src]="foto.imagemBase64" alt="Foto {{ i + 1 }} da quadra">
+        </div>
       </div>
 
-      <button class="btn-ver-fotos" *ngIf="fotos.length > 1" (click)="abrirFotos()">
-        Ver fotos ({{ fotos.length }})
+      <!-- Botão Anterior (<) -->
+      <button class="nav-btn nav-prev" *ngIf="fotos.length > 1 && fotoAtualIndex > 0" (click)="fotoAnterior()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
       </button>
+
+      <!-- Botão Próximo (>) -->
+      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1" (click)="proximaFoto()">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+
+      <!-- Indicador da Foto Atual (Ex: 1 / 4) -->
+      <div class="indicador-contador" *ngIf="fotos.length > 1">
+        <span>{{ fotoAtualIndex + 1 }} / {{ fotos.length }}</span>
+      </div>
+    </div>
+
+    <!-- Caso a quadra não tenha fotos -->
+    <div *ngIf="fotos.length === 0" class="sem-foto-hero">
+      <ion-icon name="image-outline"></ion-icon>
+      <p>Sem fotos disponíveis</p>
     </div>
 
     <!-- Dados da Quadra -->
@@ -20,19 +39,19 @@
       <p class="quadra-nome">{{ quadra.nome }}</p>
 
       <div class="quadra-media" *ngIf="avaliacoes.length > 0">
-        <ion-icon *ngFor="let estrela of [1,1.5,2,2.5,3,3.5,4,4.5,5]" [name]="estrela <= mediaArredondada ? 'star' : 'star-outline'">
+        <ion-icon *ngFor="let estrela of [1,2,3,4,5]" [name]="estrela <= mediaArredondada ? 'star' : 'star-outline'">
         </ion-icon>
         <span>{{ media.toFixed(1) }} ({{ avaliacoes.length }})</span>
       </div>
 
-      <p class="quadra-endereco">Endereço {{ quadra.endereco }}</p>
+      <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
       <p class="quadra-proprietario">Cadastrante: {{ nomeProprietario }}</p>
     </div>
 
     <!-- Ação Principal: Conversar com o Proprietário -->
     <div class="acao-area" *ngIf="quadra.proprietarioId !== usuarioAtualId">
       <ion-button expand="block" shape="round" class="btn-primario" (click)="enviarMensagem()">
-        Conversar com o Proprietário
+        💬 Conversar com o Proprietário
       </ion-button>
     </div>
 
@@ -43,12 +62,12 @@
 
         <!-- Botão compacto para Avaliar -->
         <button class="btn-pequeno btn-avaliar-pequeno" *ngIf="!usuarioJaAvaliou" (click)="irParaComentar()">
-          Avaliar
+          ⭐ Avaliar
         </button>
 
         <!-- Botão compacto para Excluir Avaliação existente -->
         <button class="btn-pequeno btn-excluir-pequeno" *ngIf="usuarioJaAvaliou" (click)="excluirAvaliacao()">
-          Excluir avaliação
+          🗑️ Excluir minha nota
         </button>
       </div>
 
@@ -67,25 +86,7 @@
         <p class="avaliacao-comentario">{{ avaliacao.comentario }}</p>
       </div>
     </div>
-    <ion-button expand="block" color="danger" shape="round" class="btn-excluir-quadra" *ngIf="usuarioAtualEhModerador"
-      (click)="excluirQuadra()">
 
-      (Moderação) Excluir Quadra
-
-    </ion-button>
-  </div>
-
-  <!-- Modal de Fotos -->
-  <div class="modal-fotos" *ngIf="modalAberto" (click)="fecharFotos()">
-    <div class="modal-conteudo" (click)="$event.stopPropagation()">
-      <button class="btn-fechar" (click)="fecharFotos()">✕</button>
-
-      <div class="fotos-scroll">
-        <div class="foto-item" *ngFor="let foto of fotos">
-          <img [src]="foto.imagemBase64" alt="Foto da quadra">
-        </div>
-      </div>
-    </div>
   </div>
 
 </ion-content>
