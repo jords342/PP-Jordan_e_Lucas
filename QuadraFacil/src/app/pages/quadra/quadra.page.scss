@@ -4,9 +4,7 @@
   padding-bottom: 40px;
 }
 
-/* ==========================================================================
-   CARROSSEL DE FOTOS COM GESTOS E BOTÕES
-   ========================================================================== */
+/* CARROSSEL */
 .carrossel-container {
   position: relative;
   width: 100%;
@@ -22,10 +20,7 @@
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    &::-webkit-scrollbar { display: none; }
   }
 
   .carrossel-slide {
@@ -34,74 +29,52 @@
     height: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: #181818;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
   }
 
-  /* Botões de Navegação (< e >) */
   .nav-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: none;
     background: rgba(0, 0, 0, 0.65);
-    color: #ffffff;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 10;
     backdrop-filter: blur(4px);
-    transition: transform 0.15s ease, background 0.2s ease;
 
-    &:active {
-      transform: translateY(-50%) scale(0.9);
-      background: rgba(0, 0, 0, 0.85);
-    }
-
-    ion-icon {
-      font-size: 20px;
-    }
-
-    &.nav-prev {
-      left: 12px;
-    }
-
-    &.nav-next {
-      right: 12px;
-    }
+    &.nav-prev { left: 12px; }
+    &.nav-next { right: 12px; }
+    ion-icon { font-size: 20px; }
   }
 
-  /* Indicador da Foto Atual */
   .indicador-contador {
     position: absolute;
     bottom: 12px;
     right: 14px;
     background: rgba(0, 0, 0, 0.75);
-    color: #ffffff;
+    color: #fff;
     padding: 4px 12px;
     border-radius: 50px;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.5px;
     backdrop-filter: blur(4px);
     z-index: 10;
   }
 }
 
-/* Fallback se não houver fotos */
 .sem-foto-hero {
   width: 100%;
   height: 220px;
@@ -112,19 +85,10 @@
   justify-content: center;
   color: var(--app-text-muted);
   gap: 8px;
-
-  ion-icon {
-    font-size: 56px;
-  }
-
-  p {
-    font-size: 13px;
-    font-weight: 600;
-    margin: 0;
-  }
+  ion-icon { font-size: 56px; }
+  p { font-size: 13px; font-weight: 600; margin: 0; }
 }
 
-/* Informações e Detalhes */
 .dados-area {
   padding: 24px 20px 12px;
 
@@ -132,7 +96,6 @@
     font-size: 22px;
     font-weight: 800;
     color: var(--app-text-title);
-    /* Fica branco no modo escuro */
     margin: 0 0 10px 0;
   }
 
@@ -141,25 +104,13 @@
     align-items: center;
     gap: 4px;
     margin-bottom: 12px;
-
-    ion-icon {
-      font-size: 16px;
-      color: #f5a623;
-    }
-
-    span {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--app-text-muted);
-      margin-left: 4px;
-    }
+    ion-icon { font-size: 16px; color: #f5a623; }
+    span { font-size: 13px; font-weight: 600; color: var(--app-text-muted); margin-left: 4px; }
   }
 
-  .quadra-endereco,
-  .quadra-proprietario {
+  .quadra-endereco, .quadra-proprietario {
     font-size: 14px;
     color: var(--app-text-muted);
-    /* Fica cinza claro legível no modo escuro */
     margin: 0 0 6px 0;
     font-weight: 500;
   }
@@ -167,11 +118,7 @@
 
 .acao-area {
   padding: 8px 20px 16px;
-
-  .btn-primario {
-    width: 100%;
-    height: 48px;
-  }
+  .btn-primario { width: 100%; height: 48px; }
 }
 
 .avaliacoes-area {
@@ -187,7 +134,6 @@
       font-size: 18px;
       font-weight: 800;
       color: var(--app-text-title);
-      /* Fica branco no modo escuro */
       margin: 0;
     }
 
@@ -198,7 +144,6 @@
       font-weight: 600;
       cursor: pointer;
       border: 1.5px solid transparent;
-      transition: all 0.2s ease;
 
       &.btn-avaliar-pequeno {
         background: var(--app-btn-sec-bg);
@@ -214,12 +159,6 @@
     }
   }
 
-  .sem-avaliacao {
-    color: var(--app-text-muted);
-    font-size: 14px;
-    font-weight: 500;
-  }
-
   .avaliacao-card {
     background: var(--app-card-bg);
     border: 1px solid var(--app-card-border);
@@ -233,20 +172,8 @@
       justify-content: space-between;
       margin-bottom: 8px;
 
-      .avaliacao-autor {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--app-text-title);
-      }
-
-      .avaliacao-estrelas {
-        display: flex;
-
-        ion-icon {
-          font-size: 14px;
-          color: #f5a623;
-        }
-      }
+      .avaliacao-autor { font-size: 14px; font-weight: 700; color: var(--app-text-title); }
+      .avaliacao-estrelas { display: flex; ion-icon { font-size: 14px; color: #f5a623; } }
     }
 
     .avaliacao-comentario {
@@ -308,12 +235,7 @@
       border-radius: 12px;
       overflow: hidden;
       background: #2a2a2a;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+      img { width: 100%; height: 100%; object-fit: cover; }
     }
   }
 }
