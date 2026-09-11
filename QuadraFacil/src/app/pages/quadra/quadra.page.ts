@@ -34,6 +34,7 @@ export class QuadraPage {
   fotos: FotoQuadraModel[] = [];
   nomeProprietario: string = '';
   usuarioAtualId: string = '';
+  usuarioAtualEhModerador: boolean = false;
 
   avaliacoes: AvaliacaoModel[] = [];
   nomesAvaliadores: { [usuarioId: string]: string } = {};
@@ -42,7 +43,8 @@ export class QuadraPage {
   mediaArredondada: number = 0;
   avaliacaoDoUsuario: AvaliacaoModel | null = null;
 
-  // Controle do Carrossel de Fotos
+  // Variáveis de controle
+  modalAberto: boolean = false;
   fotoAtualIndex: number = 0;
 
   constructor(
@@ -64,6 +66,7 @@ export class QuadraPage {
   ionViewWillEnter() {
     const usuario = this.usuarioService.obterSessao();
     this.usuarioAtualId = usuario ? usuario.idUsuario : '';
+    this.usuarioAtualEhModerador = usuario ? usuario.papel === 'MODERADOR' : false;
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -92,7 +95,7 @@ export class QuadraPage {
     });
   }
 
-  // MÉTODOS DO CARROSSEL DE FOTOS
+  // CONTROLE DO CARROSSEL DE FOTOS
   proximaFoto() {
     if (this.fotoAtualIndex < this.fotos.length - 1) {
       this.fotoAtualIndex++;
@@ -161,7 +164,6 @@ export class QuadraPage {
     });
   }
 
-  // MÉTODO CORRIGIDO: usa o iniciar(usuario1Id, usuario2Id)
   enviarMensagem() {
     const usuario = this.usuarioService.obterSessao();
     if (!usuario || !usuario.idUsuario) {
@@ -177,6 +179,10 @@ export class QuadraPage {
     });
   }
 
+  irParaDisponibilidade() {
+    this.navController.navigateForward(`/app/disponibilidade/${this.quadra.idQuadra}`);
+  }
+
   excluirAvaliacao() {
     if (!this.avaliacaoDoUsuario) return;
 
@@ -186,13 +192,6 @@ export class QuadraPage {
         this.carregarAvaliacoes(this.quadra.idQuadra);
       },
       error: () => this.exibirMensagem('Erro ao excluir avaliação.')
-    });
-  }
-
-  enviarMensagem() {
-    this.conversaService.iniciar(this.usuarioAtualId, this.quadra.proprietarioId).subscribe({
-      next: (conversa) => this.navController.navigateForward(`/app/conversa/${conversa.idConversa}`),
-      error: () => this.exibirMensagem('Erro ao iniciar conversa.')
     });
   }
 
@@ -214,12 +213,12 @@ export class QuadraPage {
     });
   }
 
+  irParaComentar() {
+    this.navController.navigateForward(`/app/comentar/${this.quadra.idQuadra}`);
+  }
+
   async exibirMensagem(texto: string) {
     const toast = await this.toastController.create({ message: texto, duration: 2000 });
     toast.present();
-  }
-
-  irParaComentar() {
-    this.navController.navigateForward(`/app/comentar/${this.quadra.idQuadra}`);
   }
 }
