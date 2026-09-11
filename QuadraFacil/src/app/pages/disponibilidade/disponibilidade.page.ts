@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonDatetime, ActionSheetController } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
 import { QuadraService } from 'src/app/services/quadra.service';
@@ -31,10 +32,15 @@ export class DisponibilidadePage {
 
   dataMinima: string = '';
   dataSelecionada: string = '';
+  dataFormatadaPT: string = '';
   horarios: HorarioExibicao[] = [];
+
+  // Controla se a seção de horários expandiu
+  mostrarHorarios: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
+    private navController: NavController,
     private quadraService: QuadraService,
     private disponibilidadeService: DisponibilidadeService,
     private usuarioService: UsuarioService,
@@ -43,6 +49,7 @@ export class DisponibilidadePage {
     const hoje = new Date();
     this.dataMinima = hoje.toISOString().split('T')[0];
     this.dataSelecionada = this.dataMinima;
+    this.formatarDataPT(this.dataSelecionada);
   }
 
   ionViewWillEnter() {
@@ -57,14 +64,33 @@ export class DisponibilidadePage {
         }
       });
 
-      this.carregarHorarios(this.dataSelecionada);
+      // Inicialmente não expande até que o usuário clique no dia
+      this.mostrarHorarios = false;
     }
+  }
+
+  onDataSelected(event: any) {
+    this.onDataSelecionada(event);
   }
 
   onDataSelecionada(event: any) {
     const dataCompleta = event.detail.value as string; // ex: "2026-09-10T00:00:00"
     this.dataSelecionada = dataCompleta.split('T')[0];
+    this.formatarDataPT(this.dataSelecionada);
+    
+    // Expande a seção de horários com animação
+    this.mostrarHorarios = true;
     this.carregarHorarios(this.dataSelecionada);
+  }
+
+  formatarDataPT(dataISO: string) {
+    if (!dataISO) return;
+    const partes = dataISO.split('-');
+    if (partes.length === 3) {
+      this.dataFormatadaPT = `${partes[2]}/${partes[1]}/${partes[0]}`;
+    } else {
+      this.dataFormatadaPT = dataISO;
+    }
   }
 
   carregarHorarios(data: string) {
@@ -87,16 +113,15 @@ export class DisponibilidadePage {
 
   async onClicarHorario(item: HorarioExibicao) {
     if (!this.ehProprietario) {
-      // Ainda não implementado: solicitação de aluguel pelo usuário comum
       return;
     }
 
     const actionSheet = await this.actionSheetController.create({
-      header: `Horário ${item.horaFormatada}`,
+      header: `Alterar Status - Horário ${item.horaFormatada}`,
       buttons: [
-        { text: 'Livre', handler: () => this.definirStatus(item.hora, 'LIVRE') },
-        { text: 'Alugado', handler: () => this.definirStatus(item.hora, 'ALUGADO') },
-        { text: 'Fechado', handler: () => this.definirStatus(item.hora, 'FECHADO') },
+        { text: 'Livre (Disponível)', handler: () => this.definirStatus(item.hora, 'LIVRE') },
+        { text: 'Alugado (Ocupado)', handler: () => this.definirStatus(item.hora, 'ALUGADO') },
+        { text: 'Fechado (Indisponível)', handler: () => this.definirStatus(item.hora, 'FECHADO') },
         { text: 'Cancelar', role: 'cancel' }
       ]
     });
@@ -110,5 +135,9 @@ export class DisponibilidadePage {
     ).subscribe({
       next: () => this.carregarHorarios(this.dataSelecionada)
     });
+  }
+
+  voltar() {
+    this.navController.navigateBack(`/app/quadra/${this.quadraId}`);
   }
 }

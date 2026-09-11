@@ -1,26 +1,50 @@
 <ion-content [fullscreen]="false">
-  <div class="disponibilidade-container">
+  <!-- Fundo semi-transparente com blur (clicar nele fecha o balão) -->
+  <div class="disponibilidade-backdrop" (click)="voltar()">
 
-    <p class="titulo">{{ quadra.nome }}</p>
-    <p class="subtitulo">Disponibilidade de horários</p>
+    <!-- Card / Balão Flutuante (stopPropagation impede de fechar ao clicar dentro do card) -->
+    <div class="disponibilidade-card" (click)="$event.stopPropagation()">
 
-    <ion-datetime
-      presentation="date"
-      [min]="dataMinima"
-      [value]="dataSelecionada"
-      (ionChange)="onDataSelecionada($event)">
-    </ion-datetime>
-
-    <div class="horarios-lista">
-      <div class="horario-item" *ngFor="let item of horarios"
-        [class.livre]="item.status === 'LIVRE'"
-        [class.alugado]="item.status === 'ALUGADO'"
-        [class.fechado]="item.status === 'FECHADO'"
-        (click)="onClicarHorario(item)">
-
-        <span class="horario-hora">{{ item.horaFormatada }}</span>
-        <span class="horario-status">{{ item.status }}</span>
+      <!-- Cabeçalho do Balão -->
+      <div class="card-header">
+        <div class="header-info">
+          <p class="titulo-quadra">{{ quadra.nome || 'Quadra' }}</p>
+          <p class="subtitulo-balao">Selecione uma data para ver os horários</p>
+        </div>
+        <button class="btn-fechar" (click)="voltar()">✕</button>
       </div>
+
+      <!-- Calendário Interativo -->
+      <div class="calendario-wrapper">
+        <ion-datetime
+          presentation="date"
+          [min]="dataMinima"
+          [value]="dataSelecionada"
+          (ionChange)="onDataSelecionada($event)">
+        </ion-datetime>
+      </div>
+
+      <!-- Seção que Expande com os Horários -->
+      <div class="horarios-secao" *ngIf="mostrarHorarios">
+        <div class="horarios-header">
+          <p class="data-titulo">Horários para {{ dataFormatadaPT }}</p>
+          <span class="dica-proprietario" *ngIf="ehProprietario">Toque para alterar status</span>
+        </div>
+
+        <!-- Grade de Horários -->
+        <div class="horarios-grid">
+          <div class="horario-pill" *ngFor="let item of horarios"
+            [class.livre]="item.status === 'LIVRE'"
+            [class.alugado]="item.status === 'ALUGADO'"
+            [class.fechado]="item.status === 'FECHADO'"
+            (click)="onClicarHorario(item)">
+
+            <span class="horario-hora">{{ item.horaFormatada }}</span>
+            <span class="horario-status-badge">{{ item.status }}</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>

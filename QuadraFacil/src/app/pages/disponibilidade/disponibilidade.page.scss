@@ -1,75 +1,241 @@
 ion-content {
-  --background: #ffffff;
-  --padding-top: 56px;
+  --background: transparent !important; // Deixa o fundo do ion-content 100% transparente
+  --padding-top: 0px !important;
 }
 
-.disponibilidade-container {
-  padding: 20px;
-  max-width: 480px;
-  margin: 0 auto;
-
-  .titulo {
-    font-size: 20px;
-    font-weight: 800;
-    color: #1a1a2e;
-    margin: 0 0 4px;
-  }
-
-  .subtitulo {
-    font-size: 13px;
-    color: #888888;
-    margin: 0 0 16px;
-  }
-}
-
-ion-datetime {
-  width: 100%;
-  border-radius: 16px;
-  border: 1px solid #e0e0e0;
-  margin-bottom: 20px;
-}
-
-.horarios-lista {
+/* FUNDO ESCURECIDO COM EFEITO DE VIDRO (BLUR) */
+.disponibilidade-backdrop {
+  min-height: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px 40px;
+  background: rgba(0, 0, 0, 0.65); /* Fundo escuro semi-transparente */
+  backdrop-filter: blur(8px);       /* Desfoque suave do fundo */
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.horario-item {
+/* BALÃO / CARD FLUTUANTE */
+.disponibilidade-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+  animation: modalSurgir 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSurgir {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Cabeçalho do Card */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+
+  .header-info {
+    flex: 1;
+
+    .titulo-quadra {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--app-text-title);
+      margin: 0 0 4px 0;
+    }
+
+    .subtitulo-balao {
+      font-size: 13px;
+      color: var(--app-text-muted);
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  .btn-fechar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--app-input-bg);
+    border: 1px solid var(--app-input-border);
+    color: var(--app-text-title);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+    transition: transform 0.15s ease;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+/* Calendário */
+.calendario-wrapper {
+  background: var(--app-bg-secondary);
+  border: 1px solid var(--app-card-border);
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 16px;
+
+  ion-datetime {
+    width: 100%;
+    --background: transparent;
+    --wheel-highlight-background: transparent;
+    color: var(--app-text-title);
+  }
+}
+
+/* SEÇÃO EXPANSÍVEL DE HORÁRIOS */
+.horarios-secao {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--app-card-border);
+  animation: expandir 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  .horarios-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+
+    .data-titulo {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--app-text-title);
+      margin: 0;
+    }
+
+    .dica-proprietario {
+      font-size: 11px;
+      color: var(--app-text-muted);
+      font-style: italic;
+    }
+  }
+}
+
+@keyframes expandir {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* GRADE DE HORÁRIOS */
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--app-card-border);
+    border-radius: 10px;
+  }
+}
+
+.horario-pill {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  border-radius: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
   cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease;
+
+  &:active {
+    transform: scale(0.96);
+  }
 
   .horario-hora {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: #1a1a2e;
   }
 
-  .horario-status {
-    font-size: 12px;
-    font-weight: 600;
+  .horario-status-badge {
+    font-size: 10px;
+    font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 50px;
   }
 
+  /* Status: LIVRE */
   &.livre {
     background: #e8f9ee;
+    border-color: #d4f4de;
 
-    .horario-status { color: #27ae60; }
+    .horario-hora { color: #1e824c; }
+    .horario-status-badge { background: #d4f4de; color: #27ae60; }
+  }
+
+  /* Status: ALUGADO */
+  &.alugado {
+    background: #fdecea;
+    border-color: #fadbd8;
+
+    .horario-hora { color: #c0392b; }
+    .horario-status-badge { background: #fadbd8; color: #e74c3c; }
+  }
+
+  /* Status: FECHADO */
+  &.fechado {
+    background: #f0f0f0;
+    border-color: #e0e0e0;
+
+    .horario-hora { color: #777777; }
+    .horario-status-badge { background: #e0e0e0; color: #888888; }
+  }
+}
+
+/* Modo Escuro */
+body.dark .horario-pill {
+  &.livre {
+    background: rgba(39, 174, 96, 0.15);
+    border-color: rgba(39, 174, 96, 0.3);
+    .horario-hora { color: #2ecc71; }
+    .horario-status-badge { background: rgba(39, 174, 96, 0.25); color: #2ecc71; }
   }
 
   &.alugado {
-    background: #fdecea;
-
-    .horario-status { color: #e74c3c; }
+    background: rgba(231, 76, 60, 0.15);
+    border-color: rgba(231, 76, 60, 0.3);
+    .horario-hora { color: #e74c3c; }
+    .horario-status-badge { background: rgba(231, 76, 60, 0.25); color: #e74c3c; }
   }
 
   &.fechado {
-    background: #f0f0f0;
-
-    .horario-status { color: #888888; }
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    .horario-hora { color: #888888; }
+    .horario-status-badge { background: rgba(255, 255, 255, 0.1); color: #888888; }
   }
 }

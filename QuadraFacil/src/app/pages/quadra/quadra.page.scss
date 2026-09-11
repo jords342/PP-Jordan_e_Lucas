@@ -118,7 +118,25 @@
 
 .acao-area {
   padding: 8px 20px 16px;
-  .btn-primario { width: 100%; height: 48px; }
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+
+  ion-button {
+    flex: 1 1 0 !important; /* Força exatamente 50% de largura para cada um */
+    width: auto !important;  /* Impede de ocupar 100% e quebrar linha */
+    height: 46px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    --padding-start: 8px !important;
+    --padding-end: 8px !important;
+    white-space: nowrap !important;
+  }
 }
 
 .avaliacoes-area {

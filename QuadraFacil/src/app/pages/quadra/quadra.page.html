@@ -4,25 +4,22 @@
 
     <!-- CARROSSEL DE FOTOS COM GESTOS E BOTÕES -->
     <div class="carrossel-container" *ngIf="fotos.length > 0">
-      
-      <!-- Trilha de Slides com Gesto de Arrastar -->
+
       <div class="carrossel-track" #carrossel (scroll)="aoRolarCarrossel()">
         <div class="carrossel-slide" *ngFor="let foto of fotos; let i = index">
           <img [src]="foto.imagemBase64" alt="Foto {{ i + 1 }} da quadra">
         </div>
       </div>
 
-      <!-- Botão Anterior (<) -->
       <button class="nav-btn nav-prev" *ngIf="fotos.length > 1 && fotoAtualIndex > 0" (click)="fotoAnterior()">
         <ion-icon name="chevron-back-outline"></ion-icon>
       </button>
 
-      <!-- Botão Próximo (>) -->
-      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1" (click)="proximaFoto()">
+      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1"
+        (click)="proximaFoto()">
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </button>
 
-      <!-- Indicador da Foto Atual (Ex: 1 / 4) -->
       <div class="indicador-contador" *ngIf="fotos.length > 1">
         <span>{{ fotoAtualIndex + 1 }} / {{ fotos.length }}</span>
       </div>
@@ -44,34 +41,34 @@
         <span>{{ media.toFixed(1) }} ({{ avaliacoes.length }})</span>
       </div>
 
-      <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
+      <p class="quadra-endereco">Endereço: {{ quadra.endereco }}</p>
       <p class="quadra-proprietario">Cadastrante: {{ nomeProprietario }}</p>
     </div>
 
-    <!-- Ação Principal: Conversar com o Proprietário -->
-    <div class="acao-area" *ngIf="quadra.proprietarioId !== usuarioAtualId">
-      <ion-button expand="block" shape="round" class="btn-primario" (click)="enviarMensagem()">
-        💬 Conversar com o Proprietário
+    <!-- AÇÕES PRINCIPAIS: Lado a lado com mesma proporção (50/50) -->
+    <div class="acao-area">
+      <ion-button shape="round" class="btn-primario" *ngIf="quadra.proprietarioId !== usuarioAtualId"
+        (click)="enviarMensagem()">
+        Conversar
+      </ion-button>
+
+      <ion-button shape="round" class="btn-secundario" *ngIf="quadra.situacao === 'ATIVA'"
+        (click)="irParaDisponibilidade()">
+        Alugar Quadra
       </ion-button>
     </div>
-
-    <button class="btn-alugar" *ngIf="quadra.situacao === 'ATIVA'" (click)="irParaDisponibilidade()">
-       Alugar quadra
-    </button>
 
     <!-- Seção de Avaliações -->
     <div class="avaliacoes-area">
       <div class="avaliacoes-header">
         <p class="avaliacoes-titulo">Avaliações</p>
 
-        <!-- Botão compacto para Avaliar -->
         <button class="btn-pequeno btn-avaliar-pequeno" *ngIf="!usuarioJaAvaliou" (click)="irParaComentar()">
-          ⭐ Avaliar
+          Avaliar
         </button>
 
-        <!-- Botão compacto para Excluir Avaliação existente -->
         <button class="btn-pequeno btn-excluir-pequeno" *ngIf="usuarioJaAvaliou" (click)="excluirAvaliacao()">
-          🗑️ Excluir minha nota
+          Excluir minha nota
         </button>
       </div>
 
