@@ -1,65 +1,38 @@
-<ion-content [fullscreen]="true">
-  <div class="main-container">
+<ion-content [fullscreen]="false">
+  <div class="perfil-container">
+
     <p class="titulo">Meu Perfil</p>
     <p class="subtitulo">Gerencie suas informações pessoais.</p>
 
-    <!-- Foto de perfil -->
-    <div class="foto-area" (click)="selecionarFoto()">
-      <img *ngIf="fotoPerfil" [src]="fotoPerfil" alt="Foto de perfil">
-      <div *ngIf="!fotoPerfil" class="sem-foto">
-        <ion-icon name="person-outline"></ion-icon>
+    <!-- Foto do Perfil com Câmera -->
+    <div class="foto-perfil-area">
+      <div class="foto-wrapper" (click)="selecionarFoto()">
+        <img *ngIf="fotoPerfilPreview" [src]="fotoPerfilPreview" alt="Foto de perfil">
+        <ion-icon *ngIf="!fotoPerfilPreview" name="person-circle-outline"></ion-icon>
+        <div class="badge-camera">
+          <ion-icon name="camera-outline"></ion-icon>
+        </div>
       </div>
-      <div class="foto-overlay">
-        <ion-icon name="camera-outline"></ion-icon>
-      </div>
+      <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
     </div>
-
-    <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
 
     <form [formGroup]="formGroup" (ngSubmit)="salvar()">
 
-      <!-- Nome de usuário -->
+      <!-- Campo Nome de Usuário -->
       <div class="input-wrapper">
-        <ion-input type="text" formControlName="nomeUsuario" placeholder="Nome de usuário" fill="outline" shape="round">
-        </ion-input>
+        <ion-input type="text" formControlName="nomeUsuario" placeholder="Nome de usuário"></ion-input>
       </div>
 
-      <!-- Email (somente leitura) -->
+      <!-- Campo E-mail -->
       <div class="input-wrapper">
-        <ion-input type="email" [value]="usuario.email" placeholder="E-mail" fill="outline" shape="round"
-          [disabled]="true">
-        </ion-input>
+        <ion-input type="email" formControlName="email" placeholder="E-mail"></ion-input>
       </div>
 
-      <button type="button" class="link-alterar-senha" *ngIf="!alterandoSenha" (click)="mostrarAlterarSenha()">
-        Alterar senha
-      </button>
+      <!-- Link de Alterar Senha -->
+      <p class="link-alterar-senha" (click)="irParaEsqueceuSenha()">Alterar senha</p>
 
-      <div class="senha-area" *ngIf="alterandoSenha">
-        <p class="secao-titulo">Nova senha</p>
-
-        <div class="input-wrapper">
-          <ion-input type="password" formControlName="novaSenha" placeholder="Nova senha" fill="outline" shape="round">
-          </ion-input>
-        </div>
-
-        <div class="input-wrapper">
-          <ion-input type="password" formControlName="confirmarSenha" placeholder="Confirmar nova senha" fill="outline"
-            shape="round">
-          </ion-input>
-        </div>
-        <div class="balao-erro"
-          *ngIf="formGroup.hasError('senhasDiferentes') && formGroup.get('confirmarSenha')?.value">
-          <span>As senhas não coincidem.</span>
-        </div>
-
-        <button type="button" class="link-cancelar-senha" (click)="cancelarAlterarSenha()">
-          Cancelar alteração de senha
-        </button>
-      </div>
-
-      <ion-button expand="block" color="primary" shape="round" class="btn-salvar" type="submit"
-        [disabled]="!formGroup.valid">
+      <!-- Botão Salvar no Padrão do App -->
+      <ion-button expand="block" shape="round" class="btn-primario" type="submit" [disabled]="!formGroup.valid">
         Salvar Alterações
       </ion-button>
 
