@@ -4,7 +4,8 @@
 
     <!-- CARROSSEL DE FOTOS -->
     <div class="carrossel-container" *ngIf="fotos.length > 0">
-      
+
+
       <div class="carrossel-track" #carrossel (scroll)="aoRolarCarrossel()">
         <div class="carrossel-slide" *ngFor="let foto of fotos; let i = index">
           <img [src]="foto.imagemBase64" alt="Foto {{ i + 1 }} da quadra">
@@ -15,7 +16,9 @@
         <ion-icon name="chevron-back-outline"></ion-icon>
       </button>
 
-      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1" (click)="proximaFoto()">
+
+      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1"
+        (click)="proximaFoto()">
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </button>
 
