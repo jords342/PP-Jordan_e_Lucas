@@ -10,7 +10,7 @@
     <form [formGroup]="formGroup" (ngSubmit)="cadastrar()">
       
       <!-- Nome de usuário -->
-      <div class="input-wrapper" [class.has-error]="formGroup.get('nomeUsuario')?.invalid && formGroup.get('nomeUsuario')?.touched">
+      <div class="app-input-wrapper" [class.has-error]="formGroup.get('nomeUsuario')?.invalid && formGroup.get('nomeUsuario')?.touched">
         <ion-input type="text" formControlName="nomeUsuario" placeholder="Nome de usuário"></ion-input>
       </div>
       <div class="balao-erro" *ngIf="formGroup.get('nomeUsuario')?.invalid && formGroup.get('nomeUsuario')?.touched">
@@ -18,7 +18,7 @@
       </div>
 
       <!-- E-mail -->
-      <div class="input-wrapper" [class.has-error]="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
+      <div class="app-input-wrapper" [class.has-error]="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
         <ion-input type="email" formControlName="email" placeholder="E-mail"></ion-input>
       </div>
       <div class="balao-erro" *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
@@ -27,26 +27,30 @@
       </div>
 
       <!-- Senha -->
-      <div class="input-wrapper" [class.has-error]="formGroup.get('senha')?.invalid && formGroup.get('senha')?.touched">
+      <div class="app-input-wrapper" [class.has-error]="formGroup.get('senha')?.invalid && formGroup.get('senha')?.touched">
         <ion-input type="password" formControlName="senha" placeholder="Senha"></ion-input>
       </div>
       <div class="balao-erro" *ngIf="formGroup.get('senha')?.invalid && formGroup.get('senha')?.touched">
         <span *ngIf="formGroup.get('senha')?.hasError('required')">A senha é obrigatória.</span>
+        <span *ngIf="formGroup.get('senha')?.hasError('minlength')">A senha deve ter no mínimo 6 caracteres.</span>
       </div>
 
       <!-- Confirmar Senha -->
-      <div class="input-wrapper" [class.has-error]="formGroup.get('confirmarSenha')?.invalid && formGroup.get('confirmarSenha')?.touched">
+      <div class="app-input-wrapper" [class.has-error]="formGroup.get('confirmarSenha')?.touched && (formGroup.get('confirmarSenha')?.invalid || formGroup.get('senha')?.value !== formGroup.get('confirmarSenha')?.value)">
         <ion-input type="password" formControlName="confirmarSenha" placeholder="Confirmar senha"></ion-input>
       </div>
-      <div class="balao-erro" *ngIf="formGroup.get('confirmarSenha')?.invalid && formGroup.get('confirmarSenha')?.touched">
+      <div class="balao-erro" *ngIf="formGroup.get('confirmarSenha')?.touched && (formGroup.get('confirmarSenha')?.invalid || formGroup.get('senha')?.value !== formGroup.get('confirmarSenha')?.value)">
         <span *ngIf="formGroup.get('confirmarSenha')?.hasError('required')">Confirme a sua senha.</span>
+        <span *ngIf="!formGroup.get('confirmarSenha')?.hasError('required') && (formGroup.get('senha')?.value !== formGroup.get('confirmarSenha')?.value)">
+          As senhas não coincidem.
+        </span>
       </div>
 
       <div class="botoes">
         <ion-button class="btn-secundario" shape="round" (click)="irParaLogin()">
           Já tenho conta
         </ion-button>
-        <ion-button class="btn-primario" shape="round" type="submit" [disabled]="!formGroup.valid">
+        <ion-button class="btn-primario" shape="round" type="submit" [disabled]="!formGroup.valid || formGroup.get('senha')?.value !== formGroup.get('confirmarSenha')?.value">
           Cadastrar
         </ion-button>
       </div>

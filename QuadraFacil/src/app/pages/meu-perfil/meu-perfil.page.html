@@ -4,7 +4,6 @@
     <p class="titulo">Meu Perfil</p>
     <p class="subtitulo">Gerencie suas informações pessoais.</p>
 
-    <!-- Foto do Perfil com Câmera -->
     <div class="foto-perfil-area">
       <div class="foto-wrapper" (click)="selecionarFoto()">
         <img *ngIf="fotoPerfilPreview" [src]="fotoPerfilPreview" alt="Foto de perfil">
@@ -18,20 +17,16 @@
 
     <form [formGroup]="formGroup" (ngSubmit)="salvar()">
 
-      <!-- Campo Nome de Usuário -->
-      <div class="input-wrapper">
+      <div class="app-input-wrapper">
         <ion-input type="text" formControlName="nomeUsuario" placeholder="Nome de usuário"></ion-input>
       </div>
 
-      <!-- Campo E-mail -->
-      <div class="input-wrapper">
+      <div class="app-input-wrapper">
         <ion-input type="email" formControlName="email" placeholder="E-mail"></ion-input>
       </div>
 
-      <!-- Link de Alterar Senha -->
       <p class="link-alterar-senha" (click)="irParaEsqueceuSenha()">Alterar senha</p>
 
-      <!-- Botão Salvar no Padrão do App -->
       <ion-button expand="block" shape="round" class="btn-primario" type="submit" [disabled]="!formGroup.valid">
         Salvar Alterações
       </ion-button>

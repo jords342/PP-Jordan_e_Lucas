@@ -1,8 +1,3 @@
-/*
- * App Global CSS - QuadraFácil
- * ----------------------------------------------------------------------------
- */
-
 /* Core CSS do Ionic */
 @import "@ionic/angular/css/core.css";
 @import "@ionic/angular/css/normalize.css";
@@ -14,12 +9,10 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
-/* Ativação do Modo Escuro baseado na classe .dark */
 @import "@ionic/angular/css/palettes/dark.class.css";
 
 /* ==========================================================================
-   PALETA DE CORES DINÂMICA (MODO CLARO E ESCURO)
+   PALETA DE CORES DINÂMICA
    ========================================================================== */
 
 :root {
@@ -47,9 +40,9 @@ body.dark {
   --app-bg: #121212;
   --app-card-bg: #1e1e1e;
   --app-card-border: #2d2d2d;
-  --app-text-title: #ffffff;   /* Branco no modo escuro */
-  --app-text-body: #e0e0e0;    /* Cinza claro */
-  --app-text-muted: #aaaaaa;   /* Cinza médio */
+  --app-text-title: #ffffff;
+  --app-text-body: #e0e0e0;
+  --app-text-muted: #aaaaaa;
   --app-input-bg: #1e1e1e;
   --app-input-border: #3a3a3a;
   --app-btn-sec-bg: #1e1e1e;
@@ -71,12 +64,10 @@ ion-content {
   --padding-top: 64px;
 }
 
-/* Inverte as cores da logo com precisão no modo escuro */
 body.dark .logo-area img {
   filter: invert(1);
 }
 
-/* Títulos e Tipografia */
 .saudacao, .titulo {
   font-size: 20px;
   font-weight: 800;
@@ -92,20 +83,18 @@ body.dark .logo-area img {
   font-weight: 500;
 }
 
-/* ==========================================================================
-   3. INPUTS EM PÍLULA (1 ÚNICA BORDA LISA COM RECUO DE 28PX)
-   ========================================================================== */
-.input-wrapper {
+/* 3. Inputs em Pílula (Classe Exclusiva: .app-input-wrapper) */
+.app-input-wrapper {
   width: 100%;
   height: 46px;
   margin-bottom: 14px;
-  background: var(--app-input-bg) !important;
-  border: 1.5px solid var(--app-input-border) !important;
-  border-radius: 50px !important;
-  padding: 0 28px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  align-items: center !important;
+  background: var(--app-input-bg);
+  border: 1.5px solid var(--app-input-border);
+  border-radius: 50px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   transition: all 0.25s ease;
 
   &.has-error {
@@ -115,45 +104,39 @@ body.dark .logo-area img {
   }
 
   ion-input, input {
-    width: 100% !important;
-    height: 100% !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    --background: transparent !important;
-    --color: var(--app-text-body) !important;
-    --placeholder-color: var(--app-text-muted) !important;
-    --placeholder-opacity: 1 !important;
-    --padding-start: 0 !important;
-    --padding-end: 0 !important;
-    --padding-top: 0 !important;
-    --padding-bottom: 0 !important;
-    --highlight-height: 0px !important;
-    --border-width: 0px !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    width: 100%;
+    height: 100%;
+    --background: transparent;
+    --color: var(--app-text-body);
+    --placeholder-color: var(--app-text-muted);
+    --placeholder-opacity: 1;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --highlight-height: 0px;
+    --border-width: 0px;
+    border: none;
+    outline: none;
     font-size: 14px;
     font-weight: 600;
 
     &::part(container),
-    &::part(native),
-    &::part(input-wrapper) {
-      border: none !important;
-      outline: none !important;
-      box-shadow: none !important;
-      background: transparent !important;
-      padding: 0 !important;
-      margin: 0 !important;
+    &::part(native) {
+      border: none;
+      outline: none;
+      box-shadow: none;
+      background: transparent;
+      padding: 0;
     }
 
     &::part(highlight-bottom) {
-      display: none !important;
+      display: none;
     }
   }
 }
 
-/* Balão de Alerta de Erro com Triângulo */
+/* Balão de Alerta de Erro */
 .balao-erro {
   position: relative;
   background-color: #e74c3c;
@@ -180,17 +163,11 @@ body.dark .logo-area img {
 }
 
 @keyframes surgimento {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Botões Padronizados */
+/* Botões */
 .botoes {
   width: 100%;
   display: flex;
@@ -243,7 +220,7 @@ body.dark .btn-primario {
   text-transform: uppercase;
 }
 
-/* Cards de Quadras (Início, Procurar, Minhas Quadras) */
+/* Cards de Quadras */
 .quadra-card {
   background: var(--app-card-bg) !important;
   border-radius: 16px;
