@@ -1,19 +1,10 @@
 <ion-content [fullscreen]="false" [scrollEvents]="true">
 
   <div class="quadra-container">
-    <ion-button expand="block" color="medium" shape="round" class="btn-editar"
-      *ngIf="quadra.proprietarioId === usuarioAtualId" (click)="irParaEditar()">
 
-      Editar Quadra
-
-    </ion-button>
-    <!-- CARROSSEL DE FOTOS COM GESTOS E BOTÕES -->
+    <!-- CARROSSEL DE FOTOS -->
     <div class="carrossel-container" *ngIf="fotos.length > 0">
-
-<<<<<<< Updated upstream
-=======
-      <!-- Trilha de Slides com Gesto de Arrastar -->
->>>>>>> Stashed changes
+      
       <div class="carrossel-track" #carrossel (scroll)="aoRolarCarrossel()">
         <div class="carrossel-slide" *ngFor="let foto of fotos; let i = index">
           <img [src]="foto.imagemBase64" alt="Foto {{ i + 1 }} da quadra">
@@ -24,12 +15,7 @@
         <ion-icon name="chevron-back-outline"></ion-icon>
       </button>
 
-<<<<<<< Updated upstream
-=======
-      <!-- Botão Próximo (>) -->
->>>>>>> Stashed changes
-      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1"
-        (click)="proximaFoto()">
+      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1" (click)="proximaFoto()">
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </button>
 
@@ -44,6 +30,14 @@
       <p>Sem fotos disponíveis</p>
     </div>
 
+    <!-- Botão de Editar para o Proprietário -->
+    <div class="proprietario-area" *ngIf="quadra.proprietarioId === usuarioAtualId">
+      <ion-button expand="block" shape="round" class="btn-secundario" (click)="irParaEditar()">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        Editar Informações da Quadra
+      </ion-button>
+    </div>
+
     <!-- Dados da Quadra -->
     <div class="dados-area">
       <p class="quadra-nome">{{ quadra.nome }}</p>
@@ -54,40 +48,45 @@
         <span>{{ media.toFixed(1) }} ({{ avaliacoes.length }})</span>
       </div>
 
-      <p class="quadra-endereco">Endereço: {{ quadra.endereco }}</p>
-      <p class="quadra-proprietario">Cadastrante: {{ nomeProprietario }}</p>
+      <p class="quadra-endereco">
+        <ion-icon name="location-outline"></ion-icon>
+        {{ quadra.endereco }}
+      </p>
+      <p class="quadra-proprietario">
+        <ion-icon name="person-outline"></ion-icon>
+        Cadastrante: {{ nomeProprietario }}
+      </p>
     </div>
 
-    <!-- AÇÕES PRINCIPAIS: Lado a lado com mesma proporção (50/50) -->
+    <!-- AÇÕES PRINCIPAIS -->
     <div class="acao-area">
-      <ion-button shape="round" class="btn-primario" *ngIf="quadra.proprietarioId !== usuarioAtualId"
+      <ion-button shape="round" class="btn-primario" 
+        *ngIf="quadra.proprietarioId !== usuarioAtualId" 
         (click)="enviarMensagem()">
+        <ion-icon name="chatbubble-ellipses-outline" slot="start"></ion-icon>
         Conversar
       </ion-button>
-
-      <ion-button shape="round" class="btn-secundario" *ngIf="quadra.situacao === 'ATIVA'"
+   
+      <ion-button shape="round" class="btn-secundario" 
+        *ngIf="quadra.situacao === 'ATIVA'" 
         (click)="irParaDisponibilidade()">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
         Alugar Quadra
       </ion-button>
     </div>
 
-<<<<<<< Updated upstream
-=======
-    <button class="btn-alugar" *ngIf="quadra.situacao === 'ATIVA'" (click)="irParaDisponibilidade()">
-      Alugar quadra
-    </button>
-
->>>>>>> Stashed changes
     <!-- Seção de Avaliações -->
     <div class="avaliacoes-area">
       <div class="avaliacoes-header">
         <p class="avaliacoes-titulo">Avaliações</p>
 
         <button class="btn-pequeno btn-avaliar-pequeno" *ngIf="!usuarioJaAvaliou" (click)="irParaComentar()">
+          <ion-icon name="star-outline"></ion-icon>
           Avaliar
         </button>
 
         <button class="btn-pequeno btn-excluir-pequeno" *ngIf="usuarioJaAvaliou" (click)="excluirAvaliacao()">
+          <ion-icon name="trash-outline"></ion-icon>
           Excluir minha nota
         </button>
       </div>

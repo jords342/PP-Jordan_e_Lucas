@@ -4,9 +4,7 @@
   padding-bottom: 40px;
 }
 
-/* ==========================================================================
-   CARROSSEL DE FOTOS COM GESTOS E BOTÕES
-   ========================================================================== */
+/* CARROSSEL */
 .carrossel-container {
   position: relative;
   width: 100%;
@@ -22,10 +20,7 @@
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    &::-webkit-scrollbar { display: none; }
   }
 
   .carrossel-slide {
@@ -44,7 +39,6 @@
     }
   }
 
-  /* Botões de Navegação (< e >) */
   .nav-btn {
     position: absolute;
     top: 50%;
@@ -54,51 +48,39 @@
     border-radius: 50%;
     border: none;
     background: rgba(0, 0, 0, 0.65);
-    color: #ffffff;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 10;
     backdrop-filter: blur(4px);
-    transition: transform 0.15s ease, background 0.2s ease;
+    transition: transform 0.15s ease;
 
     &:active {
       transform: translateY(-50%) scale(0.9);
-      background: rgba(0, 0, 0, 0.85);
     }
 
-    &.nav-prev {
-      left: 12px;
-    }
-
-    &.nav-next {
-      right: 12px;
-    }
-
-    ion-icon {
-      font-size: 20px;
-    }
+    &.nav-prev { left: 12px; }
+    &.nav-next { right: 12px; }
+    ion-icon { font-size: 20px; }
   }
 
-  /* Indicador da Foto Atual */
   .indicador-contador {
     position: absolute;
     bottom: 12px;
     right: 14px;
     background: rgba(0, 0, 0, 0.75);
-    color: #ffffff;
+    color: #fff;
     padding: 4px 12px;
     border-radius: 50px;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.5px;
     backdrop-filter: blur(4px);
     z-index: 10;
   }
 }
 
-/* Fallback quando não houver fotos */
 .sem-foto-hero {
   width: 100%;
   height: 220px;
@@ -109,21 +91,17 @@
   justify-content: center;
   color: var(--app-text-muted);
   gap: 8px;
-
-  ion-icon {
-    font-size: 56px;
-  }
-
-  p {
-    font-size: 13px;
-    font-weight: 600;
-    margin: 0;
-  }
+  ion-icon { font-size: 56px; }
+  p { font-size: 13px; font-weight: 600; margin: 0; }
 }
 
-/* DADOS DA QUADRA */
+.proprietario-area {
+  padding: 16px 20px 0;
+  .btn-secundario { width: 100%; height: 42px; font-size: 12px; }
+}
+
 .dados-area {
-  padding: 24px 20px 12px;
+  padding: 20px 20px 12px;
 
   .quadra-nome {
     font-size: 22px;
@@ -137,22 +115,11 @@
     align-items: center;
     gap: 4px;
     margin-bottom: 12px;
-
-    ion-icon {
-      font-size: 16px;
-      color: #f5a623;
-    }
-
-    span {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--app-text-muted);
-      margin-left: 4px;
-    }
+    ion-icon { font-size: 16px; color: #f5a623; }
+    span { font-size: 13px; font-weight: 600; color: var(--app-text-muted); margin-left: 4px; }
   }
 
-  .quadra-endereco,
-  .quadra-proprietario {
+  .quadra-endereco, .quadra-proprietario {
     font-size: 14px;
     color: var(--app-text-muted);
     margin: 0 0 6px 0;
@@ -160,7 +127,6 @@
   }
 }
 
-/* AÇÕES PRINCIPAIS (BOTÕES LADO A LADO 50/50) */
 .acao-area {
   padding: 8px 20px 16px;
   display: flex !important;
@@ -184,7 +150,6 @@
   }
 }
 
-/* SEÇÃO DE AVALIAÇÕES */
 .avaliacoes-area {
   padding: 12px 20px 20px;
 
@@ -208,26 +173,17 @@
       font-weight: 600;
       cursor: pointer;
       border: 1.5px solid transparent;
-      transition: all 0.2s ease;
 
       &.btn-avaliar-pequeno {
         background: var(--app-btn-sec-bg);
         color: var(--app-btn-sec-text);
         border-color: var(--app-btn-sec-border);
-
-        &:active {
-          opacity: 0.7;
-        }
       }
 
       &.btn-excluir-pequeno {
         background: transparent;
         color: #e74c3c;
         border-color: #e74c3c;
-
-        &:active {
-          opacity: 0.7;
-        }
       }
     }
   }
@@ -251,20 +207,8 @@
       justify-content: space-between;
       margin-bottom: 8px;
 
-      .avaliacao-autor {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--app-text-title);
-      }
-
-      .avaliacao-estrelas {
-        display: flex;
-
-        ion-icon {
-          font-size: 14px;
-          color: #f5a623;
-        }
-      }
+      .avaliacao-autor { font-size: 14px; font-weight: 700; color: var(--app-text-title); }
+      .avaliacao-estrelas { display: flex; ion-icon { font-size: 14px; color: #f5a623; } }
     }
 
     .avaliacao-comentario {

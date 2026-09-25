@@ -7,9 +7,18 @@
 
     <div class="quadra-card" *ngFor="let quadra of quadras">
       <p class="quadra-nome">{{ quadra.nome }}</p>
-      <p class="quadra-info">📍 {{ quadra.endereco }}</p>
-      <p class="quadra-info">👤 Proprietário: {{ quadra.proprietarioId }}</p>
-      <p class="quadra-info">📅 Criado em: {{ quadra.criadoEm | date:'dd/MM/yyyy' }}</p>
+      <p class="quadra-info">
+        <ion-icon name="location-outline"></ion-icon>
+        {{ quadra.endereco }}
+      </p>
+      <p class="quadra-info">
+        <ion-icon name="person-outline"></ion-icon>
+        Proprietário: {{ quadra.proprietarioId }}
+      </p>
+      <p class="quadra-info">
+        <ion-icon name="calendar-outline"></ion-icon>
+        Criado em: {{ quadra.criadoEm | date:'dd/MM/yyyy' }}
+      </p>
 
       <div class="card-botoes">
         <ion-button class="btn-primario" shape="round" (click)="aceitar(quadra)">

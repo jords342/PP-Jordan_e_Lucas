@@ -1,11 +1,8 @@
 <ion-content [fullscreen]="false">
-  <!-- Fundo semi-transparente com blur (clicar nele fecha o balão) -->
   <div class="disponibilidade-backdrop" (click)="voltar()">
 
-    <!-- Card / Balão Flutuante (stopPropagation impede de fechar ao clicar dentro do card) -->
     <div class="disponibilidade-card" (click)="$event.stopPropagation()">
 
-      <!-- Cabeçalho do Balão -->
       <div class="card-header">
         <div class="header-info">
           <p class="titulo-quadra">{{ quadra.nome || 'Quadra' }}</p>
@@ -14,7 +11,6 @@
         <button class="btn-fechar" (click)="voltar()">✕</button>
       </div>
 
-      <!-- Calendário Interativo -->
       <div class="calendario-wrapper">
         <ion-datetime
           presentation="date"
@@ -24,14 +20,15 @@
         </ion-datetime>
       </div>
 
-      <!-- Seção que Expande com os Horários -->
       <div class="horarios-secao" *ngIf="mostrarHorarios">
         <div class="horarios-header">
-          <p class="data-titulo">Horários para {{ dataFormatadaPT }}</p>
+          <p class="data-titulo">
+            <ion-icon name="calendar-outline"></ion-icon>
+            Horários para {{ dataFormatadaPT }}
+          </p>
           <span class="dica-proprietario" *ngIf="ehProprietario">Toque para alterar status</span>
         </div>
 
-        <!-- Grade de Horários -->
         <div class="horarios-grid">
           <div class="horario-pill" *ngFor="let item of horarios"
             [class.livre]="item.status === 'LIVRE'"

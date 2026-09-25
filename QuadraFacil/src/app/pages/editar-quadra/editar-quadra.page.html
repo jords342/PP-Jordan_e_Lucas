@@ -1,30 +1,35 @@
-<ion-content [fullscreen]="false">
-  <div class="criar-quadra-container">
+<ion-content [fullscreen]="false" [scrollEvents]="true">
+  <div class="editar-quadra-container">
 
-    <p class="saudacao">Editar Quadra</p>
+    <p class="titulo">Editar Quadra</p>
 
     <form [formGroup]="formGroup" (ngSubmit)="salvar()">
 
-      <div class="input-wrapper">
-        <ion-input type="text" formControlName="nome" placeholder="Nome da quadra" fill="outline" shape="round">
-        </ion-input>
+      <!-- Nome -->
+      <div class="app-input-wrapper">
+        <ion-input type="text" formControlName="nome" placeholder="Nome da quadra"></ion-input>
       </div>
 
-      <div class="input-wrapper">
-        <ion-input type="text" formControlName="endereco" placeholder="Endereço" fill="outline" shape="round">
-        </ion-input>
+      <!-- Endereço -->
+      <div class="app-input-wrapper">
+        <ion-input type="text" formControlName="endereco" placeholder="Endereço"></ion-input>
       </div>
-      <div class="input-wrapper">
-        <ion-select formControlName="horaAbertura" placeholder="Horário de abertura" fill="outline" shape="round"
-          interface="popover">
-          <ion-select-option *ngFor="let h of horasDisponiveis" [value]="h">{{ h }}h</ion-select-option>
+
+      <!-- Horário de Abertura -->
+      <div class="app-input-wrapper">
+        <ion-select formControlName="horaAbertura" placeholder="Horário de abertura" interface="popover">
+          <ion-select-option *ngFor="let h of horasDisponiveis" [value]="h">
+            Abertura: {{ h }}h
+          </ion-select-option>
         </ion-select>
       </div>
 
-      <div class="input-wrapper">
-        <ion-select formControlName="horaFechamento" placeholder="Horário de fechamento" fill="outline" shape="round"
-          interface="popover">
-          <ion-select-option *ngFor="let h of horasDisponiveis" [value]="h">{{ h }}h</ion-select-option>
+      <!-- Horário de Fechamento -->
+      <div class="app-input-wrapper">
+        <ion-select formControlName="horaFechamento" placeholder="Horário de fechamento" interface="popover">
+          <ion-select-option *ngFor="let h of horasDisponiveis" [value]="h">
+            Fechamento: {{ h }}h
+          </ion-select-option>
         </ion-select>
       </div>
 

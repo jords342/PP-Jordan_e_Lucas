@@ -6,7 +6,9 @@ import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
   imageOutline, star, starOutline,
-  chevronBackOutline, chevronForwardOutline
+  chevronBackOutline, chevronForwardOutline,
+  createOutline, locationOutline, personOutline,
+  chatbubbleEllipsesOutline, calendarOutline, trashOutline
 } from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
@@ -43,7 +45,6 @@ export class QuadraPage {
   mediaArredondada: number = 0;
   avaliacaoDoUsuario: AvaliacaoModel | null = null;
 
-  // Variáveis de controle
   modalAberto: boolean = false;
   fotoAtualIndex: number = 0;
 
@@ -59,7 +60,9 @@ export class QuadraPage {
   ) {
     addIcons({
       imageOutline, star, starOutline,
-      chevronBackOutline, chevronForwardOutline
+      chevronBackOutline, chevronForwardOutline,
+      createOutline, locationOutline, personOutline,
+      chatbubbleEllipsesOutline, calendarOutline, trashOutline
     });
   }
 
@@ -95,7 +98,6 @@ export class QuadraPage {
     });
   }
 
-  // CONTROLE DO CARROSSEL DE FOTOS
   proximaFoto() {
     if (this.fotoAtualIndex < this.fotos.length - 1) {
       this.fotoAtualIndex++;
@@ -186,6 +188,7 @@ export class QuadraPage {
   irParaEditar() {
     this.navController.navigateForward(`/app/editar-quadra/${this.quadra.idQuadra}`);
   }
+
   excluirAvaliacao() {
     if (!this.avaliacaoDoUsuario) return;
 

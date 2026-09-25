@@ -1,6 +1,5 @@
 <ion-content [fullscreen]="false" [scrollEvents]="true">
 
-  <!-- Gesto de puxar para atualizar no celular -->
   <ion-refresher slot="fixed" (ionRefresh)="recarregar($event)">
     <ion-refresher-content pullingText="Puxe para atualizar" refreshingSpinner="crescent">
     </ion-refresher-content>
@@ -28,7 +27,10 @@
             {{ quadra.situacao }}
           </span>
         </div>
-        <p class="quadra-endereco">📍 {{ quadra.endereco }}</p>
+        <p class="quadra-endereco">
+          <ion-icon name="location-outline"></ion-icon>
+          {{ quadra.endereco }}
+        </p>
       </div>
 
       <div class="card-acoes">

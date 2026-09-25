@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonDatetime, ActionSheetController } from '@ionic/angular/standalone';
+import { IonContent, IonDatetime, IonIcon, ActionSheetController } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { calendarOutline } from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
 import { QuadraService } from 'src/app/services/quadra.service';
@@ -21,7 +23,7 @@ interface HorarioExibicao {
   templateUrl: './disponibilidade.page.html',
   styleUrls: ['./disponibilidade.page.scss'],
   standalone: true,
-  imports: [IonContent, IonDatetime, CommonModule]
+  imports: [IonContent, IonDatetime, IonIcon, CommonModule]
 })
 export class DisponibilidadePage {
 
@@ -34,8 +36,6 @@ export class DisponibilidadePage {
   dataSelecionada: string = '';
   dataFormatadaPT: string = '';
   horarios: HorarioExibicao[] = [];
-
-  // Controla se a seção de horários expandiu
   mostrarHorarios: boolean = false;
 
   constructor(
@@ -46,6 +46,8 @@ export class DisponibilidadePage {
     private usuarioService: UsuarioService,
     private actionSheetController: ActionSheetController
   ) {
+    addIcons({ calendarOutline });
+
     const hoje = new Date();
     this.dataMinima = hoje.toISOString().split('T')[0];
     this.dataSelecionada = this.dataMinima;
@@ -63,22 +65,14 @@ export class DisponibilidadePage {
           this.ehProprietario = quadra.proprietarioId === this.usuarioAtualId;
         }
       });
-
-      // Inicialmente não expande até que o usuário clique no dia
       this.mostrarHorarios = false;
     }
   }
 
-  onDataSelected(event: any) {
-    this.onDataSelecionada(event);
-  }
-
   onDataSelecionada(event: any) {
-    const dataCompleta = event.detail.value as string; // ex: "2026-09-10T00:00:00"
+    const dataCompleta = event.detail.value as string;
     this.dataSelecionada = dataCompleta.split('T')[0];
     this.formatarDataPT(this.dataSelecionada);
-    
-    // Expande a seção de horários com animação
     this.mostrarHorarios = true;
     this.carregarHorarios(this.dataSelecionada);
   }
@@ -112,9 +106,7 @@ export class DisponibilidadePage {
   }
 
   async onClicarHorario(item: HorarioExibicao) {
-    if (!this.ehProprietario) {
-      return;
-    }
+    if (!this.ehProprietario) return;
 
     const actionSheet = await this.actionSheetController.create({
       header: `Alterar Status - Horário ${item.horaFormatada}`,

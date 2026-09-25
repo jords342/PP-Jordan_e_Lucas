@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { IonContent, IonButton, ToastController } from '@ionic/angular/standalone';
+import { IonContent, IonButton, IonIcon, ToastController } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { locationOutline, personOutline, calendarOutline } from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
 import { QuadraService } from 'src/app/services/quadra.service';
@@ -10,7 +12,7 @@ import { QuadraService } from 'src/app/services/quadra.service';
   templateUrl: './quadras-pendentes.page.html',
   styleUrls: ['./quadras-pendentes.page.scss'],
   standalone: true,
-  imports: [IonContent, IonButton, CommonModule, DatePipe]
+  imports: [IonContent, IonButton, IonIcon, CommonModule, DatePipe]
 })
 export class QuadrasPendentesPage {
 
@@ -19,7 +21,9 @@ export class QuadrasPendentesPage {
   constructor(
     private quadraService: QuadraService,
     private toastController: ToastController
-  ) {}
+  ) {
+    addIcons({ locationOutline, personOutline, calendarOutline });
+  }
 
   ionViewWillEnter() {
     this.carregarPendentes();

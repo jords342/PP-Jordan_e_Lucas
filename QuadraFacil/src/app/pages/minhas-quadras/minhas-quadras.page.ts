@@ -7,7 +7,7 @@ import {
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { imageOutline } from 'ionicons/icons';
+import { imageOutline, locationOutline } from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
 import { QuadraService } from 'src/app/services/quadra.service';
@@ -37,7 +37,7 @@ export class MinhasQuadrasPage {
     private navController: NavController,
     private toastController: ToastController
   ) {
-    addIcons({ imageOutline });
+    addIcons({ imageOutline, locationOutline });
   }
 
   ionViewWillEnter() {
@@ -69,16 +69,12 @@ export class MinhasQuadrasPage {
           });
         });
 
-        if (event) {
-          event.target.complete(); // Encerra a animação do refresher
-        }
+        if (event) event.target.complete();
       },
       error: (err) => {
         console.error('Erro ao listar quadras do proprietário:', err);
         this.exibirMensagem('Erro ao carregar a lista de quadras.');
-        if (event) {
-          event.target.complete();
-        }
+        if (event) event.target.complete();
       }
     });
   }

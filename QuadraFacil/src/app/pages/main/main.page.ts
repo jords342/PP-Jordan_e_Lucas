@@ -6,7 +6,7 @@ import {
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { imageOutline } from 'ionicons/icons';
+import { imageOutline, locationOutline } from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
 import { QuadraService } from 'src/app/services/quadra.service';
@@ -33,7 +33,7 @@ export class MainPage {
     private fotoQuadraService: FotoQuadraService,
     private navController: NavController
   ) {
-    addIcons({ imageOutline });
+    addIcons({ imageOutline, locationOutline });
   }
 
   ionViewWillEnter() {
@@ -54,14 +54,10 @@ export class MainPage {
           });
         });
 
-        if (event) {
-          event.target.complete(); // Encerra a animação do refresher
-        }
+        if (event) event.target.complete();
       },
       error: () => {
-        if (event) {
-          event.target.complete();
-        }
+        if (event) event.target.complete();
       }
     });
   }

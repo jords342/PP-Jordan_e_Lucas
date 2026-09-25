@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonInput, IonIcon } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { imageOutline } from 'ionicons/icons';
+import { imageOutline, locationOutline } from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
 import { QuadraService } from 'src/app/services/quadra.service';
@@ -29,7 +29,7 @@ export class PesquisarPage {
     private fotoQuadraService: FotoQuadraService,
     private navController: NavController
   ) {
-    addIcons({ imageOutline });
+    addIcons({ imageOutline, locationOutline });
   }
 
   ionViewWillEnter() {
