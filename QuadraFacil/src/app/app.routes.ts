@@ -66,9 +66,15 @@ export const routes: Routes = [
         path: 'disponibilidade/:quadraId',
         loadComponent: () => import('./pages/disponibilidade/disponibilidade.page').then(m => m.DisponibilidadePage)
       },
+      {
+        path: 'editar-quadra/:id',
+        loadComponent: () => import('./pages/editar-quadra/editar-quadra.page').then(m => m.EditarQuadraPage)
+      },
       { path: '', redirectTo: 'main', pathMatch: 'full' }
     ]
   },
+
+
 
 
 

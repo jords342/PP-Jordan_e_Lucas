@@ -30,7 +30,6 @@ export class QuadraService {
   alterar(quadra: QuadraModel): Observable<QuadraModel> {
     return this.http.put<QuadraModel>(this.API_URL, quadra);
   }
-
   excluir(id: string): Observable<QuadraModel> {
     return this.http.delete<QuadraModel>(`${this.API_URL}/${id}`);
   }

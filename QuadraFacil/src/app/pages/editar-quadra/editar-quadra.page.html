@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="false">
+  <div class="criar-quadra-container">
+
+    <p class="saudacao">Editar Quadra</p>
+
+    <form [formGroup]="formGroup" (ngSubmit)="salvar()">
+
+      <div class="input-wrapper">
+        <ion-input type="text" formControlName="nome" placeholder="Nome da quadra" fill="outline" shape="round">
+        </ion-input>
+      </div>
+
+      <div class="input-wrapper">
+        <ion-input type="text" formControlName="endereco" placeholder="Endereço" fill="outline" shape="round">
+        </ion-input>
+      </div>
+      <div class="input-wrapper">
+        <ion-select formControlName="horaAbertura" placeholder="Horário de abertura" fill="outline" shape="round"
+          interface="popover">
+          <ion-select-option *ngFor="let h of horasDisponiveis" [value]="h">{{ h }}h</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="input-wrapper">
+        <ion-select formControlName="horaFechamento" placeholder="Horário de fechamento" fill="outline" shape="round"
+          interface="popover">
+          <ion-select-option *ngFor="let h of horasDisponiveis" [value]="h">{{ h }}h</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="botoes">
+        <ion-button class="btn-secundario" shape="round" (click)="voltar()">
+          Cancelar
+        </ion-button>
+        <ion-button class="btn-primario" shape="round" type="submit" [disabled]="!formGroup.valid">
+          Salvar
+        </ion-button>
+      </div>
+
+    </form>
+
+  </div>
+</ion-content>

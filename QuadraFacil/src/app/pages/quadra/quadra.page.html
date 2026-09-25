@@ -1,10 +1,19 @@
 <ion-content [fullscreen]="false" [scrollEvents]="true">
 
   <div class="quadra-container">
+    <ion-button expand="block" color="medium" shape="round" class="btn-editar"
+      *ngIf="quadra.proprietarioId === usuarioAtualId" (click)="irParaEditar()">
 
+      Editar Quadra
+
+    </ion-button>
     <!-- CARROSSEL DE FOTOS COM GESTOS E BOTÕES -->
     <div class="carrossel-container" *ngIf="fotos.length > 0">
 
+<<<<<<< Updated upstream
+=======
+      <!-- Trilha de Slides com Gesto de Arrastar -->
+>>>>>>> Stashed changes
       <div class="carrossel-track" #carrossel (scroll)="aoRolarCarrossel()">
         <div class="carrossel-slide" *ngFor="let foto of fotos; let i = index">
           <img [src]="foto.imagemBase64" alt="Foto {{ i + 1 }} da quadra">
@@ -15,6 +24,10 @@
         <ion-icon name="chevron-back-outline"></ion-icon>
       </button>
 
+<<<<<<< Updated upstream
+=======
+      <!-- Botão Próximo (>) -->
+>>>>>>> Stashed changes
       <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1"
         (click)="proximaFoto()">
         <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -58,6 +71,13 @@
       </ion-button>
     </div>
 
+<<<<<<< Updated upstream
+=======
+    <button class="btn-alugar" *ngIf="quadra.situacao === 'ATIVA'" (click)="irParaDisponibilidade()">
+      Alugar quadra
+    </button>
+
+>>>>>>> Stashed changes
     <!-- Seção de Avaliações -->
     <div class="avaliacoes-area">
       <div class="avaliacoes-header">

@@ -177,6 +177,23 @@
     }
   }
 
+<<<<<<< Updated upstream
+=======
+  .btn-editar {
+    margin: 8px 20px 0;
+    --border-radius: 50px;
+    height: 46px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .sem-avaliacao {
+    color: var(--app-text-muted);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+>>>>>>> Stashed changes
   .avaliacao-card {
     background: var(--app-card-bg);
     border: 1px solid var(--app-card-border);

@@ -12,7 +12,19 @@
       <div class="app-input-wrapper">
         <ion-input type="text" formControlName="endereco" placeholder="Endereço"></ion-input>
       </div>
+      <div class="input-wrapper">
+        <ion-select formControlName="horaAbertura" placeholder="Horário de abertura" fill="outline" shape="round"
+          interface="popover">
+          <ion-select-option *ngFor="let h of horasDisponiveis" [value]="h">{{ h }}h</ion-select-option>
+        </ion-select>
+      </div>
 
+      <div class="input-wrapper">
+        <ion-select formControlName="horaFechamento" placeholder="Horário de fechamento" fill="outline" shape="round"
+          interface="popover">
+          <ion-select-option *ngFor="let h of horasDisponiveis" [value]="h">{{ h }}h</ion-select-option>
+        </ion-select>
+      </div>
       <!-- Área de fotos -->
       <div class="fotos-area">
         <p class="fotos-titulo">Fotos da quadra <span>(máx. 20)</span></p>

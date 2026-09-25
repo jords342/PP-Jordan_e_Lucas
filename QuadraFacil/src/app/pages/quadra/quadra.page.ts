@@ -4,9 +4,9 @@ import { IonContent, IonIcon, IonButton, ToastController } from '@ionic/angular/
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { 
-  imageOutline, star, starOutline, 
-  chevronBackOutline, chevronForwardOutline 
+import {
+  imageOutline, star, starOutline,
+  chevronBackOutline, chevronForwardOutline
 } from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
@@ -55,11 +55,11 @@ export class QuadraPage {
     private usuarioService: UsuarioService,
     private avaliacaoService: AvaliacaoService,
     private conversaService: ConversaService,
-    private toastController: ToastController 
+    private toastController: ToastController
   ) {
-    addIcons({ 
-      imageOutline, star, starOutline, 
-      chevronBackOutline, chevronForwardOutline 
+    addIcons({
+      imageOutline, star, starOutline,
+      chevronBackOutline, chevronForwardOutline
     });
   }
 
@@ -183,6 +183,9 @@ export class QuadraPage {
     this.navController.navigateForward(`/app/disponibilidade/${this.quadra.idQuadra}`);
   }
 
+  irParaEditar() {
+    this.navController.navigateForward(`/app/editar-quadra/${this.quadra.idQuadra}`);
+  }
   excluirAvaliacao() {
     if (!this.avaliacaoDoUsuario) return;
 

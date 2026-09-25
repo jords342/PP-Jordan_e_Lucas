@@ -27,8 +27,11 @@ public class Quadra {
     @Column(length = 150, nullable = false)
     private String endereco;
 
-    @Column(length = 100, nullable = false)
-    private String horario;
+    @Column(nullable = false)
+    private Integer horaAbertura; // 0 a 23
+
+    @Column(nullable = false)
+    private Integer horaFechamento; // 0 a 23
 
     @Column(nullable = false, precision = 8, scale = 2)
     private BigDecimal precoAluguel;
@@ -55,6 +58,12 @@ public class Quadra {
         if (this.criadoEm == null || this.criadoEm.isEmpty()) {
             this.criadoEm = java.time.LocalDateTime.now().toString();
         }
+        if (this.horaAbertura == null) {
+            this.horaAbertura = 0;
+        }
+        if (this.horaFechamento == null) {
+            this.horaFechamento = 23;
+        }
     }
 
     public enum TipoAcesso {
@@ -62,6 +71,6 @@ public class Quadra {
     }
 
     public enum Situacao {
-        PENDENTE,ATIVA, INATIVA
+        PENDENTE, ATIVA, INATIVA
     }
 }
