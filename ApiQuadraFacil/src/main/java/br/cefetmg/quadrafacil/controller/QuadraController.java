@@ -1,5 +1,6 @@
 package br.cefetmg.quadrafacil.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.cefetmg.quadrafacil.model.Quadra;
+import br.cefetmg.quadrafacil.repository.DisponibilidadeRepository;
 import br.cefetmg.quadrafacil.repository.QuadraRepository;
 
 @RestController
@@ -26,9 +28,12 @@ import br.cefetmg.quadrafacil.repository.QuadraRepository;
 public class QuadraController {
 
     private final QuadraRepository repository;
+    private final DisponibilidadeRepository disponibilidadeRepository;
 
-    public QuadraController(QuadraRepository repository) {
+    public QuadraController(QuadraRepository repository,
+                            DisponibilidadeRepository disponibilidadeRepository) {
         this.repository = repository;
+        this.disponibilidadeRepository = disponibilidadeRepository;
     }
 
     @GetMapping("")
@@ -71,13 +76,32 @@ public class QuadraController {
         return repository.save(quadra);
     }
 
+    // ===== ÚNICO MÉTODO ALTERADO =====
     @PutMapping("")
     public Quadra alterar(@RequestBody Quadra quadra) {
         if (quadra.getIdQuadra() == null || quadra.getIdQuadra().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "idQuadra é obrigatório");
         }
-        return repository.save(quadra);
+
+        Quadra quadraAntiga = repository.findById(quadra.getIdQuadra())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Quadra não encontrada"));
+
+        boolean expedienteMudou =
+                !quadraAntiga.getHoraAbertura().equals(quadra.getHoraAbertura()) ||
+                !quadraAntiga.getHoraFechamento().equals(quadra.getHoraFechamento());
+
+        Quadra salva = repository.save(quadra);
+
+        if (expedienteMudou) {
+            disponibilidadeRepository.limparExcecoesAPartirDe(
+                    salva.getIdQuadra(),
+                    LocalDate.now().toString()
+            );
+        }
+
+        return salva;
     }
+    // ===== FIM DO MÉTODO ALTERADO =====
 
     @GetMapping("/pendentes")
     public List<Quadra> getPendentes() {

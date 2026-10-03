@@ -26,10 +26,10 @@ public class Disponibilidade {
     private String quadraId;
 
     @Column(nullable = false)
-    private String data; // formato "yyyy-MM-dd"
+    private String data;
 
     @Column(nullable = false)
-    private Integer hora; // 0 a 23
+    private Integer hora;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -38,6 +38,16 @@ public class Disponibilidade {
     @Column(nullable = false)
     private String criadoEm;
 
+    /**
+     * ALUGADO  = evento real, preservado sempre.
+     * FECHADO  = exceção manual do dono (fechou mesmo dentro do expediente,
+     *            ou fechou fora do expediente por escolha).
+     * LIVRE    = exceção manual do dono (abriu mesmo fora do expediente).
+     *
+     * LIVRE "default" (dentro do expediente, sem registro) NÃO é gravado.
+     * FECHADO "default" (fora do expediente, sem registro) NÃO é gravado —
+     * é derivado no front a partir de Quadra.horaAbertura / horaFechamento.
+     */
     public enum Status {
         LIVRE, ALUGADO, FECHADO
     }

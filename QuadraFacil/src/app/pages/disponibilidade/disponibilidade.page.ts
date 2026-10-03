@@ -58,15 +58,21 @@ export class DisponibilidadePage {
     this.usuarioAtualId = this.usuarioService.obterSessao().idUsuario;
     this.quadraId = this.route.snapshot.paramMap.get('quadraId') || '';
 
-    if (this.quadraId) {
-      this.quadraService.buscarPorId(this.quadraId).subscribe({
-        next: (quadra) => {
-          this.quadra = quadra;
-          this.ehProprietario = quadra.proprietarioId === this.usuarioAtualId;
-        }
-      });
-      this.mostrarHorarios = false;
-    }
+    if (!this.quadraId) return;
+
+    // Encadeado: primeiro a quadra, depois os horários.
+    // Isso evita a race condition onde carregarHorarios rodava
+    // antes de this.quadra estar preenchida.
+    this.quadraService.buscarPorId(this.quadraId).subscribe({
+      next: (quadra) => {
+        this.quadra = quadra;
+        this.ehProprietario = quadra.proprietarioId === this.usuarioAtualId;
+
+        // Já mostra os horários do dia de hoje ao abrir a tela
+        this.mostrarHorarios = true;
+        this.carregarHorarios(this.dataSelecionada);
+      }
+    });
   }
 
   onDataSelecionada(event: any) {
@@ -98,11 +104,43 @@ export class DisponibilidadePage {
           this.horarios.push({
             hora,
             horaFormatada: hora.toString().padStart(2, '0') + ':00',
-            status: mapa[hora]?.status || 'LIVRE'
+            status: this.calcularStatusHora(hora, mapa)
           });
         }
       }
     });
+  }
+
+  /**
+   * Regra de derivação:
+   *  1. Se existe registro explícito no banco, ele manda (exceção manual ou aluguel).
+   *  2. Senão, deriva do expediente da quadra:
+   *     - dentro do expediente → LIVRE
+   *     - fora do expediente  → FECHADO
+   */
+  private calcularStatusHora(
+    hora: number,
+    mapa: { [hora: number]: DisponibilidadeModel }
+  ): 'LIVRE' | 'ALUGADO' | 'FECHADO' {
+
+    const registro = mapa[hora];
+    if (registro) return registro.status;
+
+    return this.horaDentroDoExpediente(hora) ? 'LIVRE' : 'FECHADO';
+  }
+
+  /**
+   * Suporta expediente que cruza meia-noite (ex: abre 20h, fecha 4h).
+   */
+  private horaDentroDoExpediente(hora: number): boolean {
+    const abertura = this.quadra.horaAbertura ?? 0;
+    const fechamento = this.quadra.horaFechamento ?? 23;
+
+    if (abertura <= fechamento) {
+      return hora >= abertura && hora < fechamento;
+    } else {
+      return hora >= abertura || hora < fechamento;
+    }
   }
 
   async onClicarHorario(item: HorarioExibicao) {
