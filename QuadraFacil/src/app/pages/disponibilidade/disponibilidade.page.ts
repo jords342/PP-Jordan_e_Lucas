@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonDatetime, IonIcon, ActionSheetController } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { IonContent, IonDatetime, IonIcon, ActionSheetController, ToastController } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
@@ -11,6 +12,7 @@ import { QuadraService } from 'src/app/services/quadra.service';
 import { DisponibilidadeModel } from 'src/app/model/disponibilidade.model';
 import { DisponibilidadeService } from 'src/app/services/disponibilidade.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 
 interface HorarioExibicao {
   hora: number;
@@ -23,7 +25,7 @@ interface HorarioExibicao {
   templateUrl: './disponibilidade.page.html',
   styleUrls: ['./disponibilidade.page.scss'],
   standalone: true,
-  imports: [IonContent, IonDatetime, IonIcon, CommonModule]
+  imports: [IonContent, IonDatetime, IonIcon, CommonModule, FormsModule]
 })
 export class DisponibilidadePage {
 
@@ -38,13 +40,22 @@ export class DisponibilidadePage {
   horarios: HorarioExibicao[] = [];
   mostrarHorarios: boolean = false;
 
+  // Modal de solicitação
+  modalSolicitacaoAberto: boolean = false;
+  horaSelecionada: number = 0;
+  horaSelecionadaFormatada: string = '';
+  mensagemSolicitacao: string = '';
+  enviandoSolicitacao: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private navController: NavController,
     private quadraService: QuadraService,
     private disponibilidadeService: DisponibilidadeService,
     private usuarioService: UsuarioService,
-    private actionSheetController: ActionSheetController
+    private solicitacaoService: SolicitacaoService,
+    private actionSheetController: ActionSheetController,
+    private toastController: ToastController
   ) {
     addIcons({ calendarOutline });
 
@@ -60,15 +71,10 @@ export class DisponibilidadePage {
 
     if (!this.quadraId) return;
 
-    // Encadeado: primeiro a quadra, depois os horários.
-    // Isso evita a race condition onde carregarHorarios rodava
-    // antes de this.quadra estar preenchida.
     this.quadraService.buscarPorId(this.quadraId).subscribe({
       next: (quadra) => {
         this.quadra = quadra;
         this.ehProprietario = quadra.proprietarioId === this.usuarioAtualId;
-
-        // Já mostra os horários do dia de hoje ao abrir a tela
         this.mostrarHorarios = true;
         this.carregarHorarios(this.dataSelecionada);
       }
@@ -111,13 +117,6 @@ export class DisponibilidadePage {
     });
   }
 
-  /**
-   * Regra de derivação:
-   *  1. Se existe registro explícito no banco, ele manda (exceção manual ou aluguel).
-   *  2. Senão, deriva do expediente da quadra:
-   *     - dentro do expediente → LIVRE
-   *     - fora do expediente  → FECHADO
-   */
   private calcularStatusHora(
     hora: number,
     mapa: { [hora: number]: DisponibilidadeModel }
@@ -129,9 +128,6 @@ export class DisponibilidadePage {
     return this.horaDentroDoExpediente(hora) ? 'LIVRE' : 'FECHADO';
   }
 
-  /**
-   * Suporta expediente que cruza meia-noite (ex: abre 20h, fecha 4h).
-   */
   private horaDentroDoExpediente(hora: number): boolean {
     const abertura = this.quadra.horaAbertura ?? 0;
     const fechamento = this.quadra.horaFechamento ?? 23;
@@ -144,19 +140,32 @@ export class DisponibilidadePage {
   }
 
   async onClicarHorario(item: HorarioExibicao) {
-    if (!this.ehProprietario) return;
+    // Dono: abre action sheet pra alterar status manualmente
+    if (this.ehProprietario) {
+      const actionSheet = await this.actionSheetController.create({
+        header: `Alterar Status - Horário ${item.horaFormatada}`,
+        buttons: [
+          { text: 'Livre (Disponível)', handler: () => this.definirStatus(item.hora, 'LIVRE') },
+          { text: 'Alugado (Ocupado)', handler: () => this.definirStatus(item.hora, 'ALUGADO') },
+          { text: 'Fechado (Indisponível)', handler: () => this.definirStatus(item.hora, 'FECHADO') },
+          { text: 'Cancelar', role: 'cancel' }
+        ]
+      });
+      await actionSheet.present();
+      return;
+    }
 
-    const actionSheet = await this.actionSheetController.create({
-      header: `Alterar Status - Horário ${item.horaFormatada}`,
-      buttons: [
-        { text: 'Livre (Disponível)', handler: () => this.definirStatus(item.hora, 'LIVRE') },
-        { text: 'Alugado (Ocupado)', handler: () => this.definirStatus(item.hora, 'ALUGADO') },
-        { text: 'Fechado (Indisponível)', handler: () => this.definirStatus(item.hora, 'FECHADO') },
-        { text: 'Cancelar', role: 'cancel' }
-      ]
-    });
+    // Cliente: só pode solicitar se o horário estiver LIVRE
+    if (item.status !== 'LIVRE') {
+      this.exibirMensagem('Esse horário não está disponível.');
+      return;
+    }
 
-    await actionSheet.present();
+    // Abre modal de solicitação
+    this.horaSelecionada = item.hora;
+    this.horaSelecionadaFormatada = item.horaFormatada;
+    this.mensagemSolicitacao = '';
+    this.modalSolicitacaoAberto = true;
   }
 
   definirStatus(hora: number, status: string) {
@@ -167,7 +176,53 @@ export class DisponibilidadePage {
     });
   }
 
+  // ===== Modal de solicitação =====
+
+  fecharModalSolicitacao() {
+    this.modalSolicitacaoAberto = false;
+    this.mensagemSolicitacao = '';
+    this.enviandoSolicitacao = false;
+  }
+
+  confirmarSolicitacao() {
+    if (this.enviandoSolicitacao) return;
+
+    this.enviandoSolicitacao = true;
+
+    this.solicitacaoService.criar(
+      this.quadraId,
+      this.usuarioAtualId,
+      this.dataSelecionada,
+      this.horaSelecionada,
+      this.mensagemSolicitacao.trim()
+    ).subscribe({
+      next: (solicitacao) => {
+        this.enviandoSolicitacao = false;
+        this.fecharModalSolicitacao();
+        this.exibirMensagem('Pedido enviado! Aguarde a resposta do dono.');
+
+        // Abre a conversa entre o usuário e o dono
+        // (reaproveita o fluxo: navega pra conversas; o item com o dono vai estar lá)
+        this.navController.navigateForward('/app/conversas');
+      },
+      error: (erro) => {
+        this.enviandoSolicitacao = false;
+        if (erro.status === 409) {
+          this.exibirMensagem('Esse horário já foi reservado.');
+          this.carregarHorarios(this.dataSelecionada);
+        } else {
+          this.exibirMensagem('Erro ao solicitar aluguel.');
+        }
+      }
+    });
+  }
+
   voltar() {
     this.navController.navigateBack(`/app/quadra/${this.quadraId}`);
+  }
+
+  async exibirMensagem(texto: string) {
+    const toast = await this.toastController.create({ message: texto, duration: 2500 });
+    toast.present();
   }
 }

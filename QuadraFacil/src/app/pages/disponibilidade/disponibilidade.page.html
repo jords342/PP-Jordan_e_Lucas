@@ -27,6 +27,7 @@
             Horários para {{ dataFormatadaPT }}
           </p>
           <span class="dica-proprietario" *ngIf="ehProprietario">Toque para alterar status</span>
+          <span class="dica-proprietario" *ngIf="!ehProprietario">Toque em um horário livre para solicitar</span>
         </div>
 
         <div class="horarios-grid">
@@ -45,4 +46,42 @@
     </div>
 
   </div>
+
+  <!-- MODAL DE SOLICITAÇÃO (só aparece pro cliente) -->
+  <div class="modal-solicitacao" *ngIf="modalSolicitacaoAberto" (click)="fecharModalSolicitacao()">
+    <div class="modal-solicitacao-conteudo" (click)="$event.stopPropagation()">
+
+      <div class="modal-solicitacao-header">
+        <p class="modal-solicitacao-titulo">Solicitar aluguel</p>
+        <button class="btn-fechar-solicitacao" (click)="fecharModalSolicitacao()">✕</button>
+      </div>
+
+      <div class="modal-solicitacao-corpo">
+        <p class="solicitacao-info">
+          <strong>{{ quadra.nome }}</strong>
+        </p>
+        <p class="solicitacao-info">
+          <ion-icon name="calendar-outline"></ion-icon>
+          {{ dataFormatadaPT }} às {{ horaSelecionadaFormatada }}
+        </p>
+
+        <p class="solicitacao-label">Mensagem pro dono <span>(opcional)</span></p>
+        <textarea
+          class="solicitacao-textarea"
+          [(ngModel)]="mensagemSolicitacao"
+          placeholder="Ex: Posso levar bola? Tem vestiário?"
+          rows="3"
+          maxlength="300"></textarea>
+      </div>
+
+      <div class="modal-solicitacao-botoes">
+        <button class="btn-cancelar-solicitacao" (click)="fecharModalSolicitacao()">Cancelar</button>
+        <button class="btn-confirmar-solicitacao" (click)="confirmarSolicitacao()" [disabled]="enviandoSolicitacao">
+          {{ enviandoSolicitacao ? 'Enviando...' : 'Solicitar' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+
 </ion-content>

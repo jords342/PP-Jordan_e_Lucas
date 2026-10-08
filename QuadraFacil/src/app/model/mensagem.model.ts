@@ -4,6 +4,9 @@ export class MensagemModel {
   remetenteId: string;
   texto: string;
   criadoEm: string;
+  tipoMensagem: 'TEXTO' | 'PEDIDO_ALUGUEL';
+  solicitacaoId: string;
+  statusSolicitacao: 'PENDENTE' | 'ACEITA' | 'RECUSADA' | 'CANCELADA' | '';
 
   constructor() {
     this.idMensagem = '';
@@ -11,5 +14,8 @@ export class MensagemModel {
     this.remetenteId = '';
     this.texto = '';
     this.criadoEm = new Date().toISOString();
+    this.tipoMensagem = 'TEXTO';
+    this.solicitacaoId = '';
+    this.statusSolicitacao = '';
   }
 }

@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="false">
   <div class="conversa-container">
 
-    <!-- Cabeçalho da Conversa com Botão Voltar e Avatar -->
+    <!-- Cabeçalho -->
     <div class="conversa-header">
       <button class="btn-voltar" (click)="voltar()">←</button>
       <div class="avatar">
@@ -11,20 +11,57 @@
       <p class="nome">{{ nomeOutroUsuario || 'Usuário' }}</p>
     </div>
 
-    <!-- Área de Mensagens com Scroll -->
+    <!-- Área de Mensagens -->
     <div class="mensagens-area" #scrollArea>
       <p class="vazio" *ngIf="mensagens.length === 0">
         Nenhuma mensagem ainda. Diga olá!
       </p>
 
-      <div *ngFor="let mensagem of mensagens"
-        class="balao"
-        [class.balao-proprio]="mensagem.remetenteId === usuarioAtual.idUsuario">
-        <p class="balao-texto">{{ mensagem.texto }}</p>
-      </div>
+      <ng-container *ngFor="let mensagem of mensagens">
+
+        <!-- ===== Card de Pedido de Aluguel ===== -->
+        <div *ngIf="mensagem.tipoMensagem === 'PEDIDO_ALUGUEL'" class="card-pedido"
+          [class.card-pedido-proprio]="mensagem.remetenteId === usuarioAtual.idUsuario">
+
+          <div class="card-pedido-topo">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span class="card-pedido-titulo">Pedido de aluguel</span>
+            <span class="card-pedido-status" [ngClass]="'status-' + (mensagem.statusSolicitacao || 'PENDENTE').toLowerCase()">
+              {{ labelStatus(mensagem.statusSolicitacao) }}
+            </span>
+          </div>
+
+          <p class="card-pedido-texto">{{ mensagem.texto }}</p>
+
+          <!-- Botões: só quando PENDENTE -->
+          <div class="card-pedido-botoes" *ngIf="mensagem.statusSolicitacao === 'PENDENTE'">
+
+            <!-- Dono: aceitar / recusar -->
+            <ng-container *ngIf="souDono(mensagem)">
+              <button class="btn-pedido btn-aceitar" (click)="aceitarPedido(mensagem)">Aceitar</button>
+              <button class="btn-pedido btn-recusar" (click)="recusarPedido(mensagem)">Recusar</button>
+            </ng-container>
+
+            <!-- Solicitante: cancelar -->
+            <ng-container *ngIf="souSolicitante(mensagem)">
+              <button class="btn-pedido btn-cancelar" (click)="cancelarPedido(mensagem)">Cancelar pedido</button>
+            </ng-container>
+
+          </div>
+
+        </div>
+
+        <!-- ===== Balão comum ===== -->
+        <div *ngIf="mensagem.tipoMensagem !== 'PEDIDO_ALUGUEL'"
+          class="balao"
+          [class.balao-proprio]="mensagem.remetenteId === usuarioAtual.idUsuario">
+          <p class="balao-texto">{{ mensagem.texto }}</p>
+        </div>
+
+      </ng-container>
     </div>
 
-    <!-- Barra Inferior de Enviar Mensagem (Estilo Pílula) -->
+    <!-- Input -->
     <div class="input-area">
       <div class="chat-input-wrapper">
         <input type="text" placeholder="Digite uma mensagem..."

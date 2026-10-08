@@ -238,4 +238,166 @@ body.dark .horario-pill {
     .horario-hora { color: #888888; }
     .horario-status-badge { background: rgba(255, 255, 255, 0.1); color: #888888; }
   }
+  
+}
+
+/* ===== MODAL DE SOLICITAÇÃO ===== */
+
+.modal-solicitacao {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.modal-solicitacao-conteudo {
+  width: 100%;
+  max-width: 400px;
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalSolicitacaoSurgir 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSolicitacaoSurgir {
+  from { opacity: 0; transform: scale(0.94) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-solicitacao-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--app-card-border);
+
+  .modal-solicitacao-titulo {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--app-text-title);
+    margin: 0;
+  }
+
+  .btn-fechar-solicitacao {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--app-input-border);
+    background: var(--app-input-bg);
+    color: var(--app-text-title);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+
+    &:active { transform: scale(0.9); }
+  }
+}
+
+.modal-solicitacao-corpo {
+  padding: 16px 20px;
+
+  .solicitacao-info {
+    font-size: 13px;
+    color: var(--app-text-body);
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    strong {
+      font-weight: 700;
+      color: var(--app-text-title);
+    }
+
+    ion-icon {
+      font-size: 15px;
+      color: var(--app-text-muted);
+    }
+  }
+
+  .solicitacao-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--app-text-title);
+    margin: 16px 0 8px;
+
+    span {
+      font-weight: 400;
+      color: var(--app-text-muted);
+    }
+  }
+
+  .solicitacao-textarea {
+    width: 100%;
+    min-height: 70px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--app-input-border);
+    background: var(--app-input-bg);
+    color: var(--app-text-body);
+    font-size: 13px;
+    font-family: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+    outline: none;
+
+    &::placeholder {
+      color: var(--app-text-muted);
+    }
+
+    &:focus {
+      border-color: #000000;
+    }
+  }
+}
+
+body.dark .modal-solicitacao-corpo .solicitacao-textarea:focus {
+  border-color: #ffffff;
+}
+
+.modal-solicitacao-botoes {
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px 16px;
+
+  button {
+    flex: 1;
+    height: 44px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+
+    &:active { transform: scale(0.97); }
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+
+  .btn-cancelar-solicitacao {
+    background: transparent;
+    border: 1.5px solid var(--app-input-border);
+    color: var(--app-text-title);
+  }
+
+  .btn-confirmar-solicitacao {
+    background: #000000;
+    color: #ffffff;
+  }
+}
+
+body.dark .modal-solicitacao-botoes .btn-confirmar-solicitacao {
+  background: #ffffff;
+  color: #000000;
 }

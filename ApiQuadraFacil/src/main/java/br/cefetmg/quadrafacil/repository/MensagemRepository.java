@@ -10,4 +10,5 @@ import br.cefetmg.quadrafacil.model.Mensagem;
 @Repository
 public interface MensagemRepository extends JpaRepository<Mensagem, String> {
     List<Mensagem> findByConversaIdOrderByCriadoEmAsc(String conversaId);
+    List<Mensagem> findBySolicitacaoId(String solicitacaoId);
 }

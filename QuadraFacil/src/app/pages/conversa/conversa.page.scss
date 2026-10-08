@@ -188,3 +188,111 @@ body.dark .input-area .btn-enviar {
     color: #000000;
   }
 }
+
+/* ===== CARD DE PEDIDO DE ALUGUEL ===== */
+
+.card-pedido {
+  max-width: 85%;
+  align-self: flex-start;
+  background: var(--app-card-bg);
+  border: 1.5px solid var(--app-card-border);
+  border-left: 4px solid #f5a623;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.card-pedido-proprio {
+  align-self: flex-end;
+  border-left: 1.5px solid var(--app-card-border);
+  border-right: 4px solid #f5a623;
+}
+
+.card-pedido-topo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+
+  ion-icon {
+    font-size: 16px;
+    color: #f5a623;
+  }
+
+  .card-pedido-titulo {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--app-text-title);
+    flex: 1;
+  }
+
+  .card-pedido-status {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 50px;
+
+    &.status-pendente {
+      background: rgba(245, 166, 35, 0.15);
+      color: #d68910;
+    }
+
+    &.status-aceita {
+      background: rgba(39, 174, 96, 0.15);
+      color: #27ae60;
+    }
+
+    &.status-recusada,
+    &.status-cancelada {
+      background: rgba(231, 76, 60, 0.15);
+      color: #e74c3c;
+    }
+  }
+}
+
+.card-pedido-texto {
+  font-size: 13px;
+  color: var(--app-text-body);
+  margin: 0 0 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.card-pedido-botoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+
+  .btn-pedido {
+    flex: 1;
+    height: 36px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+
+    &:active { transform: scale(0.97); }
+  }
+
+  .btn-aceitar {
+    background: #27ae60;
+    color: #ffffff;
+  }
+
+  .btn-recusar {
+    background: transparent;
+    border: 1.5px solid #e74c3c;
+    color: #e74c3c;
+  }
+
+  .btn-cancelar {
+    background: transparent;
+    border: 1.5px solid var(--app-input-border);
+    color: var(--app-text-muted);
+  }
+}
