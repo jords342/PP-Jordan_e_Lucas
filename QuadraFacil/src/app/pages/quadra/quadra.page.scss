@@ -100,6 +100,30 @@
   .btn-secundario { width: 100%; height: 42px; font-size: 12px; }
 }
 
+/* ===== BOTÃO DOCUMENTOS ===== */
+.documentos-area {
+  padding: 10px 20px 0;
+
+  .btn-documentos {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    background: transparent;
+    border: 1.5px solid var(--app-input-border);
+    border-radius: 50px;
+    color: var(--app-text-title);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+
+    ion-icon { font-size: 18px; }
+    &:active { transform: scale(0.97); }
+  }
+}
+
 .dados-area {
   padding: 20px 20px 12px;
 
@@ -217,6 +241,116 @@
       margin: 0;
       line-height: 1.4;
       white-space: pre-wrap;
+    }
+  }
+}
+
+/* ===== EXCLUIR QUADRA ===== */
+.excluir-area {
+  padding: 12px 20px 20px;
+
+  .btn-excluir-quadra {
+    width: 100%;
+    height: 46px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+/* ===== MODAL DE MÍDIA (mesmo padrão da quadras-pendentes) ===== */
+
+.modal-midia {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.modal-conteudo {
+  width: 100%;
+  max-width: 440px;
+  max-height: 80vh;
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalSurgir 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSurgir {
+  from { opacity: 0; transform: scale(0.94) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--app-card-border);
+
+  .modal-titulo {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--app-text-title);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .btn-fechar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--app-input-border);
+    background: var(--app-input-bg);
+    color: var(--app-text-title);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+
+    &:active { transform: scale(0.9); }
+  }
+}
+
+.modal-corpo {
+  padding: 16px;
+  overflow-y: auto;
+
+  .modal-vazio {
+    text-align: center;
+    color: var(--app-text-muted);
+    font-size: 13px;
+    margin: 24px 0;
+  }
+}
+
+.midia-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .midia-item {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--app-input-bg);
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
   }
 }

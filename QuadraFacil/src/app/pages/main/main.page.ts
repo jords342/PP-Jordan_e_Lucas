@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { 
-  IonContent, IonIcon, 
-  IonRefresher, IonRefresherContent 
+import {
+  IonContent, IonIcon,
+  IonRefresher, IonRefresherContent
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
@@ -18,8 +18,8 @@ import { FotoQuadraService } from 'src/app/services/foto-quadra.service';
   styleUrls: ['./main.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonIcon, 
-    IonRefresher, IonRefresherContent, 
+    IonContent, IonIcon,
+    IonRefresher, IonRefresherContent,
     CommonModule
   ]
 })
@@ -45,7 +45,7 @@ export class MainPage {
       next: (quadras) => {
         this.quadras = quadras;
         quadras.forEach(quadra => {
-          this.fotoQuadraService.listarPorQuadra(quadra.idQuadra).subscribe({
+          this.fotoQuadraService.listarPorQuadra(quadra.idQuadra, 'FOTO').subscribe({   // ← 'FOTO' aqui
             next: (fotos) => {
               if (fotos.length > 0) {
                 this.fotos[quadra.idQuadra] = fotos[0].imagemBase64;

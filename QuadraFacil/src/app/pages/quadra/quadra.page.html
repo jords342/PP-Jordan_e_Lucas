@@ -128,25 +128,25 @@
   </div>
 
   <!-- MODAL DE DOCUMENTOS -->
-  <div class="modal-documentos" *ngIf="modalDocumentosAberto" (click)="fecharDocumentos()">
-    <div class="modal-doc-conteudo" (click)="$event.stopPropagation()">
+  <div class="modal-midia" *ngIf="modalDocumentosAberto" (click)="fecharDocumentos()">
+    <div class="modal-conteudo" (click)="$event.stopPropagation()">
 
-      <div class="modal-doc-header">
-        <p class="modal-doc-titulo">Documentos — {{ quadra.nome }}</p>
-        <button class="btn-fechar-doc" (click)="fecharDocumentos()">
+      <div class="modal-header">
+        <p class="modal-titulo">Documentos — {{ quadra.nome }}</p>
+        <button class="btn-fechar" (click)="fecharDocumentos()">
           <ion-icon name="close-outline"></ion-icon>
         </button>
       </div>
 
-      <div class="modal-doc-corpo">
-        <p *ngIf="carregandoDocumentos" class="modal-doc-vazio">Carregando...</p>
+      <div class="modal-corpo">
+        <p *ngIf="carregandoDocumentos" class="modal-vazio">Carregando...</p>
 
-        <p *ngIf="!carregandoDocumentos && documentos.length === 0" class="modal-doc-vazio">
+        <p *ngIf="!carregandoDocumentos && documentos.length === 0" class="modal-vazio">
           Nenhum documento cadastrado.
         </p>
 
-        <div class="documentos-lista" *ngIf="!carregandoDocumentos && documentos.length > 0">
-          <div class="documento-item" *ngFor="let doc of documentos; let i = index">
+        <div class="midia-lista" *ngIf="!carregandoDocumentos && documentos.length > 0">
+          <div class="midia-item" *ngFor="let doc of documentos; let i = index">
             <img [src]="doc.imagemBase64" alt="Documento {{ i + 1 }}">
           </div>
         </div>

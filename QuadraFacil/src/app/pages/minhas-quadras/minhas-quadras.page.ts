@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { 
-  IonContent, IonButton, IonIcon, 
-  IonRefresher, IonRefresherContent, 
-  ToastController 
+import {
+  IonContent, IonButton, IonIcon,
+  IonRefresher, IonRefresherContent,
+  ToastController
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
@@ -20,8 +20,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./minhas-quadras.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonButton, IonIcon, 
-    IonRefresher, IonRefresherContent, 
+    IonContent, IonButton, IonIcon,
+    IonRefresher, IonRefresherContent,
     CommonModule
   ]
 })
@@ -46,7 +46,7 @@ export class MinhasQuadrasPage {
 
   carregarQuadras(event?: any) {
     const usuario = this.usuarioService.obterSessao();
-    
+
     if (!usuario || !usuario.idUsuario) {
       if (event) event.target.complete();
       return;
@@ -56,7 +56,7 @@ export class MinhasQuadrasPage {
       next: (quadras) => {
         this.quadras = quadras;
         quadras.forEach(quadra => {
-          this.fotoQuadraService.listarPorQuadra(quadra.idQuadra).subscribe({
+          this.fotoQuadraService.listarPorQuadra(quadra.idQuadra, 'FOTO').subscribe({   // ← 'FOTO' aqui
             next: (fotos) => {
               if (fotos && fotos.length > 0) {
                 this.fotos[quadra.idQuadra] = fotos[0].imagemBase64;
@@ -64,7 +64,7 @@ export class MinhasQuadrasPage {
             },
             error: (err) => {
               console.warn(`Aviso: Não foi possível carregar a foto da quadra "${quadra.nome}" (${quadra.idQuadra}).`, err);
-              this.fotos[quadra.idQuadra] = ''; 
+              this.fotos[quadra.idQuadra] = '';
             }
           });
         });
