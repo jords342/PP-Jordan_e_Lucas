@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -28,19 +29,33 @@ public class FotoQuadraController {
         this.repository = repository;
     }
 
+    /**
+     * Sem ?tipo → retorna TUDO (fotos + documentos).
+     * Com ?tipo=FOTO → retorna só fotos públicas.
+     * Com ?tipo=DOCUMENTO → retorna só documentos.
+     */
     @GetMapping("/quadra/{quadraId}")
-    public List<FotoQuadra> getByQuadra(@PathVariable String quadraId) {
+    public List<FotoQuadra> getByQuadra(
+            @PathVariable String quadraId,
+            @RequestParam(required = false) String tipo) {
+
         try {
             if (quadraId == null || quadraId.trim().isEmpty()) {
                 return Collections.emptyList();
             }
-            List<FotoQuadra> fotos = repository.findByQuadraId(quadraId);
+
+            List<FotoQuadra> fotos;
+            if (tipo != null && !tipo.trim().isEmpty()) {
+                fotos = repository.findByQuadraIdAndTipo(quadraId, tipo);
+            } else {
+                fotos = repository.findByQuadraId(quadraId);
+            }
+
             return (fotos != null) ? fotos : Collections.emptyList();
         } catch (Throwable t) {
-            // Imprime a causa exata no log do Render sem estourar Erro 500 pro navegador
             System.err.println(">>> ERRO AO BUSCAR FOTOS DA QUADRA (" + quadraId + "): " + t.getMessage());
             t.printStackTrace();
-            return Collections.emptyList(); // Retorna 200 OK com lista vazia
+            return Collections.emptyList();
         }
     }
 
@@ -54,6 +69,9 @@ public class FotoQuadraController {
     public FotoQuadra salvar(@RequestBody FotoQuadra foto) {
         try {
             foto.setIdFoto(null);
+            if (foto.getTipo() == null || foto.getTipo().isEmpty()) {
+                foto.setTipo("FOTO");
+            }
             return repository.save(foto);
         } catch (Throwable t) {
             System.err.println(">>> ERRO AO SALVAR FOTO: " + t.getMessage());

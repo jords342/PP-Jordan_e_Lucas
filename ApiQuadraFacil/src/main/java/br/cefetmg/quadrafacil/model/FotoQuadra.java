@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "foto_quadra") // Mapeamento exato da tabela no PostgreSQL
+@Table(name = "foto_quadra")
 public class FotoQuadra {
 
     @Id
@@ -26,6 +26,13 @@ public class FotoQuadra {
     @Column(name = "imagem_base64", nullable = false, columnDefinition = "TEXT")
     private String imagemBase64;
 
+    /**
+     * "FOTO"      → foto pública da quadra (aparece no carrossel)
+     * "DOCUMENTO" → documento comprobatório (só moderador/dono vê)
+     */
+    @Column(nullable = false, length = 20)
+    private String tipo;
+
     @Column(name = "criado_em", nullable = false)
     private String criadoEm;
 
@@ -36,6 +43,9 @@ public class FotoQuadra {
         }
         if (this.criadoEm == null || this.criadoEm.isEmpty()) {
             this.criadoEm = java.time.LocalDateTime.now().toString();
+        }
+        if (this.tipo == null || this.tipo.isEmpty()) {
+            this.tipo = "FOTO";
         }
     }
 }

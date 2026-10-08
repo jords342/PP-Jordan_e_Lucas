@@ -8,7 +8,8 @@ import {
   imageOutline, star, starOutline,
   chevronBackOutline, chevronForwardOutline,
   createOutline, locationOutline, personOutline,
-  chatbubbleEllipsesOutline, calendarOutline, trashOutline
+  chatbubbleEllipsesOutline, calendarOutline, trashOutline,
+  documentTextOutline, closeOutline
 } from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
@@ -48,6 +49,11 @@ export class QuadraPage {
   modalAberto: boolean = false;
   fotoAtualIndex: number = 0;
 
+  // ===== Documentos =====
+  modalDocumentosAberto: boolean = false;
+  documentos: FotoQuadraModel[] = [];
+  carregandoDocumentos: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private navController: NavController,
@@ -62,7 +68,8 @@ export class QuadraPage {
       imageOutline, star, starOutline,
       chevronBackOutline, chevronForwardOutline,
       createOutline, locationOutline, personOutline,
-      chatbubbleEllipsesOutline, calendarOutline, trashOutline
+      chatbubbleEllipsesOutline, calendarOutline, trashOutline,
+      documentTextOutline, closeOutline
     });
   }
 
@@ -90,7 +97,7 @@ export class QuadraPage {
   }
 
   carregarFotos(quadraId: string) {
-    this.fotoQuadraService.listarPorQuadra(quadraId).subscribe({
+    this.fotoQuadraService.listarPorQuadra(quadraId, 'FOTO').subscribe({
       next: (fotos) => {
         this.fotos = fotos;
         this.fotoAtualIndex = 0;
@@ -207,6 +214,33 @@ export class QuadraPage {
 
   fecharFotos() {
     this.modalAberto = false;
+  }
+
+  // ===== Documentos =====
+
+  abrirDocumentos() {
+    if (!this.quadra.idQuadra) return;
+
+    this.documentos = [];
+    this.carregandoDocumentos = true;
+    this.modalDocumentosAberto = true;
+
+    this.fotoQuadraService.listarPorQuadra(this.quadra.idQuadra, 'DOCUMENTO').subscribe({
+      next: (docs) => {
+        this.documentos = docs || [];
+        this.carregandoDocumentos = false;
+      },
+      error: () => {
+        this.documentos = [];
+        this.carregandoDocumentos = false;
+        this.exibirMensagem('Erro ao carregar documentos.');
+      }
+    });
+  }
+
+  fecharDocumentos() {
+    this.modalDocumentosAberto = false;
+    this.documentos = [];
   }
 
   excluirQuadra() {

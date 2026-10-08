@@ -5,7 +5,6 @@
     <!-- CARROSSEL DE FOTOS -->
     <div class="carrossel-container" *ngIf="fotos.length > 0">
 
-
       <div class="carrossel-track" #carrossel (scroll)="aoRolarCarrossel()">
         <div class="carrossel-slide" *ngFor="let foto of fotos; let i = index">
           <img [src]="foto.imagemBase64" alt="Foto {{ i + 1 }} da quadra">
@@ -15,7 +14,6 @@
       <button class="nav-btn nav-prev" *ngIf="fotos.length > 1 && fotoAtualIndex > 0" (click)="fotoAnterior()">
         <ion-icon name="chevron-back-outline"></ion-icon>
       </button>
-
 
       <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1"
         (click)="proximaFoto()">
@@ -41,6 +39,15 @@
       </ion-button>
     </div>
 
+    <!-- Botão de Documentos (só moderador ou dono) -->
+    <div class="documentos-area"
+      *ngIf="usuarioAtualEhModerador || quadra.proprietarioId === usuarioAtualId">
+      <button class="btn-documentos" (click)="abrirDocumentos()">
+        <ion-icon name="document-text-outline"></ion-icon>
+        Ver documentos
+      </button>
+    </div>
+
     <!-- Dados da Quadra -->
     <div class="dados-area">
       <p class="quadra-nome">{{ quadra.nome }}</p>
@@ -63,15 +70,15 @@
 
     <!-- AÇÕES PRINCIPAIS -->
     <div class="acao-area">
-      <ion-button shape="round" class="btn-primario" 
-        *ngIf="quadra.proprietarioId !== usuarioAtualId" 
+      <ion-button shape="round" class="btn-primario"
+        *ngIf="quadra.proprietarioId !== usuarioAtualId"
         (click)="enviarMensagem()">
         <ion-icon name="chatbubble-ellipses-outline" slot="start"></ion-icon>
         Conversar
       </ion-button>
-   
-      <ion-button shape="round" class="btn-secundario" 
-        *ngIf="quadra.situacao === 'ATIVA'" 
+
+      <ion-button shape="round" class="btn-secundario"
+        *ngIf="quadra.situacao === 'ATIVA'"
         (click)="irParaDisponibilidade()">
         <ion-icon name="calendar-outline" slot="start"></ion-icon>
         Alugar Quadra
@@ -110,6 +117,42 @@
       </div>
     </div>
 
+    <!-- Botão Excluir Quadra (só moderador) -->
+    <div class="excluir-area" *ngIf="usuarioAtualEhModerador">
+      <ion-button expand="block" color="danger" shape="round" class="btn-excluir-quadra" (click)="excluirQuadra()">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Excluir Quadra
+      </ion-button>
+    </div>
+
+  </div>
+
+  <!-- MODAL DE DOCUMENTOS -->
+  <div class="modal-documentos" *ngIf="modalDocumentosAberto" (click)="fecharDocumentos()">
+    <div class="modal-doc-conteudo" (click)="$event.stopPropagation()">
+
+      <div class="modal-doc-header">
+        <p class="modal-doc-titulo">Documentos — {{ quadra.nome }}</p>
+        <button class="btn-fechar-doc" (click)="fecharDocumentos()">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+
+      <div class="modal-doc-corpo">
+        <p *ngIf="carregandoDocumentos" class="modal-doc-vazio">Carregando...</p>
+
+        <p *ngIf="!carregandoDocumentos && documentos.length === 0" class="modal-doc-vazio">
+          Nenhum documento cadastrado.
+        </p>
+
+        <div class="documentos-lista" *ngIf="!carregandoDocumentos && documentos.length > 0">
+          <div class="documento-item" *ngFor="let doc of documentos; let i = index">
+            <img [src]="doc.imagemBase64" alt="Documento {{ i + 1 }}">
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
 </ion-content>

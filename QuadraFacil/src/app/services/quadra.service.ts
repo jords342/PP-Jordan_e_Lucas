@@ -23,6 +23,7 @@ export class QuadraService {
     return this.http.get<QuadraModel>(`${this.API_URL}/${id}`);
   }
 
+
   criar(quadra: QuadraModel): Observable<QuadraModel> {
     return this.http.post<QuadraModel>(this.API_URL, quadra);
   }

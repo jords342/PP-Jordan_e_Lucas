@@ -7,7 +7,8 @@ import {
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { cameraOutline } from 'ionicons/icons';
+import { cameraOutline, documentAttachOutline } from 'ionicons/icons';
+import { forkJoin, Observable } from 'rxjs';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
 import { QuadraService } from 'src/app/services/quadra.service';
@@ -29,9 +30,11 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class CriarQuadraPage {
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('docInput') docInput!: ElementRef<HTMLInputElement>;
 
   formGroup: FormGroup;
   fotos: string[] = [];
+  documentos: string[] = [];
 
   horasDisponiveis: number[] = Array.from({ length: 24 }, (_, i) => i);
 
@@ -43,7 +46,7 @@ export class CriarQuadraPage {
     private fotoQuadraService: FotoQuadraService,
     private usuarioService: UsuarioService
   ) {
-    addIcons({ cameraOutline });
+    addIcons({ cameraOutline, documentAttachOutline });
 
     this.formGroup = this.formBuilder.group({
       nome: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -52,6 +55,8 @@ export class CriarQuadraPage {
       horaFechamento: [22, Validators.required]
     });
   }
+
+  // ===== Fotos públicas =====
 
   selecionarFoto() {
     this.fileInput.nativeElement.click();
@@ -64,9 +69,7 @@ export class CriarQuadraPage {
 
     arquivos.forEach(file => {
       const reader = new FileReader();
-      reader.onload = () => {
-        this.fotos.push(reader.result as string);
-      };
+      reader.onload = () => this.fotos.push(reader.result as string);
       reader.readAsDataURL(file);
     });
 
@@ -77,7 +80,42 @@ export class CriarQuadraPage {
     this.fotos.splice(index, 1);
   }
 
+  // ===== Documentos =====
+
+  selecionarDocumento() {
+    this.docInput.nativeElement.click();
+  }
+
+  onDocSelected(event: any) {
+    const files: FileList = event.target.files;
+    const vagasRestantes = 5 - this.documentos.length;
+    const arquivos = Array.from(files).slice(0, vagasRestantes);
+
+    arquivos.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => this.documentos.push(reader.result as string);
+      reader.readAsDataURL(file);
+    });
+
+    event.target.value = '';
+  }
+
+  removerDocumento(index: number) {
+    this.documentos.splice(index, 1);
+  }
+
+  // ===== Criar =====
+
   criar() {
+    if (this.fotos.length === 0) {
+      this.exibirMensagem('Adicione pelo menos uma foto da quadra.');
+      return;
+    }
+    if (this.documentos.length === 0) {
+      this.exibirMensagem('Adicione pelo menos um documento.');
+      return;
+    }
+
     const usuario = this.usuarioService.obterSessao();
 
     const quadra = new QuadraModel();
@@ -92,16 +130,30 @@ export class CriarQuadraPage {
 
     this.quadraService.criar(quadra).subscribe({
       next: (quadraCriada) => {
-        const uploads = this.fotos.map(base64 => {
+        const uploads: Observable<FotoQuadraModel>[] = [];
+
+        this.fotos.forEach(base64 => {
           const foto = new FotoQuadraModel();
           foto.quadraId = quadraCriada.idQuadra;
           foto.imagemBase64 = base64;
-          return this.fotoQuadraService.salvar(foto).toPromise();
+          foto.tipo = 'FOTO';
+          uploads.push(this.fotoQuadraService.salvar(foto));
         });
 
-        Promise.all(uploads).then(() => {
-          this.exibirMensagem('Quadra criada com sucesso!');
-          this.navController.navigateBack('/app/minhas-quadras');
+        this.documentos.forEach(base64 => {
+          const doc = new FotoQuadraModel();
+          doc.quadraId = quadraCriada.idQuadra;
+          doc.imagemBase64 = base64;
+          doc.tipo = 'DOCUMENTO';
+          uploads.push(this.fotoQuadraService.salvar(doc));
+        });
+
+        forkJoin(uploads).subscribe({
+          next: () => {
+            this.exibirMensagem('Quadra criada com sucesso!');
+            this.navController.navigateBack('/app/minhas-quadras');
+          },
+          error: () => this.exibirMensagem('Erro ao enviar fotos/documentos.')
         });
       },
       error: () => this.exibirMensagem('Erro ao criar quadra.')

@@ -20,6 +20,17 @@
         Criado em: {{ quadra.criadoEm | date:'dd/MM/yyyy' }}
       </p>
 
+      <div class="botoes-midia">
+        <button class="btn-midia" (click)="abrirFotos(quadra)">
+          <ion-icon name="images-outline"></ion-icon>
+          Ver fotos
+        </button>
+        <button class="btn-midia" (click)="abrirDocumentos(quadra)">
+          <ion-icon name="document-text-outline"></ion-icon>
+          Ver documentos
+        </button>
+      </div>
+
       <div class="card-botoes">
         <ion-button class="btn-primario" shape="round" (click)="aceitar(quadra)">
           Aceitar
@@ -31,4 +42,35 @@
     </div>
 
   </div>
+
+  <!-- MODAL DE MÍDIA (fotos OU documentos) -->
+  <div class="modal-midia" *ngIf="modalAberto" (click)="fecharModal()">
+    <div class="modal-conteudo" (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+        <p class="modal-titulo">
+          {{ modoDocumento ? 'Documentos' : 'Fotos' }} — {{ quadraSelecionada?.nome }}
+        </p>
+        <button class="btn-fechar" (click)="fecharModal()">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+
+      <div class="modal-corpo">
+        <p *ngIf="carregandoMidia" class="modal-vazio">Carregando...</p>
+
+        <p *ngIf="!carregandoMidia && midia.length === 0" class="modal-vazio">
+          Nenhum item cadastrado.
+        </p>
+
+        <div class="midia-lista" *ngIf="!carregandoMidia && midia.length > 0">
+          <div class="midia-item" *ngFor="let item of midia; let i = index">
+            <img [src]="item.imagemBase64" alt="Item {{ i + 1 }}">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </ion-content>

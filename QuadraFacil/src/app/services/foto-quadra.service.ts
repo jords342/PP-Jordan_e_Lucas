@@ -11,8 +11,11 @@ export class FotoQuadraService {
 
   constructor(private http: HttpClient) {}
 
-  listarPorQuadra(quadraId: string): Observable<FotoQuadraModel[]> {
-    return this.http.get<FotoQuadraModel[]>(`${this.API_URL}/quadra/${quadraId}`);
+  listarPorQuadra(quadraId: string, tipo?: 'FOTO' | 'DOCUMENTO'): Observable<FotoQuadraModel[]> {
+    const url = tipo
+      ? `${this.API_URL}/quadra/${quadraId}?tipo=${tipo}`
+      : `${this.API_URL}/quadra/${quadraId}`;
+    return this.http.get<FotoQuadraModel[]>(url);
   }
 
   buscarPorId(id: string): Observable<FotoQuadraModel> {

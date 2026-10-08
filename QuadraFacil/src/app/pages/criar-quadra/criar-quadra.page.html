@@ -33,9 +33,11 @@
         </ion-select>
       </div>
 
-      <!-- Área de fotos -->
+      <!-- Fotos públicas -->
       <div class="fotos-area">
-        <p class="fotos-titulo">Fotos da quadra <span>(máx. 20)</span></p>
+        <p class="fotos-titulo">
+          Fotos da quadra <span>(mín. 1, máx. 20)</span>
+        </p>
 
         <div class="fotos-grid">
           <div class="foto-item" *ngFor="let foto of fotos; let i = index">
@@ -52,11 +54,36 @@
         <input #fileInput type="file" accept="image/*" multiple hidden (change)="onFileSelected($event)">
       </div>
 
+      <!-- Documentos da quadra -->
+      <div class="fotos-area">
+        <p class="fotos-titulo">
+          Documentos da quadra <span>(mín. 1, máx. 5 — só o moderador vê)</span>
+        </p>
+        <p class="documento-aviso">
+          Anexe comprovantes que provem que você é o dono da quadra.
+        </p>
+
+        <div class="fotos-grid">
+          <div class="foto-item" *ngFor="let doc of documentos; let i = index">
+            <img [src]="doc" alt="Documento {{ i + 1 }}">
+            <button class="btn-remover" type="button" (click)="removerDocumento(i)">✕</button>
+          </div>
+
+          <div class="foto-adicionar" *ngIf="documentos.length < 5" (click)="selecionarDocumento()">
+            <ion-icon name="document-attach-outline"></ion-icon>
+            <span>Adicionar</span>
+          </div>
+        </div>
+
+        <input #docInput type="file" accept="image/*" multiple hidden (change)="onDocSelected($event)">
+      </div>
+
       <div class="botoes">
         <ion-button class="btn-secundario" shape="round" (click)="voltar()">
           Cancelar
         </ion-button>
-        <ion-button class="btn-primario" shape="round" type="submit" [disabled]="!formGroup.valid">
+        <ion-button class="btn-primario" shape="round" type="submit"
+          [disabled]="!formGroup.valid || fotos.length === 0 || documentos.length === 0">
           Criar
         </ion-button>
       </div>

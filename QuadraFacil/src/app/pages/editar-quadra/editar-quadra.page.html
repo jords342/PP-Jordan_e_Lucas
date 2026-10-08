@@ -33,11 +33,70 @@
         </ion-select>
       </div>
 
+      <!-- Fotos públicas -->
+      <div class="fotos-area">
+        <p class="fotos-titulo">
+          Fotos da quadra <span>(mín. 1, máx. 20)</span>
+        </p>
+
+        <div class="fotos-grid">
+          <div class="foto-item" *ngFor="let foto of fotos; let i = index">
+            <img [src]="foto.imagemBase64" alt="Foto {{ i + 1 }}">
+            <button class="btn-remover" type="button" (click)="removerFotoExistente(i)">✕</button>
+          </div>
+
+          <div class="foto-item" *ngFor="let foto of fotosNovas; let i = index">
+            <img [src]="foto" alt="Nova foto {{ i + 1 }}">
+            <button class="btn-remover" type="button" (click)="removerFotoNova(i)">✕</button>
+          </div>
+
+          <div class="foto-adicionar"
+            *ngIf="(fotos.length + fotosNovas.length) < 20"
+            (click)="selecionarFoto()">
+            <ion-icon name="camera-outline"></ion-icon>
+            <span>Adicionar</span>
+          </div>
+        </div>
+
+        <input #fileInput type="file" accept="image/*" multiple hidden (change)="onFileSelected($event)">
+      </div>
+
+      <!-- Documentos -->
+      <div class="fotos-area">
+        <p class="fotos-titulo">
+          Documentos da quadra <span>(mín. 1, máx. 5 — só o moderador vê)</span>
+        </p>
+
+        <div class="fotos-grid">
+          <div class="foto-item" *ngFor="let doc of documentos; let i = index">
+            <img [src]="doc.imagemBase64" alt="Documento {{ i + 1 }}">
+            <button class="btn-remover" type="button" (click)="removerDocumentoExistente(i)">✕</button>
+          </div>
+
+          <div class="foto-item" *ngFor="let doc of documentosNovos; let i = index">
+            <img [src]="doc" alt="Novo documento {{ i + 1 }}">
+            <button class="btn-remover" type="button" (click)="removerDocumentoNovo(i)">✕</button>
+          </div>
+
+          <div class="foto-adicionar"
+            *ngIf="(documentos.length + documentosNovos.length) < 5"
+            (click)="selecionarDocumento()">
+            <ion-icon name="document-attach-outline"></ion-icon>
+            <span>Adicionar</span>
+          </div>
+        </div>
+
+        <input #docInput type="file" accept="image/*" multiple hidden (change)="onDocSelected($event)">
+      </div>
+
       <div class="botoes">
         <ion-button class="btn-secundario" shape="round" (click)="voltar()">
           Cancelar
         </ion-button>
-        <ion-button class="btn-primario" shape="round" type="submit" [disabled]="!formGroup.valid">
+        <ion-button class="btn-primario" shape="round" type="submit"
+          [disabled]="!formGroup.valid
+            || (fotos.length + fotosNovas.length) === 0
+            || (documentos.length + documentosNovos.length) === 0">
           Salvar
         </ion-button>
       </div>

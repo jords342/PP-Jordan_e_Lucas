@@ -2,10 +2,15 @@ import { Component } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { IonContent, IonButton, IonIcon, ToastController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { locationOutline, personOutline, calendarOutline } from 'ionicons/icons';
+import {
+  locationOutline, personOutline, calendarOutline,
+  imagesOutline, documentTextOutline, closeOutline
+} from 'ionicons/icons';
 
 import { QuadraModel } from 'src/app/model/quadra.model';
+import { FotoQuadraModel } from 'src/app/model/foto-quadra.model';
 import { QuadraService } from 'src/app/services/quadra.service';
+import { FotoQuadraService } from 'src/app/services/foto-quadra.service';
 
 @Component({
   selector: 'app-quadras-pendentes',
@@ -18,11 +23,21 @@ export class QuadrasPendentesPage {
 
   quadras: QuadraModel[] = [];
 
+  modalAberto: boolean = false;
+  modoDocumento: boolean = false;
+  quadraSelecionada: QuadraModel | null = null;
+  midia: FotoQuadraModel[] = [];
+  carregandoMidia: boolean = false;
+
   constructor(
     private quadraService: QuadraService,
+    private fotoQuadraService: FotoQuadraService,
     private toastController: ToastController
   ) {
-    addIcons({ locationOutline, personOutline, calendarOutline });
+    addIcons({
+      locationOutline, personOutline, calendarOutline,
+      imagesOutline, documentTextOutline, closeOutline
+    });
   }
 
   ionViewWillEnter() {
@@ -53,6 +68,43 @@ export class QuadrasPendentesPage {
       },
       error: () => this.exibirMensagem('Erro ao recusar quadra.')
     });
+  }
+
+  abrirFotos(quadra: QuadraModel) {
+    this.abrirMidia(quadra, false);
+  }
+
+  abrirDocumentos(quadra: QuadraModel) {
+    this.abrirMidia(quadra, true);
+  }
+
+  private abrirMidia(quadra: QuadraModel, modoDocumento: boolean) {
+    this.quadraSelecionada = quadra;
+    this.modoDocumento = modoDocumento;
+    this.midia = [];
+    this.carregandoMidia = true;
+    this.modalAberto = true;
+
+    const tipo = modoDocumento ? 'DOCUMENTO' : 'FOTO';
+
+    this.fotoQuadraService.listarPorQuadra(quadra.idQuadra, tipo).subscribe({
+      next: (itens) => {
+        this.midia = itens || [];
+        this.carregandoMidia = false;
+      },
+      error: () => {
+        this.midia = [];
+        this.carregandoMidia = false;
+        this.exibirMensagem('Erro ao carregar mídia.');
+      }
+    });
+  }
+
+  fecharModal() {
+    this.modalAberto = false;
+    this.quadraSelecionada = null;
+    this.midia = [];
+    this.modoDocumento = false;
   }
 
   async exibirMensagem(texto: string) {
