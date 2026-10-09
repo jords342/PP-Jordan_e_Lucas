@@ -60,6 +60,21 @@ body.dark {
   --app-header-title: #ffffff;
   --app-tab-bg: #121212;
   --app-tab-border: #222222;
+
+  color: var(--app-text-body);
+
+  h1, h2, h3, h4, h5, h6, strong, b {
+    color: var(--app-text-title);
+  }
+
+  p, span, label, div, small {
+    color: var(--app-text-body);
+  }
+
+  ion-item, ion-label {
+    --color: var(--app-text-title) !important;
+    color: var(--app-text-title) !important;
+  }
 }
 
 /* ==========================================================================
@@ -80,20 +95,20 @@ body.dark .logo-area img {
 .saudacao, .titulo {
   font-size: 20px;
   font-weight: 800;
-  color: var(--app-text-title);
+  color: var(--app-text-title) !important;
   margin-bottom: 20px;
   text-align: center;
 }
 
 .subtitulo, .vazio {
   text-align: center;
-  color: var(--app-text-muted);
+  color: var(--app-text-muted) !important;
   font-size: 14px;
   font-weight: 500;
 }
 
 /* ==========================================================================
-   3. INPUTS E SELECTS EM PÍLULA (100% LISO, SEM LINHAS OU CAIXAS INTERNAS)
+   3. INPUTS E SELECTS EM PÍLULA (COM ADAPTAÇÃO PARA MODO ESCURO)
    ========================================================================== */
 .app-input-wrapper {
   width: 100%;
@@ -122,7 +137,7 @@ body.dark .logo-area img {
     box-shadow: none !important;
     background: transparent !important;
     --background: transparent !important;
-    --color: var(--app-text-body) !important;
+    --color: var(--app-text-title) !important;
     --placeholder-color: var(--app-text-muted) !important;
     --placeholder-opacity: 1 !important;
     --padding-start: 0 !important;
@@ -135,11 +150,10 @@ body.dark .logo-area img {
     margin: 0 !important;
     font-size: 14px;
     font-weight: 600;
+    color: var(--app-text-title) !important;
 
-    /* Limpa qualquer divisão interna do Shadow DOM de inputs e selects */
     &::part(container),
     &::part(native),
-    &::part(text),
     &::part(input-wrapper) {
       border: none !important;
       outline: none !important;
@@ -149,12 +163,56 @@ body.dark .logo-area img {
       margin: 0 !important;
     }
 
-    &::part(highlight-bottom) {
-      display: none !important;
+    &::part(text) {
+      color: var(--app-text-title) !important;
     }
 
     &::part(icon) {
-      color: var(--app-text-muted) !important;
+      color: var(--app-text-title) !important;
+      opacity: 0.8 !important;
+    }
+
+    &::part(highlight-bottom) {
+      display: none !important;
+    }
+  }
+}
+
+body.dark .app-input-wrapper ion-select {
+  --color: #ffffff !important;
+  color: #ffffff !important;
+
+  &::part(text) {
+    color: #ffffff !important;
+  }
+
+  &::part(icon) {
+    color: #ffffff !important;
+    opacity: 0.9 !important;
+  }
+}
+
+/* Menus de Escolha (Popover do Select) no Modo Escuro */
+body.dark {
+  ion-select-popover,
+  ion-popover {
+    --background: #1e1e1e !important;
+    --color: #ffffff !important;
+
+    ion-item {
+      --background: #1e1e1e !important;
+      --color: #ffffff !important;
+      --color-hover: #ffffff !important;
+      --color-focused: #ffffff !important;
+    }
+
+    ion-label {
+      color: #ffffff !important;
+    }
+
+    ion-radio {
+      --color: #888888 !important;
+      --color-checked: #27ae60 !important;
     }
   }
 }
@@ -186,14 +244,8 @@ body.dark .logo-area img {
 }
 
 @keyframes surgimento {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Botões Padronizados */
@@ -216,7 +268,6 @@ body.dark .logo-area img {
   text-transform: uppercase;
 }
 
-/* No modo escuro o botão principal fica branco com texto preto */
 body.dark .btn-primario {
   --background: #ffffff !important;
   --color: #000000 !important;
