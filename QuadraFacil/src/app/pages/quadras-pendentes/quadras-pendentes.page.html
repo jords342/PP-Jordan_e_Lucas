@@ -23,11 +23,11 @@
       <div class="botoes-midia">
         <button class="btn-midia" (click)="abrirFotos(quadra)">
           <ion-icon name="images-outline"></ion-icon>
-          Ver fotos
+          Ver Fotos
         </button>
         <button class="btn-midia" (click)="abrirDocumentos(quadra)">
           <ion-icon name="document-text-outline"></ion-icon>
-          Ver documentos
+          Ver Documentos
         </button>
       </div>
 
@@ -43,7 +43,7 @@
 
   </div>
 
-  <!-- MODAL DE MÍDIA (fotos OU documentos) -->
+  <!-- MODAL DE MÍDIA (Fotos ou Documentos) -->
   <div class="modal-midia" *ngIf="modalAberto" (click)="fecharModal()">
     <div class="modal-conteudo" (click)="$event.stopPropagation()">
 
@@ -51,17 +51,12 @@
         <p class="modal-titulo">
           {{ modoDocumento ? 'Documentos' : 'Fotos' }} — {{ quadraSelecionada?.nome }}
         </p>
-        <button class="btn-fechar" (click)="fecharModal()">
-          <ion-icon name="close-outline"></ion-icon>
-        </button>
+        <button class="btn-fechar" (click)="fecharModal()">✕</button>
       </div>
 
       <div class="modal-corpo">
         <p *ngIf="carregandoMidia" class="modal-vazio">Carregando...</p>
-
-        <p *ngIf="!carregandoMidia && midia.length === 0" class="modal-vazio">
-          Nenhum item cadastrado.
-        </p>
+        <p *ngIf="!carregandoMidia && midia.length === 0" class="modal-vazio">Nenhum item cadastrado.</p>
 
         <div class="midia-lista" *ngIf="!carregandoMidia && midia.length > 0">
           <div class="midia-item" *ngFor="let item of midia; let i = index">

@@ -1,21 +1,19 @@
 ion-content {
-  --background: transparent !important; // Deixa o fundo do ion-content 100% transparente
+  --background: transparent !important;
   --padding-top: 0px !important;
 }
 
-/* FUNDO ESCURECIDO COM EFEITO DE VIDRO (BLUR) */
 .disponibilidade-backdrop {
   min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px 16px 40px;
-  background: rgba(0, 0, 0, 0.65); /* Fundo escuro semi-transparente */
-  backdrop-filter: blur(8px);       /* Desfoque suave do fundo */
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* BALÃO / CARD FLUTUANTE */
 .disponibilidade-card {
   width: 100%;
   max-width: 440px;
@@ -29,17 +27,10 @@ ion-content {
 }
 
 @keyframes modalSurgir {
-  from {
-    opacity: 0;
-    transform: scale(0.94) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+  from { opacity: 0; transform: scale(0.94) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* Cabeçalho do Card */
 .card-header {
   display: flex;
   align-items: flex-start;
@@ -81,13 +72,10 @@ ion-content {
     margin-left: 12px;
     transition: transform 0.15s ease;
 
-    &:active {
-      transform: scale(0.9);
-    }
+    &:active { transform: scale(0.9); }
   }
 }
 
-/* Calendário */
 .calendario-wrapper {
   background: var(--app-bg-secondary);
   border: 1px solid var(--app-card-border);
@@ -103,7 +91,6 @@ ion-content {
   }
 }
 
-/* SEÇÃO EXPANSÍVEL DE HORÁRIOS */
 .horarios-secao {
   margin-top: 20px;
   padding-top: 16px;
@@ -121,28 +108,29 @@ ion-content {
       font-weight: 700;
       color: var(--app-text-title);
       margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      ion-icon {
+        font-size: 16px;
+        color: var(--app-text-title);
+      }
     }
 
     .dica-proprietario {
       font-size: 11px;
       color: var(--app-text-muted);
-      font-style: italic;
+      font-weight: 500;
     }
   }
 }
 
 @keyframes expandir {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* GRADE DE HORÁRIOS */
 .horarios-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -151,9 +139,7 @@ ion-content {
   overflow-y: auto;
   padding-right: 4px;
 
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
+  &::-webkit-scrollbar { width: 4px; }
   &::-webkit-scrollbar-thumb {
     background: var(--app-card-border);
     border-radius: 10px;
@@ -170,9 +156,7 @@ ion-content {
   border: 1px solid transparent;
   transition: transform 0.15s ease;
 
-  &:active {
-    transform: scale(0.96);
-  }
+  &:active { transform: scale(0.96); }
 
   .horario-hora {
     font-size: 13px;
@@ -188,35 +172,28 @@ ion-content {
     border-radius: 50px;
   }
 
-  /* Status: LIVRE */
   &.livre {
     background: #e8f9ee;
     border-color: #d4f4de;
-
     .horario-hora { color: #1e824c; }
     .horario-status-badge { background: #d4f4de; color: #27ae60; }
   }
 
-  /* Status: ALUGADO */
   &.alugado {
     background: #fdecea;
     border-color: #fadbd8;
-
     .horario-hora { color: #c0392b; }
     .horario-status-badge { background: #fadbd8; color: #e74c3c; }
   }
 
-  /* Status: FECHADO */
   &.fechado {
     background: #f0f0f0;
     border-color: #e0e0e0;
-
     .horario-hora { color: #777777; }
     .horario-status-badge { background: #e0e0e0; color: #888888; }
   }
 }
 
-/* Modo Escuro */
 body.dark .horario-pill {
   &.livre {
     background: rgba(39, 174, 96, 0.15);
@@ -238,18 +215,16 @@ body.dark .horario-pill {
     .horario-hora { color: #888888; }
     .horario-status-badge { background: rgba(255, 255, 255, 0.1); color: #888888; }
   }
-  
 }
 
-/* ===== MODAL DE SOLICITAÇÃO ===== */
-
+/* MODAL DE SOLICITAÇÃO */
 .modal-solicitacao {
   position: fixed;
   inset: 0;
   z-index: 99999;
   background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,23 +236,19 @@ body.dark .horario-pill {
   max-width: 400px;
   background: var(--app-card-bg);
   border: 1px solid var(--app-card-border);
-  border-radius: 20px;
+  border-radius: 24px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: modalSolicitacaoSurgir 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes modalSolicitacaoSurgir {
-  from { opacity: 0; transform: scale(0.94) translateY(10px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  animation: modalSurgir 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modal-solicitacao-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 18px 20px;
   border-bottom: 1px solid var(--app-card-border);
 
   .modal-solicitacao-titulo {
@@ -306,15 +277,15 @@ body.dark .horario-pill {
 }
 
 .modal-solicitacao-corpo {
-  padding: 16px 20px;
+  padding: 18px 20px;
 
   .solicitacao-info {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--app-text-body);
     margin: 0 0 8px 0;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 
     strong {
       font-weight: 700;
@@ -322,14 +293,14 @@ body.dark .horario-pill {
     }
 
     ion-icon {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--app-text-muted);
     }
   }
 
   .solicitacao-label {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--app-text-title);
     margin: 16px 0 8px;
 
@@ -341,36 +312,33 @@ body.dark .horario-pill {
 
   .solicitacao-textarea {
     width: 100%;
-    min-height: 70px;
-    padding: 10px 14px;
-    border-radius: 12px;
+    min-height: 80px;
+    padding: 12px 16px;
+    border-radius: 16px;
     border: 1.5px solid var(--app-input-border);
     background: var(--app-input-bg);
     color: var(--app-text-body);
     font-size: 13px;
     font-family: inherit;
-    resize: vertical;
+    resize: none;
     box-sizing: border-box;
     outline: none;
+    transition: border-color 0.2s ease;
 
     &::placeholder {
       color: var(--app-text-muted);
     }
 
     &:focus {
-      border-color: #000000;
+      border-color: var(--app-text-title);
     }
   }
 }
 
-body.dark .modal-solicitacao-corpo .solicitacao-textarea:focus {
-  border-color: #ffffff;
-}
-
 .modal-solicitacao-botoes {
   display: flex;
-  gap: 10px;
-  padding: 12px 20px 16px;
+  gap: 12px;
+  padding: 12px 20px 20px;
 
   button {
     flex: 1;
@@ -380,6 +348,8 @@ body.dark .modal-solicitacao-corpo .solicitacao-textarea:focus {
     font-weight: 700;
     cursor: pointer;
     border: none;
+    text-transform: uppercase;
+    transition: transform 0.15s ease;
 
     &:active { transform: scale(0.97); }
     &:disabled { opacity: 0.5; cursor: not-allowed; }

@@ -4,7 +4,6 @@
 
     <!-- CARROSSEL DE FOTOS -->
     <div class="carrossel-container" *ngIf="fotos.length > 0">
-
       <div class="carrossel-track" #carrossel (scroll)="aoRolarCarrossel()">
         <div class="carrossel-slide" *ngFor="let foto of fotos; let i = index">
           <img [src]="foto.imagemBase64" alt="Foto {{ i + 1 }} da quadra">
@@ -15,8 +14,7 @@
         <ion-icon name="chevron-back-outline"></ion-icon>
       </button>
 
-      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1"
-        (click)="proximaFoto()">
+      <button class="nav-btn nav-next" *ngIf="fotos.length > 1 && fotoAtualIndex < fotos.length - 1" (click)="proximaFoto()">
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </button>
 
@@ -25,13 +23,13 @@
       </div>
     </div>
 
-    <!-- Caso a quadra não tenha fotos -->
+    <!-- Sem fotos -->
     <div *ngIf="fotos.length === 0" class="sem-foto-hero">
       <ion-icon name="image-outline"></ion-icon>
       <p>Sem fotos disponíveis</p>
     </div>
 
-    <!-- Botão de Editar para o Proprietário -->
+    <!-- Botão de Editar para o Dono -->
     <div class="proprietario-area" *ngIf="quadra.proprietarioId === usuarioAtualId">
       <ion-button expand="block" shape="round" class="btn-secundario" (click)="irParaEditar()">
         <ion-icon name="create-outline" slot="start"></ion-icon>
@@ -39,12 +37,11 @@
       </ion-button>
     </div>
 
-    <!-- Botão de Documentos (só moderador ou dono) -->
-    <div class="documentos-area"
-      *ngIf="usuarioAtualEhModerador || quadra.proprietarioId === usuarioAtualId">
+    <!-- Botão Ver Documentos (Dono ou Moderador) -->
+    <div class="documentos-area" *ngIf="usuarioAtualEhModerador || quadra.proprietarioId === usuarioAtualId">
       <button class="btn-documentos" (click)="abrirDocumentos()">
         <ion-icon name="document-text-outline"></ion-icon>
-        Ver documentos
+        Ver Documentos da Quadra
       </button>
     </div>
 
@@ -53,8 +50,7 @@
       <p class="quadra-nome">{{ quadra.nome }}</p>
 
       <div class="quadra-media" *ngIf="avaliacoes.length > 0">
-        <ion-icon *ngFor="let estrela of [1,2,3,4,5]" [name]="estrela <= mediaArredondada ? 'star' : 'star-outline'">
-        </ion-icon>
+        <ion-icon *ngFor="let estrela of [1,2,3,4,5]" [name]="estrela <= mediaArredondada ? 'star' : 'star-outline'"></ion-icon>
         <span>{{ media.toFixed(1) }} ({{ avaliacoes.length }})</span>
       </div>
 
@@ -68,17 +64,17 @@
       </p>
     </div>
 
-    <!-- AÇÕES PRINCIPAIS -->
+    <!-- Ações Principais Lado a Lado 50/50 -->
     <div class="acao-area">
-      <ion-button shape="round" class="btn-primario"
-        *ngIf="quadra.proprietarioId !== usuarioAtualId"
+      <ion-button shape="round" class="btn-primario" 
+        *ngIf="quadra.proprietarioId !== usuarioAtualId" 
         (click)="enviarMensagem()">
         <ion-icon name="chatbubble-ellipses-outline" slot="start"></ion-icon>
         Conversar
       </ion-button>
-
-      <ion-button shape="round" class="btn-secundario"
-        *ngIf="quadra.situacao === 'ATIVA'"
+   
+      <ion-button shape="round" class="btn-secundario" 
+        *ngIf="quadra.situacao === 'ATIVA'" 
         (click)="irParaDisponibilidade()">
         <ion-icon name="calendar-outline" slot="start"></ion-icon>
         Alugar Quadra
@@ -109,17 +105,16 @@
         <div class="avaliacao-topo">
           <span class="avaliacao-autor">{{ nomesAvaliadores[avaliacao.usuarioId] || 'Usuário' }}</span>
           <span class="avaliacao-estrelas">
-            <ion-icon *ngFor="let estrela of [1,2,3,4,5]" [name]="estrela <= avaliacao.nota ? 'star' : 'star-outline'">
-            </ion-icon>
+            <ion-icon *ngFor="let estrela of [1,2,3,4,5]" [name]="estrela <= avaliacao.nota ? 'star' : 'star-outline'"></ion-icon>
           </span>
         </div>
         <p class="avaliacao-comentario">{{ avaliacao.comentario }}</p>
       </div>
     </div>
 
-    <!-- Botão Excluir Quadra (só moderador) -->
+    <!-- Excluir Quadra (Moderação) -->
     <div class="excluir-area" *ngIf="usuarioAtualEhModerador">
-      <ion-button expand="block" color="danger" shape="round" class="btn-excluir-quadra" (click)="excluirQuadra()">
+      <ion-button expand="block" shape="round" class="btn-danger" (click)="excluirQuadra()">
         <ion-icon name="trash-outline" slot="start"></ion-icon>
         Excluir Quadra
       </ion-button>
@@ -133,17 +128,12 @@
 
       <div class="modal-header">
         <p class="modal-titulo">Documentos — {{ quadra.nome }}</p>
-        <button class="btn-fechar" (click)="fecharDocumentos()">
-          <ion-icon name="close-outline"></ion-icon>
-        </button>
+        <button class="btn-fechar" (click)="fecharDocumentos()">✕</button>
       </div>
 
       <div class="modal-corpo">
-        <p *ngIf="carregandoDocumentos" class="modal-vazio">Carregando...</p>
-
-        <p *ngIf="!carregandoDocumentos && documentos.length === 0" class="modal-vazio">
-          Nenhum documento cadastrado.
-        </p>
+        <p *ngIf="carregandoDocumentos" class="modal-vazio">Carregando documentos...</p>
+        <p *ngIf="!carregandoDocumentos && documentos.length === 0" class="modal-vazio">Nenhum documento cadastrado.</p>
 
         <div class="midia-lista" *ngIf="!carregandoDocumentos && documentos.length > 0">
           <div class="midia-item" *ngFor="let doc of documentos; let i = index">

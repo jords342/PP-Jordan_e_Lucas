@@ -1,8 +1,10 @@
 <ion-content [fullscreen]="false">
+  <!-- Fundo escurecido transparente com blur -->
   <div class="disponibilidade-backdrop" (click)="voltar()">
 
     <div class="disponibilidade-card" (click)="$event.stopPropagation()">
 
+      <!-- Cabeçalho do Card -->
       <div class="card-header">
         <div class="header-info">
           <p class="titulo-quadra">{{ quadra.nome || 'Quadra' }}</p>
@@ -11,6 +13,7 @@
         <button class="btn-fechar" (click)="voltar()">✕</button>
       </div>
 
+      <!-- Calendário -->
       <div class="calendario-wrapper">
         <ion-datetime
           presentation="date"
@@ -20,6 +23,7 @@
         </ion-datetime>
       </div>
 
+      <!-- Seção que Expande com os Horários -->
       <div class="horarios-secao" *ngIf="mostrarHorarios">
         <div class="horarios-header">
           <p class="data-titulo">
@@ -47,12 +51,12 @@
 
   </div>
 
-  <!-- MODAL DE SOLICITAÇÃO (só aparece pro cliente) -->
+  <!-- MODAL DE SOLICITAÇÃO (Estilizado no padrão do app) -->
   <div class="modal-solicitacao" *ngIf="modalSolicitacaoAberto" (click)="fecharModalSolicitacao()">
     <div class="modal-solicitacao-conteudo" (click)="$event.stopPropagation()">
 
       <div class="modal-solicitacao-header">
-        <p class="modal-solicitacao-titulo">Solicitar aluguel</p>
+        <p class="modal-solicitacao-titulo">Solicitar Aluguel</p>
         <button class="btn-fechar-solicitacao" (click)="fecharModalSolicitacao()">✕</button>
       </div>
 
@@ -65,17 +69,19 @@
           {{ dataFormatadaPT }} às {{ horaSelecionadaFormatada }}
         </p>
 
-        <p class="solicitacao-label">Mensagem pro dono <span>(opcional)</span></p>
+        <p class="solicitacao-label">Mensagem para o proprietário <span>(opcional)</span></p>
         <textarea
           class="solicitacao-textarea"
           [(ngModel)]="mensagemSolicitacao"
-          placeholder="Ex: Posso levar bola? Tem vestiário?"
+          placeholder="Ex: Posso levar bola? Há vestiário no local?"
           rows="3"
           maxlength="300"></textarea>
       </div>
 
       <div class="modal-solicitacao-botoes">
-        <button class="btn-cancelar-solicitacao" (click)="fecharModalSolicitacao()">Cancelar</button>
+        <button class="btn-cancelar-solicitacao" (click)="fecharModalSolicitacao()">
+          Cancelar
+        </button>
         <button class="btn-confirmar-solicitacao" (click)="confirmarSolicitacao()" [disabled]="enviandoSolicitacao">
           {{ enviandoSolicitacao ? 'Enviando...' : 'Solicitar' }}
         </button>
